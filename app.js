@@ -278,9 +278,7 @@ function createTable(){
 
         const th=document.createElement("th");
 
-        th.innerHTML=
-            col.pronoun+
-            "<br><small>"+col.infinitive+"</small>";
+th.textContent = col.pronoun;
 
         headerRow.appendChild(th);
 
