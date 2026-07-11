@@ -1,0 +1,410 @@
+/* =====================================================
+   MISTUDIA ENGLISH TENSE TRAINER
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f6fa;
+    color:#222;
+
+}
+
+.container{
+
+    width:96%;
+    max-width:1800px;
+    margin:25px auto;
+
+}
+
+h1{
+
+    text-align:center;
+    margin-bottom:25px;
+    color:#17365D;
+
+}
+
+h2{
+
+    margin-bottom:15px;
+
+}
+
+#filter{
+
+    background:white;
+
+    border-radius:8px;
+
+    padding:20px;
+
+    margin-bottom:25px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.12);
+
+}
+
+#tenseSelection{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+
+    gap:8px;
+
+    margin-bottom:20px;
+
+}
+
+#tenseSelection label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.filterButtons,
+.exerciseButtons{
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:15px;
+
+}
+
+button{
+
+    padding:10px 18px;
+
+    border:none;
+
+    border-radius:6px;
+
+    background:#1976D2;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+button:hover{
+
+    background:#125EA8;
+
+}
+
+.tableWrapper{
+
+    overflow:auto;
+
+    border:1px solid #bbb;
+
+    background:white;
+
+    border-radius:8px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+}
+
+table{
+
+    border-collapse:collapse;
+
+    width:100%;
+
+    min-width:1600px;
+
+}
+
+thead th{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:5;
+
+    background:#FFFF00;
+
+    border:1px solid #999;
+
+    padding:10px;
+
+    text-align:center;
+
+}
+
+tbody td{
+
+    border:1px solid #ccc;
+
+    padding:6px;
+
+    text-align:center;
+
+    background:white;
+
+}
+
+tbody td:first-child{
+
+    position:sticky;
+
+    left:0;
+
+    background:#FFF2CC;
+
+    z-index:4;
+
+    text-align:left;
+
+    font-weight:bold;
+
+    min-width:220px;
+
+}
+
+input{
+
+    width:120px;
+
+    padding:6px;
+
+    text-align:center;
+
+    border:1px solid #999;
+
+    border-radius:4px;
+
+}
+
+select{
+
+    width:130px;
+
+    padding:6px;
+
+}
+
+.correct{
+
+    background:#C6EFCE !important;
+
+    border:2px solid #2E7D32 !important;
+
+}
+
+.wrong{
+
+    background:#FFC7CE !important;
+
+    border:2px solid #C62828 !important;
+
+}
+
+.solution{
+
+    display:block;
+
+    margin-top:3px;
+
+    font-size:11px;
+
+    color:#0B8043;
+
+    font-weight:bold;
+
+}
+
+#statistics{
+
+    margin-top:25px;
+
+    padding:20px;
+
+    background:white;
+
+    border-radius:8px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.12);
+
+}
+
+#statistics p{
+
+    margin:8px 0;
+
+    font-size:18px;
+
+}
+
+#score,
+#percent{
+
+    font-weight:bold;
+
+}
+
+@media(max-width:900px){
+
+    input{
+
+        width:90px;
+
+    }
+
+}
+
+.languageSelection{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+.languageSelection label{
+
+    font-weight:bold;
+
+}
+
+.languageSelection select{
+
+    min-width:180px;
+
+    padding:8px 32px 8px 10px;
+
+    border:1px solid #999;
+
+    border-radius:4px;
+
+    background:white;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+}
+
+
+.tenseDropdown{
+    position:relative;
+    display:inline-block;
+    min-width:300px;
+}
+
+.tenseDropdownBtn{
+    width:100%;
+    text-align:left;
+    background:white;
+    color:#222;
+    border:1px solid #999;
+    border-radius:4px;
+}
+
+.tenseDropdownBtn:hover{
+    background:#f2f2f2;
+}
+
+.tenseDropdownMenu{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    z-index:100;
+
+    width:380px;
+    max-height:500px;
+    overflow-y:auto;
+
+    padding:15px;
+
+    background:white;
+    border:1px solid #999;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.tenseDropdownMenu.open{
+    display:block;
+}
+
+#tenseSelection{
+    display:block;
+    margin-bottom:15px;
+}
+
+#tenseSelection label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:6px 4px;
+}
+
+.dropdownActions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding-top:10px;
+    border-top:1px solid #ddd;
+}
+
+.dropdownActions button{
+    padding:6px 10px;
+    font-size:13px;
+}
+
+#tenseTable tbody tr:not(:first-child) td:first-child {
+    background: #FFFF00;
+}
+
+#tenseTable thead th {
+    background: #4FADEA;
+}
+
+#tenseTable thead th:first-child {
+    background: #FFFF00;
+    color: #000000;
+}
+
+.pageHeader {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.mistudiaLogo {
+    width: 260px;
+    height: auto;
+    display: block;
+}
+
+.pageHeader h1 {
+    flex: 1;
+    margin: 0;
+    text-align: center;
+}
+

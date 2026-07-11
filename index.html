@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mistudia – English Tenses Trainer</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="pageHeader">
+
+    <img
+        src="mistudia-logo.png"
+        alt="miStudia"
+        class="mistudiaLogo"
+    >
+
+    <h1 id="pageTitle">
+        English Tenses Trainer
+    </h1>
+
+</header>
+
+<div class="languageSelection">
+
+    <label for="languageSelect">Language:</label>
+
+    <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+    </select>
+
+</div>
+
+ <!-- ==========================
+     FILTER
+=========================== -->
+
+<section id="filter">
+
+    <h2>Select tenses</h2>
+
+    <div class="tenseDropdown">
+
+        <button
+            id="tenseDropdownBtn"
+            type="button"
+            class="tenseDropdownBtn"
+        >
+            Select tenses ▼
+        </button>
+
+        <div
+            id="tenseDropdownMenu"
+            class="tenseDropdownMenu"
+        >
+
+            <div id="tenseSelection">
+
+                <!-- automatisch aus der Datendatei erzeugt -->
+
+            </div>
+
+            <div class="dropdownActions">
+
+                <button id="selectAllBtn" type="button">
+                    Select All
+                </button>
+
+                <button id="selectNoneBtn" type="button">
+                    Select None
+                </button>
+
+                <button id="importantBtn" type="button">
+                    Important Tenses
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <button id="startBtn" type="button">
+        Start Exercise
+    </button>
+
+</section>
+    <!-- ==========================
+         EXERCISE
+    =========================== -->
+
+    <section id="exercise" style="display:none;">
+
+        <div class="tableWrapper">
+
+            <table id="tenseTable">
+
+                <thead>
+
+                    <tr id="headerRow">
+
+                        <!-- automatisch erzeugt -->
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tableBody">
+
+                    <!-- automatisch erzeugt -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="exerciseButtons">
+
+            <button id="checkBtn">
+
+                Check Answers
+
+            </button>
+
+            <button id="resetBtn">
+
+                Reset
+
+            </button>
+
+            <button id="solutionBtn">
+
+                Reveal Answers
+
+            </button>
+
+        </div>
+
+        <div id="statistics">
+
+            <h2>Result</h2>
+
+            <p>
+
+                Correct:
+
+                <span id="score">
+
+                    0 / 0
+
+                </span>
+
+            </p>
+
+            <p>
+
+                Percentage:
+
+                <span id="percent">
+
+                    0 %
+
+                </span>
+
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const language = params.get("lang") || "en";
+
+    const dataFile =
+        language === "de"
+            ? "data-german.js"
+            : "data-english.js";
+
+    document.write(
+        '<script src="' + dataFile + '"><\/script>'
+    );
+</script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
