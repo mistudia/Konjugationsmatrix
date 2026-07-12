@@ -17,11 +17,13 @@
 
 <header class="pageHeader">
 
+<a href="https://mistudia.com/" target="_blank" rel="noopener noreferrer">
     <img
         src="mistudia-logo.png"
         alt="miStudia"
         class="mistudiaLogo"
     >
+</a>
 
     <h1 id="pageTitle">
         English Tenses Trainer
@@ -35,6 +37,7 @@
 
     <select id="languageSelect">
         <option value="en">English</option>
+    <option value="es">Español</option>
         <option value="de">Deutsch</option>
     </select>
 
@@ -184,10 +187,15 @@
     const params = new URLSearchParams(window.location.search);
     const language = params.get("lang") || "en";
 
-    const dataFile =
-        language === "de"
-            ? "data-german.js"
-            : "data-english.js";
+    let dataFile;
+
+    if(language === "de"){
+        dataFile = "data-german.js";
+    }else if(language === "es"){
+        dataFile = "data-spanish.js";
+    }else{
+        dataFile = "data-english.js";
+    }
 
     document.write(
         '<script src="' + dataFile + '"><\/script>'
