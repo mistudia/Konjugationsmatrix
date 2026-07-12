@@ -408,3 +408,36 @@ select{
     text-align: center;
 }
 
+/* =====================================================
+   STICKY FIRST COLUMN
+===================================================== */
+
+#tenseTable thead th:first-child,
+#tenseTable tbody td:first-child {
+    position: sticky;
+    left: 0;
+}
+
+/* Tense oben links */
+
+#tenseTable thead th:first-child {
+    background: #FFFF00;
+    color: #000000;
+    z-index: 20;
+}
+
+/* Zeitformen links */
+
+#tenseTable tbody tr:not(:first-child) td:first-child {
+    background: #FFFF00;
+    z-index: 10;
+}
+
+/* Infinitive links */
+
+#tenseTable tbody tr:first-child td:first-child {
+    background: #FFF2CC;
+    z-index: 10;
+}
+
+
