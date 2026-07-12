@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mistudia – English Tenses Trainer</title>
+<title>miStudia – Konjugationsmatrix</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -14,6 +14,8 @@
 <body>
 
 <div class="container">
+
+<div class="topArea">
 
 <header class="pageHeader">
 
@@ -26,7 +28,7 @@
 </a>
 
     <h1 id="pageTitle">
-        English Tenses Trainer
+        miStudia – Conjugation Matrix
     </h1>
 
 </header>
@@ -37,13 +39,15 @@
 
     <select id="languageSelect">
         <option value="en">English</option>
-    <option value="es">Español</option>
+        <option value="es">Español</option>
         <option value="de">Deutsch</option>
     </select>
 
 </div>
 
- <!-- ==========================
+</div>
+
+<!-- ==========================
      FILTER
 =========================== -->
 
@@ -91,6 +95,91 @@
         </div>
 
     </div>
+
+
+<div class="verbOptions">
+
+    <div class="optionGroup">
+
+        <label for="exerciseTypeSelect">
+            Exercise type:
+        </label>
+
+        <select id="exerciseTypeSelect">
+            <option value="mixed">Mixed verbs</option>
+            <option value="complete">Complete verb forms</option>
+        </select>
+
+    </div>
+
+    <div class="optionGroup">
+
+        <label for="verbCountSelect">
+            Number of verbs:
+        </label>
+
+        <select id="verbCountSelect"></select>
+
+    </div>
+
+    <div class="optionGroup">
+
+        <label for="verbSelectionSelect">
+            Verb selection:
+        </label>
+
+        <select id="verbSelectionSelect">
+            <option value="random">Random verbs</option>
+            <option value="choose">Choose verbs</option>
+        </select>
+
+    </div>
+
+    <div
+        id="verbChooser"
+        class="verbChooser"
+        style="display:none;"
+    >
+
+        <button
+            id="verbDropdownBtn"
+            type="button"
+            class="verbDropdownBtn"
+        >
+            Choose verbs ▼
+        </button>
+
+        <div
+            id="verbDropdownMenu"
+            class="verbDropdownMenu"
+        >
+
+            <input
+                id="verbSearch"
+                type="text"
+                placeholder="Search verb..."
+            >
+
+            <div id="verbSelection"></div>
+
+            <div class="dropdownActions">
+
+                <button id="selectAllVerbsBtn" type="button">
+                    Select All
+                </button>
+
+                <button id="selectNoneVerbsBtn" type="button">
+                    Select None
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 
     <button id="startBtn" type="button">
         Start Exercise
