@@ -1,5 +1,5 @@
 /* ===========================================================
-   MISTUDIA ENGLISH TENSE TRAINER
+   MISTUDIA CONJUGATION TRAINER
    app.js
 =========================================================== */
 
@@ -7,106 +7,62 @@ const tenseSelection = document.getElementById("tenseSelection");
 const startBtn = document.getElementById("startBtn");
 const selectAllBtn = document.getElementById("selectAllBtn");
 const selectNoneBtn = document.getElementById("selectNoneBtn");
+const importantBtn = document.getElementById("importantBtn");
 
 const exercise = document.getElementById("exercise");
 const headerRow = document.getElementById("headerRow");
 const tableBody = document.getElementById("tableBody");
 
-const languageSelect =
-    document.getElementById("languageSelect");
+const languageSelect = document.getElementById("languageSelect");
+const tenseDropdownBtn = document.getElementById("tenseDropdownBtn");
+const tenseDropdownMenu = document.getElementById("tenseDropdownMenu");
 
-const importantBtn =
-    document.getElementById("importantBtn");
+const checkBtn = document.getElementById("checkBtn");
+const resetBtn = document.getElementById("resetBtn");
+const solutionBtn = document.getElementById("solutionBtn");
 
-const tenseDropdownBtn =
-    document.getElementById("tenseDropdownBtn");
+const score = document.getElementById("score");
+const percent = document.getElementById("percent");
+const pageTitle = document.getElementById("pageTitle");
 
-const tenseDropdownMenu =
-    document.getElementById("tenseDropdownMenu");
+const exerciseTypeSelect =
+    document.getElementById("exerciseTypeSelect");
+
+const verbCountSelect =
+    document.getElementById("verbCountSelect");
+
+const verbSelectionSelect =
+    document.getElementById("verbSelectionSelect");
+
+const verbChooser =
+    document.getElementById("verbChooser");
+
+const verbDropdownBtn =
+    document.getElementById("verbDropdownBtn");
+
+const verbDropdownMenu =
+    document.getElementById("verbDropdownMenu");
+
+const verbSearch =
+    document.getElementById("verbSearch");
+
+const verbSelection =
+    document.getElementById("verbSelection");
+
+const selectAllVerbsBtn =
+    document.getElementById("selectAllVerbsBtn");
+
+const selectNoneVerbsBtn =
+    document.getElementById("selectNoneVerbsBtn");
+
 
 let selectedTenses = [];
-let selectedIndices = [];
+let selectedColumns = [];
 let cells = [];
 
-/* ===========================================================
-   CREATE FILTER
-=========================================================== */
-
-function createFilter(){
-
-    tenseSelection.innerHTML = "";
-
-    tenses.forEach((tense,index)=>{
-
-        const label = document.createElement("label");
-
-        const cb = document.createElement("input");
-
-        cb.type = "checkbox";
-        cb.checked = true;
-        cb.value = tense.id;
-        cb.dataset.index = index;
-
-        label.appendChild(cb);
-
-        label.append(" " + tense.name);
-
-        tenseSelection.appendChild(label);
-
-    });
-
-}
-
-createFilter();
-
 
 /* ===========================================================
-   TENSE DROPDOWN
-=========================================================== */
-
-function updateTenseDropdownLabel(){
-
-    const checked =
-        document.querySelectorAll(
-            "#tenseSelection input:checked"
-        ).length;
-
-    tenseDropdownBtn.textContent =
-        `${checked} tenses selected ▼`;
-
-}
-
-
-tenseDropdownBtn.addEventListener("click", () => {
-
-    tenseDropdownMenu.classList.toggle("open");
-
-});
-
-
-tenseSelection.addEventListener("change", () => {
-
-    updateTenseDropdownLabel();
-
-});
-
-
-document.addEventListener("click", event => {
-
-    if(!event.target.closest(".tenseDropdown")){
-
-        tenseDropdownMenu.classList.remove("open");
-
-    }
-
-});
-
-
-updateTenseDropdownLabel();
-
-
-/* ===========================================================
-   LANGUAGE SELECTION
+   LANGUAGE
 =========================================================== */
 
 const languageParams =
@@ -117,18 +73,14 @@ const currentLanguage =
 
 languageSelect.value = currentLanguage;
 
-const pageTitle =
-    document.getElementById("pageTitle");
-
 const pageTitles = {
-    en: "English Tenses Trainer",
-    de: "Deutsche Zeitformen – Trainer",
-    es: "Tiempos verbales en español"
+    en: "miStudia – Conjugation Matrix",
+    de: "miStudia – Konjugationsmatrix",
+    es: "miStudia – Matriz de conjugación"
 };
 
 pageTitle.textContent =
     pageTitles[currentLanguage] || pageTitles.en;
-
 
 languageSelect.addEventListener("change", () => {
 
@@ -143,77 +95,91 @@ languageSelect.addEventListener("change", () => {
 
 
 /* ===========================================================
-   SELECT ALL
+   TENSE FILTER
 =========================================================== */
 
-selectAllBtn.addEventListener("click",()=>{
+function createFilter() {
 
-    document
-        .querySelectorAll("#tenseSelection input")
-        .forEach(cb=>cb.checked=true);
+    tenseSelection.innerHTML = "";
+
+    tenses.forEach((tense, index) => {
+
+        const label = document.createElement("label");
+        const checkbox = document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.checked = true;
+        checkbox.value = tense.id;
+        checkbox.dataset.index = index;
+
+        label.appendChild(checkbox);
+        label.append(" " + tense.name);
+
+        tenseSelection.appendChild(label);
+
+    });
+
+}
+
+function updateTenseDropdownLabel() {
+
+    const checked =
+        tenseSelection.querySelectorAll("input:checked").length;
+
+    tenseDropdownBtn.textContent =
+        `${checked} tenses selected ▼`;
+
+}
+
+createFilter();
+updateTenseDropdownLabel();
+
+tenseDropdownBtn.addEventListener("click", () => {
+
+    tenseDropdownMenu.classList.toggle("open");
+
+});
+
+tenseSelection.addEventListener("change", () => {
 
     updateTenseDropdownLabel();
 
 });
 
+document.addEventListener("click", event => {
 
-/* ===========================================================
-   SELECT NONE
-=========================================================== */
+    if (!event.target.closest(".tenseDropdown")) {
 
-selectNoneBtn.addEventListener("click",()=>{
-
-    document
-        .querySelectorAll("#tenseSelection input")
-        .forEach(cb=>cb.checked=false);
-
-    updateTenseDropdownLabel();
-
-});
-
-
-/* ===========================================================
-   START EXERCISE
-=========================================================== */
-
-startBtn.addEventListener("click",()=>{
-
-    selectedTenses = [];
-    selectedIndices = [];
-
-    document
-        .querySelectorAll("#tenseSelection input")
-        .forEach(cb=>{
-
-            if(cb.checked){
-
-                const index = Number(cb.dataset.index);
-
-                selectedTenses.push(tenses[index]);
-                selectedIndices.push(index);
-
-            }
-
-        });
-
-    if(selectedTenses.length===0){
-
-        alert("Please select at least one tense.");
-
-        return;
+        tenseDropdownMenu.classList.remove("open");
 
     }
-saveSelection();
-
-createTable();
-
-exercise.style.display="block";
 
 });
 
+
 /* ===========================================================
-   IMPORTANT TENSES
+   TENSE BUTTONS
 =========================================================== */
+
+selectAllBtn.addEventListener("click", () => {
+
+    tenseSelection
+        .querySelectorAll("input")
+        .forEach(cb => cb.checked = true);
+
+    updateTenseDropdownLabel();
+
+});
+
+selectNoneBtn.addEventListener("click", () => {
+
+    tenseSelection
+        .querySelectorAll("input")
+        .forEach(cb => cb.checked = false);
+
+    updateTenseDropdownLabel();
+
+});
 
 const importantTenses = {
 
@@ -236,36 +202,362 @@ const importantTenses = {
         "futur2"
     ],
 
-es: [
-    "presente",
-    "estarGerundio",
-    "preteritoPerfecto",
-    "preteritoIndefinido",
-    "preteritoImperfecto",
-    "futuroSimple"
-]
+    es: [
+        "presente",
+        "estarGerundio",
+        "preteritoPerfecto",
+        "preteritoIndefinido",
+        "preteritoImperfecto",
+        "futuroSimple"
+    ]
 
 };
 
-
 importantBtn.addEventListener("click", () => {
 
-    const language =
-        languageSelect.value;
-
     const important =
-        importantTenses[language] || [];
+        importantTenses[currentLanguage] || [];
 
-    document
-        .querySelectorAll("#tenseSelection input")
-.forEach(cb => {
+    tenseSelection
+        .querySelectorAll("input")
+        .forEach(cb => {
 
-    cb.checked =
-        important.includes(cb.value);
+            cb.checked =
+                important.includes(cb.value);
+
+        });
+
+    updateTenseDropdownLabel();
 
 });
 
-updateTenseDropdownLabel();
+
+/* ===========================================================
+   RANDOM
+=========================================================== */
+
+function shuffle(array) {
+
+    const result = [...array];
+
+    for (let i = result.length - 1; i > 0; i--) {
+
+        const j =
+            Math.floor(Math.random() * (i + 1));
+
+        [result[i], result[j]] =
+            [result[j], result[i]];
+
+    }
+
+    return result;
+
+}
+
+
+/* ===========================================================
+   CREATE RANDOM COLUMNS
+=========================================================== */
+
+function getAvailableVerbs() {
+
+    if (verbSelectionSelect.value === "random") {
+
+        return shuffle(verbPool);
+
+    }
+
+    const selected =
+        [...verbSelection.querySelectorAll("input:checked")]
+            .map(cb => cb.value);
+
+    return verbPool.filter(verb =>
+        selected.includes(verb.infinitive)
+    );
+
+}
+
+
+function createMixedColumns(count) {
+
+    const pronouns =
+        languageConfig.mixedPronouns[count];
+
+    const verbs =
+        getAvailableVerbs().slice(0, count);
+
+    if (verbs.length < count) {
+
+        return null;
+
+    }
+
+    return pronouns.map((pronoun, index) => {
+
+        const pronounIndex =
+            languageConfig.pronouns.indexOf(pronoun);
+
+        return {
+            pronoun,
+            pronounIndex,
+            verb: verbs[index]
+        };
+
+    });
+
+}
+
+
+function createCompleteColumns(count) {
+
+    const verbs =
+        getAvailableVerbs().slice(0, count);
+
+    if (verbs.length < count) {
+
+        return null;
+
+    }
+
+    const columns = [];
+
+    verbs.forEach(verb => {
+
+        languageConfig.pronouns.forEach(
+            (pronoun, pronounIndex) => {
+
+                columns.push({
+                    pronoun,
+                    pronounIndex,
+                    verb
+                });
+
+            }
+        );
+
+    });
+
+    return columns;
+
+}
+
+
+/* ===========================================================
+   VERB OPTIONS
+=========================================================== */
+
+function updateVerbCountOptions() {
+
+    const type = exerciseTypeSelect.value;
+
+    const values =
+        type === "complete"
+            ? [1, 2, 3]
+            : [3, 6, 8];
+
+    verbCountSelect.innerHTML = "";
+
+    values.forEach(value => {
+
+        const option = document.createElement("option");
+
+        option.value = value;
+        option.textContent = value;
+
+        verbCountSelect.appendChild(option);
+
+    });
+
+}
+
+
+function createVerbSelection() {
+
+    verbSelection.innerHTML = "";
+
+    verbPool.forEach(verb => {
+
+        const label = document.createElement("label");
+
+        const checkbox = document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.value = verb.infinitive;
+
+        label.appendChild(checkbox);
+        label.append(" " + verb.infinitive);
+
+        verbSelection.appendChild(label);
+
+    });
+
+}
+
+
+function updateVerbDropdownLabel() {
+
+    const count =
+        verbSelection.querySelectorAll(
+            "input:checked"
+        ).length;
+
+    verbDropdownBtn.textContent =
+        count === 0
+            ? "Choose verbs ▼"
+            : `${count} verbs selected ▼`;
+
+}
+
+
+exerciseTypeSelect.addEventListener("change", () => {
+
+    updateVerbCountOptions();
+
+});
+
+
+verbSelectionSelect.addEventListener("change", () => {
+
+    verbChooser.style.display =
+        verbSelectionSelect.value === "choose"
+            ? "block"
+            : "none";
+
+});
+
+
+verbDropdownBtn.addEventListener("click", () => {
+
+    verbDropdownMenu.classList.toggle("open");
+
+});
+
+
+verbSelection.addEventListener("change", () => {
+
+    updateVerbDropdownLabel();
+
+});
+
+
+verbSearch.addEventListener("input", () => {
+
+    const search =
+        normalize(verbSearch.value);
+
+    verbSelection
+        .querySelectorAll("label")
+        .forEach(label => {
+
+            label.style.display =
+                normalize(label.textContent)
+                    .includes(search)
+                    ? "flex"
+                    : "none";
+
+        });
+
+});
+
+
+selectAllVerbsBtn.addEventListener("click", () => {
+
+    verbSelection
+        .querySelectorAll("input")
+        .forEach(cb => cb.checked = true);
+
+    updateVerbDropdownLabel();
+
+});
+
+
+selectNoneVerbsBtn.addEventListener("click", () => {
+
+    verbSelection
+        .querySelectorAll("input")
+        .forEach(cb => cb.checked = false);
+
+    updateVerbDropdownLabel();
+
+});
+
+
+updateVerbCountOptions();
+createVerbSelection();
+updateVerbDropdownLabel();
+
+
+/* ===========================================================
+   START EXERCISE
+=========================================================== */
+
+startBtn.addEventListener("click", () => {
+
+    selectedTenses = [];
+
+    tenseSelection
+        .querySelectorAll("input")
+        .forEach(cb => {
+
+            if (cb.checked) {
+
+                selectedTenses.push(
+                    tenses[Number(cb.dataset.index)]
+                );
+
+            }
+
+        });
+
+    if (selectedTenses.length === 0) {
+
+        alert("Please select at least one tense.");
+
+        return;
+
+    }
+
+    /*
+       Temporary default:
+       6 random mixed verbs.
+
+       The dropdowns for 3 / 6 / 8 and
+       Complete Verb Forms are added next.
+    */
+
+const exerciseType =
+    exerciseTypeSelect.value;
+
+const verbCount =
+    Number(verbCountSelect.value);
+
+
+if (exerciseType === "complete") {
+
+    selectedColumns =
+        createCompleteColumns(verbCount);
+
+} else {
+
+    selectedColumns =
+        createMixedColumns(verbCount);
+
+}
+
+
+if (!selectedColumns) {
+
+    alert(
+        "Please select enough verbs for this exercise."
+    );
+
+    return;
+
+}
+
+    createTable();
+
+    exercise.style.display = "block";
 
 });
 
@@ -274,111 +566,121 @@ updateTenseDropdownLabel();
    CREATE TABLE
 =========================================================== */
 
-function createTable(){
+function createTable() {
 
-    headerRow.innerHTML="";
-    tableBody.innerHTML="";
-    cells=[];
+    headerRow.innerHTML = "";
+    tableBody.innerHTML = "";
+    cells = [];
 
-    /* ---------- HEADER ---------- */
+    /* HEADER */
 
-    const first=document.createElement("th");
-    first.textContent="Tense";
+    const first = document.createElement("th");
+
+    first.textContent = "Tense";
+
     headerRow.appendChild(first);
 
-    columns.forEach(col=>{
+    selectedColumns.forEach(column => {
 
-        const th=document.createElement("th");
+        const th = document.createElement("th");
 
-th.textContent = col.pronoun;
+        th.textContent = column.pronoun;
 
         headerRow.appendChild(th);
 
     });
 
-    const signal=document.createElement("th");
-    signal.textContent="Signal word(s)";
+    const signal = document.createElement("th");
+
+    signal.textContent = "Signal word(s)";
+
     headerRow.appendChild(signal);
 
-    /* ---------- INFINITIVE ROW ---------- */
 
-    const intro=document.createElement("tr");
+    /* INFINITIVE */
 
-    const td=document.createElement("td");
-    td.innerHTML="<strong>Infinitive</strong>";
-    intro.appendChild(td);
+    const intro = document.createElement("tr");
 
-    columns.forEach(col=>{
+    const title = document.createElement("td");
 
-        const cell=document.createElement("td");
+    title.innerHTML = "<strong>Infinitive</strong>";
 
-        cell.innerHTML=col.infinitive;
+    intro.appendChild(title);
 
-        intro.appendChild(cell);
+    selectedColumns.forEach(column => {
+
+        const td = document.createElement("td");
+
+        td.textContent =
+            column.verb.infinitive;
+
+        intro.appendChild(td);
 
     });
 
-    intro.appendChild(document.createElement("td"));
+    intro.appendChild(
+        document.createElement("td")
+    );
 
     tableBody.appendChild(intro);
 
-    /* ---------- TENSE ROWS ---------- */
 
-    selectedTenses.forEach((tense,row)=>{
+    /* TENSE ROWS */
 
-        const tr=document.createElement("tr");
+    selectedTenses.forEach((tense, row) => {
 
-        const title=document.createElement("td");
+        const tr = document.createElement("tr");
 
-        title.innerHTML=
-            "<strong>"+tense.name+"</strong><br><small>"+tense.rule+"</small>";
+        const tenseCell =
+            document.createElement("td");
 
-        tr.appendChild(title);
+        tenseCell.innerHTML =
+            `<strong>${tense.name}</strong>
+             <br>
+             <small>${tense.rule}</small>`;
 
-        cells[row]=[];
+        tr.appendChild(tenseCell);
 
-        /* ---------- VERBS ---------- */
+        cells[row] = [];
 
-        for(let col=0;col<8;col++){
+        selectedColumns.forEach((column, col) => {
 
-            const td=document.createElement("td");
+            const td =
+                document.createElement("td");
 
-            const input=document.createElement("input");
+            const input =
+                document.createElement("input");
 
-            input.type="text";
-
-            input.dataset.row=row;
-            input.dataset.col=col;
+            input.type = "text";
+            input.dataset.row = row;
+            input.dataset.col = col;
 
             td.appendChild(input);
-
             tr.appendChild(td);
 
-            cells[row][col]=input;
+            cells[row][col] = input;
 
-        }
+        });
 
-        /* ---------- SIGNAL WORD ---------- */
+        /* SIGNAL */
 
-        const td=document.createElement("td");
+        const td =
+            document.createElement("td");
 
-        const input=document.createElement("input");
+        const input =
+            document.createElement("input");
 
-        input.type="text";
+        input.type = "text";
+        input.setAttribute("list", "signalList");
 
-        input.setAttribute(
-            "list",
-            "signalList"
-        );
-
-        input.dataset.row=row;
-        input.dataset.col=8;
+        input.dataset.row = row;
+        input.dataset.col =
+            selectedColumns.length;
 
         td.appendChild(input);
-
         tr.appendChild(td);
 
-        cells[row][8]=input;
+        cells[row].push(input);
 
         tableBody.appendChild(tr);
 
@@ -390,24 +692,26 @@ th.textContent = col.pronoun;
 
 
 /* ===========================================================
-   DATALIST
+   SIGNAL LIST
 =========================================================== */
 
-function createSignalList(){
+function createSignalList() {
 
-    let list=document.getElementById("signalList");
+    let list =
+        document.getElementById("signalList");
 
-    if(list) list.remove();
+    if (list) list.remove();
 
-    list=document.createElement("datalist");
+    list = document.createElement("datalist");
 
-    list.id="signalList";
+    list.id = "signalList";
 
-    signalWords.forEach(word=>{
+    signalWords.forEach(word => {
 
-        const option=document.createElement("option");
+        const option =
+            document.createElement("option");
 
-        option.value=word;
+        option.value = word;
 
         list.appendChild(option);
 
@@ -419,386 +723,313 @@ function createSignalList(){
 
 
 /* ===========================================================
-   CHECK ANSWERS
+   HELPERS
 =========================================================== */
 
-const checkBtn = document.getElementById("checkBtn");
-const resetBtn = document.getElementById("resetBtn");
-const solutionBtn = document.getElementById("solutionBtn");
-
-const score = document.getElementById("score");
-const percent = document.getElementById("percent");
-
-
-function clearSolutions(){
-
-    document.querySelectorAll(".solution").forEach(e=>e.remove());
-
-}
-
-
-function updateStatistics(correct,total){
-
-    score.textContent = `${correct} / ${total}`;
-
-    percent.textContent =
-        `${Math.round(correct/total*100)} %`;
-
-}
-
-
-function normalize(str){
+function normalize(str) {
 
     return str
         .trim()
-        .replace(/\s+/g," ")
+        .replace(/\s+/g, " ")
         .toLowerCase();
 
 }
 
+function clearSolutions() {
 
-function checkAnswers(){
+    document
+        .querySelectorAll(".solution")
+        .forEach(element => element.remove());
+
+}
+
+function showSolution(input, text) {
+
+    const div =
+        document.createElement("div");
+
+    div.className = "solution";
+
+    div.textContent = "✔ " + text;
+
+    input.parentElement.appendChild(div);
+
+}
+
+function updateStatistics(correct, total) {
+
+    score.textContent =
+        `${correct} / ${total}`;
+
+    percent.textContent =
+        total === 0
+            ? "0 %"
+            : `${Math.round(correct / total * 100)} %`;
+
+}
+
+
+/* ===========================================================
+   CHECK ANSWERS
+=========================================================== */
+
+function checkAnswers() {
 
     clearSolutions();
 
     let correct = 0;
 
-    const total = selectedTenses.length * 9;
+    const total =
+        selectedTenses.length *
+        (selectedColumns.length + 1);
 
+    selectedTenses.forEach((tense, row) => {
 
-    selectedTenses.forEach((tense,row)=>{
+        selectedColumns.forEach((column, col) => {
 
-        /* ---------------- VERBS ---------------- */
+            const input =
+                cells[row][col];
 
-        for(let col=0;col<8;col++){
-
-            const input = cells[row][col];
-
-            input.classList.remove("correct","wrong");
-
-            const user =
-                input.value.trim().toLowerCase();
-
-            const solution =
-                tense.forms[col].toLowerCase();
-
-
-if (normalize(user) === normalize(solution)) {
-
-    input.classList.add("correct");
-    correct++;
-
-} else {
-
-    input.classList.add("wrong");
-
-    const div = document.createElement("div");
-    div.className = "solution";
-    div.textContent = "✔ " + tense.forms[col];
-
-    input.parentElement.appendChild(div);
-
-}
-}
-
-        /* ---------------- SIGNAL WORD ---------------- */
-
-        const input = cells[row][8];
-
-        input.classList.remove("correct","wrong");
-
-        const user =
-            input.value.trim().toLowerCase();
-
-        const ok =
-            tense.signals.some(
-                signal =>
-                    signal.toLowerCase()===user
+            input.classList.remove(
+                "correct",
+                "wrong"
             );
 
-        if(ok){
+            const solution =
+                column.verb.forms[tense.id][
+                    column.pronounIndex
+                ];
 
-            input.classList.add("correct");
+            if (
+                normalize(input.value) ===
+                normalize(solution)
+            ) {
+
+                input.classList.add("correct");
+
+                correct++;
+
+            } else {
+
+                input.classList.add("wrong");
+
+                showSolution(input, solution);
+
+            }
+
+        });
+
+
+        /* SIGNAL WORD */
+
+        const signalInput =
+            cells[row][selectedColumns.length];
+
+        signalInput.classList.remove(
+            "correct",
+            "wrong"
+        );
+
+        const user =
+            normalize(signalInput.value);
+
+        const valid =
+            tense.signals.some(signal =>
+                normalize(signal) === user
+            );
+
+        if (valid) {
+
+            signalInput.classList.add("correct");
 
             correct++;
 
-        }else{
+        } else {
 
-            input.classList.add("wrong");
+            signalInput.classList.add("wrong");
 
-            const div=document.createElement("div");
-
-            div.className="solution";
-
-            div.textContent =
-                "✔ " + tense.signals.join(" / ");
-
-            input.parentElement.appendChild(div);
+            showSolution(
+                signalInput,
+                tense.signals.join(" / ")
+            );
 
         }
 
     });
 
-
-    updateStatistics(correct,total);
+    updateStatistics(correct, total);
 
 }
 
-
 checkBtn.addEventListener(
-
     "click",
-
     checkAnswers
-
 );
-
 
 
 /* ===========================================================
    RESET
 =========================================================== */
 
-function resetExercise(){
+function resetExercise() {
 
     clearSolutions();
 
-    cells.forEach(row=>{
+    cells.forEach(row => {
 
-        row.forEach(cell=>{
+        row.forEach(input => {
 
-            cell.value="";
+            input.value = "";
 
-            cell.classList.remove(
-
+            input.classList.remove(
                 "correct",
                 "wrong"
-
             );
 
         });
 
     });
 
-const total = selectedTenses.length * 9;
+    const total =
+        selectedTenses.length *
+        (selectedColumns.length + 1);
 
-score.textContent = `0 / ${total}`;
-
-    percent.textContent="0 %";
+    updateStatistics(0, total);
 
 }
 
-
 resetBtn.addEventListener(
-
     "click",
-
     resetExercise
-
 );
 
 
-
-
 /* ===========================================================
-   REVEAL ANSWERS
+   REVEAL
 =========================================================== */
 
-function revealAnswers(){
+function revealAnswers() {
 
     resetExercise();
 
-    selectedTenses.forEach((tense,row)=>{
+    selectedTenses.forEach((tense, row) => {
 
-        for(let col=0;col<8;col++){
+        selectedColumns.forEach((column, col) => {
 
             cells[row][col].value =
-                tense.forms[col];
+                column.verb.forms[tense.id][
+                    column.pronounIndex
+                ];
 
-        }
+        });
 
-        cells[row][8].value =
+        cells[row][selectedColumns.length].value =
             tense.signals[0];
 
     });
 
 }
 
-
 solutionBtn.addEventListener(
-
     "click",
-
     revealAnswers
-
 );
-
-/* ===========================================================
-   LOCAL STORAGE
-=========================================================== */
-
-const STORAGE_KEY =
-    `mistudia_selected_tenses_${currentLanguage}`;
-
-function saveSelection(){
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(selectedIndices)
-    );
-
-}
-
-function loadSelection(){
-
-    const saved = localStorage.getItem(STORAGE_KEY);
-
-    if(!saved) return;
-
-    const indices = JSON.parse(saved);
-
-    document
-        .querySelectorAll("#tenseSelection input")
-        .forEach(cb=>{
-
-            cb.checked =
-                indices.includes(
-                    Number(cb.dataset.index)
-                );
-
-        });
-
-}
-
-loadSelection();
-
-
-/* ===========================================================
-   URL PARAMETERS
-   example:
-   trainer.html?tenses=0,2,4
-=========================================================== */
-
-function applyURLParameters(){
-
-    const params =
-        new URLSearchParams(window.location.search);
-
-    if(!params.has("tenses")) return;
-
-    const selected =
-        params.get("tenses")
-              .split(",")
-              .map(Number);
-
-    document
-        .querySelectorAll("#tenseSelection input")
-        .forEach(cb=>{
-
-            cb.checked =
-                selected.includes(
-                    Number(cb.dataset.index)
-                );
-
-        });
-
-}
-
-applyURLParameters();
-
 
 
 /* ===========================================================
    KEYBOARD NAVIGATION
 =========================================================== */
 
-document.addEventListener("keydown",e=>{
+document.addEventListener("keydown", event => {
 
-    if(document.activeElement.tagName!=="INPUT")
+    const input = document.activeElement;
+
+    if (
+        input.tagName !== "INPUT" ||
+        input.dataset.row === undefined
+    ) {
         return;
+    }
 
-    const input=document.activeElement;
+    const row = Number(input.dataset.row);
+    const col = Number(input.dataset.col);
 
-    const row=Number(input.dataset.row);
-    const col=Number(input.dataset.col);
+    if (event.key === "ArrowDown") {
 
-    switch(e.key){
+        event.preventDefault();
 
-        case "ArrowDown":
+        if (row < cells.length - 1) {
+            cells[row + 1][col].focus();
+        }
 
-            e.preventDefault();
+    }
 
-            if(row<cells.length-1)
-                cells[row+1][col].focus();
+    if (event.key === "ArrowUp") {
 
-        break;
+        event.preventDefault();
 
+        if (row > 0) {
+            cells[row - 1][col].focus();
+        }
 
-        case "ArrowUp":
+    }
 
-            e.preventDefault();
+    if (event.key === "ArrowRight") {
 
-            if(row>0)
-                cells[row-1][col].focus();
+        event.preventDefault();
 
-        break;
+        if (col < cells[row].length - 1) {
+            cells[row][col + 1].focus();
+        }
 
+    }
 
-        case "ArrowLeft":
+    if (event.key === "ArrowLeft") {
 
-            e.preventDefault();
+        event.preventDefault();
 
-            if(col>0)
-                cells[row][col-1].focus();
+        if (col > 0) {
+            cells[row][col - 1].focus();
+        }
 
-        break;
+    }
 
+    if (event.key === "Enter") {
 
-        case "ArrowRight":
+        event.preventDefault();
 
-            e.preventDefault();
+        if (
+            !event.shiftKey &&
+            row < cells.length - 1
+        ) {
+            cells[row + 1][col].focus();
+        }
 
-            if(col<8)
-                cells[row][col+1].focus();
-
-        break;
-
-
-        case "Enter":
-
-            e.preventDefault();
-
-            if(e.shiftKey){
-
-                if(row>0)
-                    cells[row-1][col].focus();
-
-            }else{
-
-                if(row<cells.length-1)
-                    cells[row+1][col].focus();
-
-            }
-
-        break;
+        if (
+            event.shiftKey &&
+            row > 0
+        ) {
+            cells[row - 1][col].focus();
+        }
 
     }
 
 });
 
 
-
 /* ===========================================================
-   REMOVE RED COLOR WHILE TYPING
+   REMOVE CORRECTION WHILE TYPING
 =========================================================== */
 
-document.addEventListener("input",e=>{
+document.addEventListener("input", event => {
 
-    if(e.target.tagName!=="INPUT")
+    if (event.target.tagName !== "INPUT") {
         return;
+    }
 
-    e.target.classList.remove("wrong");
-    e.target.classList.remove("correct");
+    event.target.classList.remove(
+        "correct",
+        "wrong"
+    );
 
 });
-
