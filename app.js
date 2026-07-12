@@ -120,11 +120,14 @@ languageSelect.value = currentLanguage;
 const pageTitle =
     document.getElementById("pageTitle");
 
-pageTitle.textContent =
-    currentLanguage === "de"
-        ? "Deutsche Zeitformen – Trainer"
-        : "English Tenses Trainer";
+const pageTitles = {
+    en: "English Tenses Trainer",
+    de: "Deutsche Zeitformen – Trainer",
+    es: "Tiempos verbales en español"
+};
 
+pageTitle.textContent =
+    pageTitles[currentLanguage] || pageTitles.en;
 
 
 languageSelect.addEventListener("change", () => {
@@ -231,7 +234,16 @@ const importantTenses = {
         "plusquamperfekt",
         "futur1",
         "futur2"
-    ]
+    ],
+
+es: [
+    "presente",
+    "estarGerundio",
+    "preteritoPerfecto",
+    "preteritoIndefinido",
+    "preteritoImperfecto",
+    "futuroSimple"
+]
 
 };
 
