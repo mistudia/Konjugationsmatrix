@@ -526,3 +526,23 @@ select{
     margin-bottom: 25px;
     border-radius: 8px;
 }
+
+.jubelElefant{
+
+    display:none;
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:20px;
+
+    width:190px;
+
+    z-index:10000;
+
+    pointer-events:none;
+
+}
+
+
