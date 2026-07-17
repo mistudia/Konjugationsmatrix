@@ -74,18 +74,58 @@ h2{
 
 }
 
-.filterButtons,
-.exerciseButtons{
+.filterButtons{
 
     display:flex;
-
     gap:15px;
-
     flex-wrap:wrap;
-
     margin-top:15px;
 
 }
+
+.exerciseButtons{
+
+    display:flex;
+    justify-content:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+    margin:25px 0;
+
+}
+
+.exerciseButtons button{
+
+    min-width:170px;
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    color:white;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 8px rgba(0,0,0,.15);
+
+    transition:all .2s;
+
+}
+
+.exerciseButtons button:hover{
+
+    transform:translateY(-2px);
+
+}
+
 
 button{
 
@@ -546,3 +586,26 @@ select{
 }
 
 
+#checkBtn{
+    background:#2F63D8;
+}
+
+#checkBtn:hover{
+    background:#2856BE;
+}
+
+#solutionBtn{
+    background:#22A844;
+}
+
+#solutionBtn:hover{
+    background:#1B933B;
+}
+
+#resetBtn{
+    background:#F6A10A;
+}
+
+#resetBtn:hover{
+    background:#E19208;
+}
