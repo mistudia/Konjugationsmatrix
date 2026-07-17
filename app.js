@@ -859,6 +859,10 @@ function checkAnswers() {
 
     updateStatistics(correct, total);
 
+if(correct===total && total>0){
+    jubelChoreo();
+}
+
 }
 
 checkBtn.addEventListener(
@@ -1033,3 +1037,69 @@ document.addEventListener("input", event => {
     );
 
 });
+
+function konfettiAusRüssel(){
+
+    const elefant = document.getElementById("jubelElefant");
+    const rect = elefant.getBoundingClientRect();
+
+    const startX = rect.left + 20;
+    const startY = rect.top + 70;
+
+    for(let i=0;i<40;i++){
+
+        const k=document.createElement("div");
+
+        k.style.position="fixed";
+        k.style.left=startX+"px";
+        k.style.top=startY+"px";
+
+        k.style.width="8px";
+        k.style.height="8px";
+        k.style.borderRadius="50%";
+        k.style.background=`hsl(${Math.random()*360},100%,50%)`;
+        k.style.zIndex="10001";
+
+        document.body.appendChild(k);
+
+        const x=-(120+Math.random()*260);
+        const y=Math.random()*180-90;
+
+        k.animate([
+            {
+                transform:"translate(0,0)",
+                opacity:1
+            },
+            {
+                transform:`translate(${x}px,${y}px)`,
+                opacity:0
+            }
+        ],{
+            duration:1200+Math.random()*500,
+            easing:"ease-out"
+        });
+
+        setTimeout(()=>k.remove(),1700);
+
+    }
+
+}
+
+function jubelChoreo(){
+
+    const elefant=document.getElementById("jubelElefant");
+
+    elefant.style.display="block";
+
+    const interval=setInterval(konfettiAusRüssel,300);
+
+    setTimeout(()=>{
+
+        clearInterval(interval);
+
+        elefant.style.display="none";
+
+    },4000);
+
+}
+
