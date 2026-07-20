@@ -84,16 +84,12 @@ h2{
 }
 
 .exerciseButtons{
-
+    position:relative;
     display:flex;
-    justify-content:center;
-
-    gap:18px;
-
-    flex-wrap:wrap;
-
+    justify-content:flex-end;
+    align-items:center;
     margin:25px 0;
-
+    min-height:48px;
 }
 
 .exerciseButtons button{
@@ -165,13 +161,13 @@ button:hover{
 
 }
 
-table{
+#tenseTable{
 
     border-collapse:collapse;
 
-    width:100%;
+    table-layout:fixed;
 
-    min-width:1600px;
+    width:max-content;
 
 }
 
@@ -223,9 +219,9 @@ tbody td:first-child{
 
 }
 
-input{
+#tenseTable input{
 
-    width:120px;
+    width:110px;
 
     padding:6px;
 
@@ -585,8 +581,11 @@ select{
 
 }
 
-
 #checkBtn{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+
     background:#2F63D8;
 }
 
@@ -594,18 +593,64 @@ select{
     background:#2856BE;
 }
 
+
+/* Trennlinie Singular | Plural */
+
+#tenseTable th.pluralStart,
+#tenseTable td.pluralStart{
+
+border-left:3px solid #9E9E9E !important;
+
+}
+
+#tenseTable td:last-child,
+#tenseTable th:last-child{
+
+    background:#FFF9D6;
+
+}
+
+#tenseTable th,
+#tenseTable td{
+    width:160px;
+    min-width:160px;
+}
+
+#tenseTable th:first-child,
+#tenseTable td:first-child{
+    width:260px;
+    min-width:260px;
+}
+
+#tenseTable th:last-child,
+#tenseTable td:last-child{
+    width:140px;
+    min-width:140px;
+    background:#FFF9D6;
+}
+
+/* gesamte Infinitive-Zeile */
+
+#tenseTable tbody tr:first-child td{
+    background:#FFF2CC;
+}
+
 #solutionBtn{
-    background:#22A844;
+    margin-left:auto;
+
+    background:transparent;
+    color:#555;
+    border:1px solid #999;
+    box-shadow:none;
+
+    padding:8px 14px;
+    font-size:14px;
 }
 
 #solutionBtn:hover{
-    background:#1B933B;
+
+    background:#f2f2f2;
+    color:#222;
+
 }
 
-#resetBtn{
-    background:#F6A10A;
-}
-
-#resetBtn:hover{
-    background:#E19208;
-}
