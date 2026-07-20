@@ -32,17 +32,6 @@ const languageConfig = {
         "we",
         "you",
         "they"
-    ],
-
-    8: [
-        "I",
-        "you",
-        "he",
-        "she",
-        "it",
-        "we",
-        "you",
-        "they"
     ]
 }
 
@@ -646,8 +635,6 @@ const tenses = [
     rule: "habits • facts • regular actions",
     signals: [
         "always",
-        "usually",
-        "often",
         "sometimes",
         "never",
         "every day"
@@ -671,7 +658,7 @@ const tenses = [
     signals: [
         "yesterday",
         "last week",
-        "last year"
+        "ago"
     ]
 },
 
@@ -693,9 +680,7 @@ const tenses = [
         "already",
         "just",
         "yet",
-        "ever",
-        "never"
-    ]
+           ]
 },
 
 {
@@ -713,7 +698,6 @@ const tenses = [
     name: "Past Perfect",
     rule: "action before another past action",
     signals: [
-        "already",
         "before"
     ]
 },
@@ -723,8 +707,8 @@ const tenses = [
     name: "Past Perfect Progressive",
     rule: "duration before a past moment",
     signals: [
-        "for",
-        "since"
+"all day before",
+"for hours before"
     ]
 },
 
@@ -744,7 +728,11 @@ const tenses = [
     rule: "predictions • spontaneous decisions",
     signals: [
         "tomorrow",
-        "probably"
+        "next week",
+
+"probably",
+"I think",
+"perhaps"
     ]
 },
 
@@ -753,7 +741,9 @@ const tenses = [
     name: "Future Progressive",
     rule: "action in progress in the future",
     signals: [
-        "this time tomorrow"
+"at this time tomorrow",
+"tomorrow at 8",
+"tomorrow afternoon"
     ]
 },
 
@@ -762,7 +752,9 @@ const tenses = [
     name: "Future Perfect",
     rule: "completed before a future moment",
     signals: [
-        "by then"
+        "by then",
+"by Friday",
+"by tomorrow"
     ]
 },
 
@@ -771,8 +763,9 @@ const tenses = [
     name: "Future Perfect Progressive",
     rule: "duration until a future moment",
     signals: [
-        "for",
-        "by then"
+"for two hours by then",
+"for ten years by then",
+"for a week by then"
     ]
 }
 
