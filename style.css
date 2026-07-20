@@ -233,6 +233,10 @@ tbody td:first-child{
 
 }
 
+#tenseTable td:last-child input{
+    width:190px;
+}
+
 select{
 
     width:130px;
@@ -624,8 +628,8 @@ border-left:3px solid #9E9E9E !important;
 
 #tenseTable th:last-child,
 #tenseTable td:last-child{
-    width:140px;
-    min-width:140px;
+    width:220px;
+    min-width:220px;
     background:#FFF9D6;
 }
 
