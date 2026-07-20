@@ -18,7 +18,6 @@ const tenseDropdownBtn = document.getElementById("tenseDropdownBtn");
 const tenseDropdownMenu = document.getElementById("tenseDropdownMenu");
 
 const checkBtn = document.getElementById("checkBtn");
-const resetBtn = document.getElementById("resetBtn");
 const solutionBtn = document.getElementById("solutionBtn");
 
 const score = document.getElementById("score");
@@ -353,7 +352,7 @@ function updateVerbCountOptions() {
     const values =
         type === "complete"
             ? [1, 2, 3]
-            : [3, 6, 8];
+            : [3, 6];
 
     verbCountSelect.innerHTML = "";
 
@@ -580,15 +579,20 @@ function createTable() {
 
     headerRow.appendChild(first);
 
-    selectedColumns.forEach(column => {
+selectedColumns.forEach((col,index)=>{
 
-        const th = document.createElement("th");
+    const th=document.createElement("th");
 
-        th.textContent = column.pronoun;
+    th.textContent=col.pronoun;
 
-        headerRow.appendChild(th);
+    if(index===3){
+        th.classList.add("pluralStart");
+    }
 
-    });
+    headerRow.appendChild(th);
+
+});
+
 
     const signal = document.createElement("th");
 
@@ -607,16 +611,20 @@ function createTable() {
 
     intro.appendChild(title);
 
-    selectedColumns.forEach(column => {
+selectedColumns.forEach((column, col) => {
 
-        const td = document.createElement("td");
+    const td = document.createElement("td");
 
-        td.textContent =
-            column.verb.infinitive;
+    if(col===3){
+        td.classList.add("pluralStart");
+    }
 
-        intro.appendChild(td);
+    td.textContent = column.verb.infinitive;
 
-    });
+    intro.appendChild(td);
+
+});
+
 
     intro.appendChild(
         document.createElement("td")
@@ -647,6 +655,9 @@ function createTable() {
 
             const td =
                 document.createElement("td");
+if(col===3){
+    td.classList.add("pluralStart");
+}
 
             const input =
                 document.createElement("input");
@@ -664,11 +675,10 @@ function createTable() {
 
         /* SIGNAL */
 
-        const td =
-            document.createElement("td");
+const td = document.createElement("td");
 
-        const input =
-            document.createElement("input");
+const input = document.createElement("input");
+
 
         input.type = "text";
         input.setAttribute("list", "signalList");
@@ -902,10 +912,6 @@ function resetExercise() {
 
 }
 
-resetBtn.addEventListener(
-    "click",
-    resetExercise
-);
 
 
 /* ===========================================================
