@@ -11,82 +11,42 @@ const languageConfig = {
     pronouns: [
         "I",
         "you",
-        "he",
+    "he/she/it",
         "we",
         "you",
         "they"
     ],
 
-    mixedPronouns: {
+ mixedPronouns: {
 
-        3: [
-            "I",
-            "you",
-            "he"
-        ],
+    3: [
+        "I",
+        "you",
+        "he/she/it"
+    ],
 
-        6: [
-            "I",
-            "you",
-            "he",
-            "we",
-            "you",
-            "they"
-        ],
+    6: [
+        "I",
+        "you",
+        "he/she/it",
+        "we",
+        "you",
+        "they"
+    ],
 
-        8: [
-            "I",
-            "you",
-            "he",
-            "she",
-            "it",
-            "we",
-            "you",
-            "they"
-        ]
-
-    }
+    8: [
+        "I",
+        "you",
+        "he",
+        "she",
+        "it",
+        "we",
+        "you",
+        "they"
+    ]
+}
 
 };
-
-
-/* ===========================================================
-   SIGNAL WORDS
-=========================================================== */
-
-const signalWords = [
-
-    "",
-
-    "always",
-    "usually",
-    "often",
-    "sometimes",
-    "never",
-    "every day",
-
-    "now",
-    "at the moment",
-
-    "yesterday",
-    "last week",
-    "last year",
-
-    "already",
-    "just",
-    "yet",
-    "ever",
-    "never",
-
-    "since",
-    "for",
-
-    "tomorrow",
-    "next week",
-
-    "by then"
-
-];
 
 
 /* ===========================================================
@@ -816,4 +776,11 @@ const tenses = [
     ]
 }
 
+];
+
+const signalWords = [
+    "",
+    ...new Set(
+        tenses.flatMap(t => t.signals)
+    )
 ];
