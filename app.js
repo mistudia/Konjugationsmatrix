@@ -697,6 +697,8 @@ const input = document.createElement("input");
     });
 
     createSignalList();
+answersVisible = false;
+solutionBtn.textContent = "💡 Show Answers";
 
 }
 
@@ -778,6 +780,7 @@ function updateStatistics(correct, total) {
 
 }
 
+let answersVisible = false;
 
 /* ===========================================================
    CHECK ANSWERS
@@ -786,6 +789,8 @@ function updateStatistics(correct, total) {
 function checkAnswers() {
 
     clearSolutions();
+answersVisible = false;
+solutionBtn.textContent = "💡 Show Answers";
 
     let correct = 0;
 
@@ -918,27 +923,44 @@ function resetExercise() {
    REVEAL
 =========================================================== */
 
-function revealAnswers() {
+function revealAnswers(){
 
-    resetExercise();
+    if(!answersVisible){
 
-    selectedTenses.forEach((tense, row) => {
+        clearSolutions();
 
-        selectedColumns.forEach((column, col) => {
+        selectedTenses.forEach((tense,row)=>{
 
-            cells[row][col].value =
-                column.verb.forms[tense.id][
-                    column.pronounIndex
-                ];
+            selectedColumns.forEach((column,col)=>{
+
+                showSolution(
+                    cells[row][col],
+                    column.verb.forms[tense.id][column.pronounIndex]
+                );
+
+            });
+
+            showSolution(
+                cells[row][selectedColumns.length],
+                tense.signals.join(" / ")
+            );
 
         });
 
-        cells[row][selectedColumns.length].value =
-            tense.signals[0];
+        solutionBtn.textContent = "🙈 Hide Answers";
+        answersVisible = true;
 
-    });
+    }else{
+
+        clearSolutions();
+
+        solutionBtn.textContent = "💡 Show Answers";
+        answersVisible = false;
+
+    }
 
 }
+
 
 solutionBtn.addEventListener(
     "click",
