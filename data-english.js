@@ -643,7 +643,7 @@ const tenses = [
 
 {
     id: "pp",
-    name: "Present Progressive",
+    name: "Present Progressive/Continuous",
     rule: "action happening now",
     signals: [
         "now",
@@ -664,7 +664,7 @@ const tenses = [
 
 {
     id: "pap",
-    name: "Past Progressive",
+    name: "Past Progressive/Continuous",
     rule: "action in progress in the past",
     signals: [
         "while",
@@ -685,7 +685,7 @@ const tenses = [
 
 {
     id: "prpp",
-    name: "Present Perfect Progressive",
+    name: "Present Perfect Progressive/Continuous",
     rule: "action continuing until now",
     signals: [
         "since",
@@ -704,7 +704,7 @@ const tenses = [
 
 {
     id: "plpp",
-    name: "Past Perfect Progressive",
+    name: "Past Perfect Progressive/Continuous",
     rule: "duration before a past moment",
     signals: [
 "all day before",
@@ -738,7 +738,7 @@ const tenses = [
 
 {
     id: "fp",
-    name: "Future Progressive",
+    name: "Future Progressive/Continuous",
     rule: "action in progress in the future",
     signals: [
 "at this time tomorrow",
@@ -760,7 +760,7 @@ const tenses = [
 
 {
     id: "fpp",
-    name: "Future Perfect Progressive",
+    name: "Future Perfect Progressive/Continuous",
     rule: "duration until a future moment",
     signals: [
 "for two hours by then",
