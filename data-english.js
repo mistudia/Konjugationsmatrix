@@ -632,7 +632,7 @@ const tenses = [
 {
     id: "sp",
     name: "Simple Present",
-    rule: "habits • facts • regular actions",
+    rule: "routines",
     signals: [
         "always",
         "sometimes",
@@ -654,7 +654,7 @@ const tenses = [
 {
     id: "spa",
     name: "Simple Past",
-    rule: "finished action in the past",
+    rule: "standard past tense",
     signals: [
         "yesterday",
         "last week",
