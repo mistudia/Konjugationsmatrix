@@ -27,6 +27,9 @@ const pageTitle = document.getElementById("pageTitle");
 const exerciseTypeSelect =
     document.getElementById("exerciseTypeSelect");
 
+const sentenceTypeSelect =
+    document.getElementById("sentenceTypeSelect");
+
 const verbCountSelect =
     document.getElementById("verbCountSelect");
 
@@ -296,11 +299,19 @@ function createMixedColumns(count) {
         const pronounIndex =
             languageConfig.pronouns.indexOf(pronoun);
 
-        return {
-            pronoun,
-            pronounIndex,
-            verb: verbs[index]
-        };
+  const sentenceType =
+    sentenceTypeSelect.value === "mixed"
+        ? ["statement","negative","question"][
+            Math.floor(Math.random()*3)
+        ]
+        : sentenceTypeSelect.value;
+
+return {
+    pronoun,
+    pronounIndex,
+    verb: verbs[index],
+    sentenceType
+};
 
     });
 
@@ -325,11 +336,19 @@ function createCompleteColumns(count) {
         languageConfig.pronouns.forEach(
             (pronoun, pronounIndex) => {
 
-                columns.push({
-                    pronoun,
-                    pronounIndex,
-                    verb
-                });
+        const sentenceType =
+    sentenceTypeSelect.value === "mixed"
+        ? ["statement","negative","question"][
+            Math.floor(Math.random()*3)
+        ]
+        : sentenceTypeSelect.value;
+
+columns.push({
+    pronoun,
+    pronounIndex,
+    verb,
+    sentenceType
+});
 
             }
         );
@@ -583,7 +602,22 @@ selectedColumns.forEach((col,index)=>{
 
     const th=document.createElement("th");
 
-    th.textContent=col.pronoun;
+let title = col.pronoun;
+
+if(col.sentenceType==="statement"){
+    title += " (+)";
+}
+
+if(col.sentenceType==="negative"){
+    title += " (-)";
+}
+
+if(col.sentenceType==="question"){
+    title += " (?)";
+}
+
+th.textContent = title;
+
 
     if(index===3){
         th.classList.add("pluralStart");
@@ -747,6 +781,198 @@ function normalize(str) {
 
 }
 
+
+function buildAnswer(solution, column, tense){
+
+    if(currentLanguage !== "en"){
+        return solution;
+    }
+
+    if(column.sentenceType === "statement"){
+        return solution;
+    }
+
+
+
+const pronoun = column.pronoun;
+const infinitive = column.verb.infinitive;
+
+switch(tense.id){
+
+    case "sp":
+
+        if(column.sentenceType==="negative"){
+            return pronoun==="he/she/it"
+                ? "doesn't " + infinitive
+                : "don't " + infinitive;
+        }
+
+        if(column.sentenceType==="question"){
+            return (pronoun==="he/she/it"
+                ? "does "
+                : "do ")
+                + pronoun + " " + infinitive + "?";
+        }
+
+        break;
+
+
+    case "pp":
+
+        const be =
+            solution.split(" ")[0];
+
+        const ing =
+            solution.substring(be.length+1);
+
+        if(column.sentenceType==="negative"){
+            return be + " not " + ing;
+        }
+
+        if(column.sentenceType==="question"){
+            return be + " " + pronoun + " " + ing + "?";
+        }
+
+        break;
+
+case "spa":
+
+    if(column.sentenceType==="negative"){
+        return "did not " + infinitive;
+    }
+
+    if(column.sentenceType==="question"){
+        return "did " + pronoun + " " + infinitive + "?";
+    }
+
+    break;
+
+case "prp":
+
+    const have =
+        solution.startsWith("has ")
+            ? "has"
+            : "have";
+
+    const participle =
+        solution.substring(have.length + 1);
+
+    if(column.sentenceType==="negative"){
+        return have + " not " + participle;
+    }
+
+    if(column.sentenceType==="question"){
+        return have + " " + pronoun + " " + participle + "?";
+    }
+
+    break;
+
+case "pap":
+
+    const was =
+        solution.split(" ")[0];
+
+    const pastIng =
+        solution.substring(was.length + 1);
+
+    if(column.sentenceType==="negative"){
+        return was + " not " + pastIng;
+    }
+
+    if(column.sentenceType==="question"){
+        return was + " " + pronoun + " " + pastIng + "?";
+    }
+
+    break;
+
+case "plp":
+
+    const pp =
+        solution.substring(4);
+
+    if(column.sentenceType==="negative"){
+        return "had not " + pp;
+    }
+
+    if(column.sentenceType==="question"){
+        return "had " + pronoun + " " + pp + "?";
+    }
+
+    break;
+
+case "wf":
+
+    if(column.sentenceType==="negative"){
+        return "will not " + infinitive;
+    }
+
+    if(column.sentenceType==="question"){
+        return "will " + pronoun + " " + infinitive + "?";
+    }
+
+    break;
+
+
+case "wfp":
+
+    const futureIng =
+        solution.substring(10);   // "will be "
+
+    if(column.sentenceType==="negative"){
+        return "will not be " + futureIng;
+    }
+
+    if(column.sentenceType==="question"){
+        return "will " + pronoun + " be " + futureIng + "?";
+    }
+
+    break;
+
+
+case "wpf":
+
+    const futurePerfect =
+        solution.substring(10);   // "will have "
+
+    if(column.sentenceType==="negative"){
+        return "will not have " + futurePerfect;
+    }
+
+    if(column.sentenceType==="question"){
+        return "will " + pronoun + " have " + futurePerfect + "?";
+    }
+
+    break;
+
+
+case "gtf":
+
+    const going =
+        solution.substring(9);    // "going to "
+
+    const beForm =
+        solution.split(" ")[0];
+
+    if(column.sentenceType==="negative"){
+        return beForm + " not going to " + going;
+    }
+
+    if(column.sentenceType==="question"){
+        return beForm + " " + pronoun + " going to " + going + "?";
+    }
+
+    break;
+
+
+
+}
+
+return solution;
+
+}
+
+
+
 function clearSolutions() {
 
     document
@@ -810,15 +1036,34 @@ solutionBtn.textContent = "💡 Show Answers";
                 "wrong"
             );
 
-            const solution =
-                column.verb.forms[tense.id][
-                    column.pronounIndex
-                ];
+ const solution = buildAnswer(
+    column.verb.forms[tense.id][column.pronounIndex],
+    column,
+    tense
+);
 
-            if (
-                normalize(input.value) ===
-                normalize(solution)
-            ) {
+       const user = normalize(input.value);
+
+const alternatives = [
+    normalize(solution)
+];
+
+alternatives.push(
+    normalize(solution
+        .replace("do not","don't")
+        .replace("does not","doesn't")
+        .replace("did not","didn't")
+        .replace("is not","isn't")
+        .replace("are not","aren't")
+        .replace("was not","wasn't")
+        .replace("were not","weren't")
+        .replace("has not","hasn't")
+        .replace("have not","haven't")
+        .replace("had not","hadn't")
+        .replace("will not","won't"))
+);
+
+if(alternatives.includes(user)){
 
                 input.classList.add("correct");
 
@@ -933,10 +1178,14 @@ function revealAnswers(){
 
             selectedColumns.forEach((column,col)=>{
 
-                showSolution(
-                    cells[row][col],
-                    column.verb.forms[tense.id][column.pronounIndex]
-                );
+showSolution(
+    cells[row][col],
+    buildAnswer(
+        column.verb.forms[tense.id][column.pronounIndex],
+        column,
+        tense
+    )
+);
 
             });
 
