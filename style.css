@@ -658,3 +658,18 @@ border-left:3px solid #9E9E9E !important;
 
 }
 
+
+
+.sentencePlus{
+    color:#2e7d32;
+}
+
+.sentenceMinus{
+    color:#c62828;
+}
+
+.sentenceQuestion{
+    color:#1565c0;
+}
+
+
