@@ -617,7 +617,142 @@ const verbPool = [
         fpe: Array(6).fill("will have taken"),
         fpp: Array(6).fill("will have been taking")
     }
-}
+},
+
+
+{
+    infinitive: "do",
+    type: "irregular",
+
+    forms: {
+
+        sp: ["do","do","does","do","do","do"],
+
+        pp: [
+            "am doing","are doing","is doing",
+            "are doing","are doing","are doing"
+        ],
+
+        spa: Array(6).fill("did"),
+
+        pap: [
+            "was doing","were doing","was doing",
+            "were doing","were doing","were doing"
+        ],
+
+        prp: [
+            "have done","have done","has done",
+            "have done","have done","have done"
+        ],
+
+        prpp: [
+            "have been doing","have been doing","has been doing",
+            "have been doing","have been doing","have been doing"
+        ],
+
+        plp: Array(6).fill("had done"),
+
+        plpp: Array(6).fill("had been doing"),
+
+        gtf: [
+            "am going to do","are going to do","is going to do",
+            "are going to do","are going to do","are going to do"
+        ],
+
+        wf: Array(6).fill("will do"),
+
+        fp: Array(6).fill("will be doing"),
+
+        fpe: Array(6).fill("will have done"),
+
+        fpp: Array(6).fill("will have been doing")
+    }
+},
+
+
+
+{
+    infinitive: "be",
+    type: "irregular",
+
+    forms: {
+
+        sp: [
+            "am",
+            "are",
+            "is",
+            "are",
+            "are",
+            "are"
+        ],
+
+        pp: [
+            "am being",
+            "are being",
+            "is being",
+            "are being",
+            "are being",
+            "are being"
+        ],
+
+        spa: [
+            "was",
+            "were",
+            "was",
+            "were",
+            "were",
+            "were"
+        ],
+
+        pap: [
+            "was being",
+            "were being",
+            "was being",
+            "were being",
+            "were being",
+            "were being"
+        ],
+
+        prp: [
+            "have been",
+            "have been",
+            "has been",
+            "have been",
+            "have been",
+            "have been"
+        ],
+
+        prpp: [
+            "have been being",
+            "have been being",
+            "has been being",
+            "have been being",
+            "have been being",
+            "have been being"
+        ],
+
+        plp: Array(6).fill("had been"),
+
+        plpp: Array(6).fill("had been being"),
+
+        gtf: [
+            "am going to be",
+            "are going to be",
+            "is going to be",
+            "are going to be",
+            "are going to be",
+            "are going to be"
+        ],
+
+        wf: Array(6).fill("will be"),
+
+        fp: Array(6).fill("will be being"),
+
+        fpe: Array(6).fill("will have been"),
+
+        fpp: Array(6).fill("will have been being")
+    }
+},
 
 
 ];
