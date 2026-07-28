@@ -853,6 +853,30 @@ function buildAnswer(solution,column,tense,sentenceType){
 
 sentenceType ??= column.sentenceType;
 
+
+if (currentLanguage === "en" &&
+    column.verb.infinitive === "be") {
+
+    if (sentenceType === "statement") {
+        return solution;
+    }
+
+    const pronoun = column.pronoun;
+    const parts = solution.split(" ");
+
+    const first = parts[0];
+    const rest = parts.slice(1).join(" ");
+
+    if (sentenceType === "negative") {
+        return first + " not" + (rest ? " " + rest : "");
+    }
+
+    if (sentenceType === "question") {
+        return first + " " + pronoun + (rest ? " " + rest : "") + "?";
+    }
+}
+
+
 if(sentenceType==="statement"){
     return solution;
 }
