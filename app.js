@@ -1163,6 +1163,13 @@ const alternatives = [
     normalize(solution)
 ];
 
+// Bei Fragen auch Version ohne abschließendes ? erlauben
+if (solution.trim().endsWith("?")) {
+    alternatives.push(
+        normalize(solution.replace(/\?\s*$/, ""))
+    );
+}
+
 alternatives.push(
     normalize(solution
         .replace("do not","don't")
