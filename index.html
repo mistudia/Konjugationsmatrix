@@ -7,6 +7,10 @@
 
 <title>miStudia – Konjugationsmatrix</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -38,9 +42,9 @@
     <label for="languageSelect">Language:</label>
 
     <select id="languageSelect">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="de">Deutsch</option>
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="de">🇩🇪 Deutsch</option>
     </select>
 
 </div>
@@ -90,6 +94,11 @@
                     Important Tenses
                 </button>
 
+                <button id="tenseDoneBtn" type="button" class="doneBtn">
+                    ✓ Done
+                </button>
+
+
             </div>
 
         </div>
@@ -107,7 +116,7 @@
 
     <select id="exerciseTypeSelect">
         <option value="mixed">Mixed verbs</option>
-        <option value="complete">Complete verb forms</option>
+        <option value="complete" selected>Complete verb forms</option>
 <option value="exam">Exam Mode</option>
     </select>
 
@@ -120,10 +129,10 @@
     </label>
 
     <select id="sentenceTypeSelect">
-        <option value="statement">Statements</option>
-        <option value="negative">Negatives</option>
-        <option value="question">Questions</option>
-        <option value="mixed" selected>Mixed</option>
+        <option value="statement">Statements (+)</option>
+        <option value="negative">Negatives (–)</option>
+        <option value="question">Questions (?)</option>
+        <option value="mixed" selected>Mixed (+ / – / ?)</option>
     </select>
 
 </div>
@@ -140,16 +149,35 @@
 
     <div class="optionGroup">
 
-        <label for="verbSelectionSelect">
-            Verb selection:
-        </label>
+        <label>Verb selection:</label>
 
-        <select id="verbSelectionSelect">
-            <option value="random">Random verbs</option>
+        <div class="segmented" id="verbSelectionSegmented">
+
+            <button
+                type="button"
+                class="segmentBtn active"
+                data-value="random"
+            >
+                🎲 Random verbs
+            </button>
+
+            <button
+                type="button"
+                class="segmentBtn"
+                data-value="choose"
+            >
+                ✎ Choose verbs
+            </button>
+
+        </div>
+
+        <select id="verbSelectionSelect" hidden>
+            <option value="random" selected>Random verbs</option>
             <option value="choose">Choose verbs</option>
         </select>
 
     </div>
+
 
     <div
         id="verbChooser"
@@ -188,6 +216,11 @@
                     Select None
                 </button>
 
+                <button id="verbDoneBtn" type="button" class="doneBtn">
+                    ✓ Done
+                </button>
+
+
             </div>
 
         </div>
@@ -208,7 +241,11 @@
 
     <section id="exercise" style="display:none;">
 
-        <div class="tableWrapper">
+        <div class="topScroll" id="topScroll">
+            <div id="topScrollInner"></div>
+        </div>
+
+        <div class="tableWrapper" id="tableWrapper">
 
             <table id="tenseTable">
 
