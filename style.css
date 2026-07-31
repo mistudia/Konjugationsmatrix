@@ -607,6 +607,15 @@ border-left:3px solid #9E9E9E !important;
 
 }
 
+/* Trennlinie bei neuem Verb */
+
+#tenseTable th.verbStart,
+#tenseTable td.verbStart{
+
+border-left:4px solid #4A4A4A !important;
+
+}
+
 #tenseTable td:last-child,
 #tenseTable th:last-child{
 
@@ -673,3 +682,707 @@ border-left:3px solid #9E9E9E !important;
 }
 
 
+
+/* ===== Segmented control (Verb selection) ===== */
+
+.segmented{
+    display:flex;
+    gap:0;
+    border:1px solid #bcd;
+    border-radius:8px;
+    overflow:hidden;
+    width:fit-content;
+}
+
+.segmented .segmentBtn{
+    padding:8px 14px;
+    font-size:14px;
+    border:none;
+    background:#f2f6fa;
+    color:#234;
+    cursor:pointer;
+    border-radius:0;
+}
+
+.segmented .segmentBtn + .segmentBtn{
+    border-left:1px solid #bcd;
+}
+
+.segmented .segmentBtn:hover{
+    background:#e2ecf6;
+}
+
+.segmented .segmentBtn.active{
+    background:#4FADEA;
+    color:#fff;
+    font-weight:600;
+}
+
+/* ===== Done button in dropdowns ===== */
+
+.dropdownActions .doneBtn{
+    margin-left:auto;
+    background:#4FADEA;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.dropdownActions .doneBtn:hover{
+    background:#3894cf;
+}
+
+
+/* =====================================================
+   MODERN UI LAYER  (überschreibt ältere Regeln)
+===================================================== */
+
+:root{
+    --brand:#1f7ae0;
+    --brand-dark:#155fb0;
+    --ink:#16233a;
+    --muted:#5b6b83;
+    --line:#e2e8f0;
+    --surface:#ffffff;
+    --radius:14px;
+    --shadow-sm:0 1px 2px rgba(16,32,64,.06), 0 2px 8px rgba(16,32,64,.06);
+    --shadow-md:0 4px 16px rgba(16,32,64,.10);
+    --shadow-lg:0 12px 32px rgba(16,32,64,.16);
+}
+
+body{
+    font-family:"Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background:
+        radial-gradient(900px 500px at 10% -10%, #e8f1ff 0%, transparent 60%),
+        radial-gradient(900px 500px at 110% 0%, #fff7d9 0%, transparent 55%),
+        #f4f6fb;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+}
+
+h1{
+    color:var(--ink);
+    font-weight:800;
+    letter-spacing:-.02em;
+}
+
+h2{
+    font-weight:700;
+    font-size:19px;
+    color:var(--ink);
+    letter-spacing:-.01em;
+}
+
+/* ---------- Karten ---------- */
+
+.topArea{
+    background:linear-gradient(135deg,#fff8cc 0%, #ffe98a 100%);
+    border:1px solid rgba(0,0,0,.05);
+    border-radius:20px;
+    box-shadow:var(--shadow-md);
+    padding:22px 26px;
+}
+
+#filter,
+#statistics{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:20px;
+    box-shadow:var(--shadow-sm);
+    padding:24px 26px;
+}
+
+/* ---------- Formularfelder / Menüs ---------- */
+
+select,
+.languageSelection select,
+.optionGroup select{
+    appearance:none;
+    -webkit-appearance:none;
+    padding:10px 38px 10px 14px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background-color:#fff;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235b6b83' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    box-shadow:var(--shadow-sm);
+    transition:border-color .15s, box-shadow .15s, transform .15s;
+}
+
+select:hover{
+    border-color:#c7d5e8;
+}
+
+select:focus-visible,
+input:focus-visible,
+button:focus-visible{
+    outline:none;
+    border-color:var(--brand);
+    box-shadow:0 0 0 3px rgba(31,122,224,.20);
+}
+
+.optionGroup label,
+.languageSelection label,
+#filter h2{
+    font-weight:700;
+}
+
+.optionGroup label{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--muted);
+}
+
+/* ---------- Buttons ---------- */
+
+button{
+    font-family:inherit;
+    font-weight:700;
+    border-radius:12px;
+    padding:10px 18px;
+    background:var(--brand);
+    color:#fff;
+    box-shadow:var(--shadow-sm);
+    transition:background .15s, transform .12s, box-shadow .15s;
+}
+
+button:hover{
+    background:var(--brand-dark);
+}
+
+button:active{
+    transform:translateY(1px);
+}
+
+#startBtn{
+    margin-top:22px;
+    padding:14px 28px;
+    font-size:16px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--brand) 0%, #38a1f5 100%);
+    box-shadow:0 6px 18px rgba(31,122,224,.35);
+}
+
+#startBtn:hover{
+    filter:brightness(1.05);
+}
+
+.exerciseButtons button{
+    border-radius:14px;
+}
+
+#checkBtn{
+    background:linear-gradient(135deg,#2f63d8 0%, #4a86f0 100%);
+    box-shadow:0 6px 18px rgba(47,99,216,.32);
+}
+
+#solutionBtn{
+    border:1px solid var(--line);
+    border-radius:12px;
+    color:var(--muted);
+    background:#fff;
+    box-shadow:var(--shadow-sm);
+}
+
+#solutionBtn:hover{
+    background:#f5f8fc;
+    color:var(--ink);
+}
+
+/* ---------- Dropdown-Menüs ---------- */
+
+.tenseDropdownBtn,
+.verbDropdownBtn{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fff;
+    color:var(--ink);
+    font-weight:600;
+    padding:10px 14px;
+    box-shadow:var(--shadow-sm);
+}
+
+.tenseDropdownBtn:hover,
+.verbDropdownBtn:hover{
+    background:#f5f8fc;
+    border-color:#c7d5e8;
+}
+
+.tenseDropdownMenu,
+.verbDropdownMenu{
+    margin-top:8px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow-lg);
+    padding:14px;
+}
+
+#tenseSelection label,
+#verbSelection label{
+    border-radius:10px;
+    padding:8px 10px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .12s;
+}
+
+#tenseSelection label:hover,
+#verbSelection label:hover{
+    background:#f1f6fc;
+}
+
+#tenseSelection input[type="checkbox"],
+#verbSelection input[type="checkbox"]{
+    width:17px;
+    height:17px;
+    accent-color:var(--brand);
+    cursor:pointer;
+}
+
+.dropdownActions{
+    border-top:1px solid var(--line);
+    padding-top:12px;
+    margin-top:8px;
+}
+
+.dropdownActions button{
+    background:#eef3fa;
+    color:var(--ink);
+    box-shadow:none;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:700;
+}
+
+.dropdownActions button:hover{
+    background:#e0e9f6;
+}
+
+.dropdownActions .doneBtn,
+.dropdownActions .doneBtn:hover{
+    color:#fff;
+}
+
+.dropdownActions .doneBtn{
+    background:var(--brand);
+    box-shadow:var(--shadow-sm);
+}
+
+.dropdownActions .doneBtn:hover{
+    background:var(--brand-dark);
+}
+
+#verbSearch{
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-family:inherit;
+    font-size:14px;
+}
+
+/* ---------- Segmented control ---------- */
+
+.segmented{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#eef3fa;
+    padding:4px;
+    gap:4px;
+    box-shadow:var(--shadow-sm);
+}
+
+.segmented .segmentBtn{
+    background:transparent;
+    border-radius:9px;
+    padding:8px 16px;
+    font-weight:700;
+    color:var(--muted);
+    box-shadow:none;
+}
+
+.segmented .segmentBtn + .segmentBtn{
+    border-left:none;
+}
+
+.segmented .segmentBtn:hover{
+    background:#e2ecf8;
+    color:var(--ink);
+}
+
+.segmented .segmentBtn.active{
+    background:#fff;
+    color:var(--brand-dark);
+    box-shadow:var(--shadow-sm);
+}
+
+/* ---------- Tabelle ---------- */
+
+.tableWrapper{
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow-md);
+    scrollbar-width:thin;
+}
+
+#tenseTable thead th{
+    font-weight:800;
+    letter-spacing:.01em;
+    border-color:#d7e2ee;
+}
+
+#tenseTable input{
+    width:120px;
+    padding:8px;
+    border:1px solid #d7dfea;
+    border-radius:9px;
+    font-family:inherit;
+    font-size:14px;
+    transition:border-color .12s, box-shadow .12s;
+}
+
+#tenseTable td:last-child input{
+    width:190px;
+}
+
+/* ---------- Obere Scrollleiste ---------- */
+
+.topScroll{
+    display:none;
+    overflow-x:auto;
+    overflow-y:hidden;
+    margin-bottom:6px;
+    border-radius:10px;
+    scrollbar-width:thin;
+}
+
+.topScroll::-webkit-scrollbar,
+.tableWrapper::-webkit-scrollbar{
+    height:12px;
+    width:12px;
+}
+
+.topScroll::-webkit-scrollbar-thumb,
+.tableWrapper::-webkit-scrollbar-thumb{
+    background:#b9c7da;
+    border-radius:999px;
+    border:3px solid transparent;
+    background-clip:content-box;
+}
+
+.topScroll::-webkit-scrollbar-thumb:hover,
+.tableWrapper::-webkit-scrollbar-thumb:hover{
+    background:#8fa3bd;
+    background-clip:content-box;
+}
+
+.topScroll::-webkit-scrollbar-track,
+.tableWrapper::-webkit-scrollbar-track{
+    background:#eef2f7;
+    border-radius:999px;
+}
+
+#topScrollInner{
+    height:1px;
+}
+
+/* ---------- Statistik ---------- */
+
+#statistics p{
+    font-size:17px;
+    color:var(--muted);
+}
+
+#score,
+#percent{
+    color:var(--ink);
+    font-weight:800;
+}
+
+.topScroll{
+    height:14px;
+    background:#eef2f7;
+}
+
+/* =====================================================
+   FEINSCHLIFF: Logo-Gelb, Dropdown-Raster, Farbfelder
+===================================================== */
+
+/* Logo-Feld wieder im ursprünglichen Gelb */
+.topArea{
+    background:#FFFF00;
+    border:1px solid rgba(0,0,0,.08);
+}
+
+/* Zeitauswahl: alle 13 Tenses ohne Scrollen sichtbar */
+.tenseDropdownMenu{
+    width:min(760px, 92vw);
+    max-height:none;
+    overflow:visible;
+    background:#f7faff;
+}
+
+#tenseSelection{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(200px, 1fr));
+    gap:2px 16px;
+}
+
+#tenseSelection label{
+    padding:6px 10px;
+    font-size:14px;
+}
+
+@media (max-width:640px){
+    #tenseSelection{ grid-template-columns:1fr; }
+    .tenseDropdownMenu{ max-height:70vh; overflow-y:auto; }
+}
+
+/* Trennlinie Singular | Plural nur gestrichelt */
+#tenseTable th.pluralStart,
+#tenseTable td.pluralStart{
+    border-left:2px dashed #9E9E9E !important;
+}
+
+/* Auswahlfelder & Buttons oben modern farbig statt weiß */
+select,
+.languageSelection select,
+.optionGroup select{
+    background-color:#e8f0fe;
+    border-color:#c3d7f5;
+    color:var(--brand-dark);
+}
+
+select:hover{
+    background-color:#dbe8fd;
+}
+
+.tenseDropdownBtn,
+.verbDropdownBtn{
+    background:linear-gradient(135deg,#e8f0fe 0%, #d7e6fd 100%);
+    border-color:#c3d7f5;
+    color:var(--brand-dark);
+}
+
+.tenseDropdownBtn:hover,
+.verbDropdownBtn:hover{
+    background:linear-gradient(135deg,#dbe8fd 0%, #c8dcfb 100%);
+    border-color:#a9c6f0;
+}
+
+#solutionBtn{
+    background:#fff;
+    border:1px solid var(--line);
+    color:var(--muted);
+    box-shadow:var(--shadow-sm);
+}
+
+#solutionBtn:hover{
+    background:#f5f5f5;
+    color:var(--ink);
+}
+
+.segmented{
+    background:#dfeafc;
+    border-color:#c3d7f5;
+}
+
+.segmented .segmentBtn{
+    color:var(--brand-dark);
+}
+
+.segmented .segmentBtn.active{
+    background:linear-gradient(135deg,var(--brand) 0%, #38a1f5 100%);
+    color:#fff;
+    box-shadow:0 4px 12px rgba(31,122,224,.30);
+}
+
+#verbSearch{
+    background:#f2f7ff;
+    border-color:#c3d7f5;
+}
+
+/* ===== Inline sentence mode marker ===== */
+
+.cellInline{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+}
+
+.cellInline .sentenceMode{
+    font-weight:700;
+    font-size:14px;
+    flex:0 0 auto;
+}
+
+.cellInline input{
+    flex:1 1 auto;
+    min-width:0;
+}
+
+/* ===== Signal / Usage columns ===== */
+
+th.signalCell,
+th.usageCell{
+    background:#fff3d6;
+    color:#7a5200;
+}
+
+td.signalCell,
+td.usageCell{
+    background:#fffaf0;
+}
+
+th.signalCell,
+td.signalCell{
+    border-left:2px solid #e0b355;
+}
+
+/* ===== Klammern-Abstand, Lösungen unter dem Feld ===== */
+
+.cellInline{
+    flex-wrap:wrap;
+    gap:0;
+}
+
+.cellInline .sentenceMode{
+    margin:0 8px 0 4px;
+}
+
+.cellInline .solution{
+    flex:1 0 100%;
+    width:100%;
+    margin-top:4px;
+    text-align:center;
+}
+
+td.signalCell .solution,
+td.usageCell .solution{
+    margin-top:4px;
+    text-align:center;
+}
+
+/* ===== Signal / Usage in Gelb wie die Zeitformen ===== */
+
+#tenseTable thead th.signalCell,
+#tenseTable thead th.usageCell{
+    background:#FFFF00;
+    color:#000000;
+}
+
+#tenseTable tbody tr:not(:first-child) td.signalCell,
+#tenseTable tbody tr:not(:first-child) td.usageCell{
+    background:#FFFF00;
+}
+
+#tenseTable tbody tr:first-child td.signalCell,
+#tenseTable tbody tr:first-child td.usageCell{
+    background:#FFF2CC;
+}
+
+/* ===== Kurzes Aufleuchten beim Feldwechsel ===== */
+
+@keyframes flashOk{
+    0%{ background:#b9f6ca; box-shadow:0 0 0 3px rgba(11,128,67,.35); }
+    100%{ background:#ffffff; box-shadow:none; }
+}
+
+@keyframes flashBad{
+    0%{ background:#ffcdd2; box-shadow:0 0 0 3px rgba(198,40,40,.35); }
+    100%{ background:#ffffff; box-shadow:none; }
+}
+
+#tenseTable input.flashOk{
+    animation:flashOk .9s ease-out;
+}
+
+#tenseTable input.flashBad{
+    animation:flashBad .9s ease-out;
+}
+
+/* ===== Feinschliff: Ausrichtung, gleiche Feldhöhen, Klammern inline ===== */
+
+/* Labels der Optionsgruppen auf gleicher Höhe */
+.verbOptions{
+    align-items:flex-start;
+}
+
+.verbOptions .optionGroup{
+    justify-content:flex-start;
+}
+
+/* Klammern immer links neben dem Feld, nie darüber */
+.cellInline{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    white-space:nowrap;
+}
+
+.cellInline .sentenceMode{
+    flex:0 0 auto;
+    margin:0 8px 0 4px;
+}
+
+.cellInline input{
+    flex:1 1 60px;
+    min-width:60px;
+    width:auto;
+}
+
+/* Einheitliche Eingabefelder in der ganzen Tabelle */
+#tenseTable td input[type="text"]{
+    height:38px;
+    box-sizing:border-box;
+    padding:6px 10px;
+    font-size:15px;
+    line-height:1.2;
+    vertical-align:middle;
+}
+
+#tenseTable td.signalCell input[type="text"],
+#tenseTable td.usageCell input[type="text"]{
+    width:100%;
+    min-width:150px;
+}
+
+#tenseTable td{
+    vertical-align:top;
+}
+
+/* Zelle direkt unter Signal word / Usage ebenfalls kräftig gelb */
+#tenseTable tbody tr:first-child td.signalCell,
+#tenseTable tbody tr:first-child td.usageCell{
+    background:#FFFF00;
+}
+
+
+/* ===== Lösungen mittig, Zeitformen zentriert ===== */
+
+.solution{
+    text-align:center;
+}
+
+#tenseTable tbody td:first-child,
+#tenseTable thead th:first-child{
+    text-align:center;
+    vertical-align:middle;
+}
+
+
+/* ===== Dicke schwarze Trennlinie vor Signal word ===== */
+
+#tenseTable th.signalCell,
+#tenseTable td.signalCell{
+    border-left:4px solid #000000 !important;
+}
