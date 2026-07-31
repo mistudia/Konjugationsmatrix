@@ -18,6 +18,7 @@ const tenseDropdownBtn = document.getElementById("tenseDropdownBtn");
 const tenseDropdownMenu = document.getElementById("tenseDropdownMenu");
 
 const checkBtn = document.getElementById("checkBtn");
+let marksVisible = false;
 const solutionBtn = document.getElementById("solutionBtn");
 
 const score = document.getElementById("score");
@@ -100,6 +101,16 @@ languageSelect.addEventListener("change", () => {
    TENSE FILTER
 =========================================================== */
 
+const defaultTensesByLanguage = {
+    en: ["sp", "spa"],
+    de: ["praesens", "praeteritum"],
+    es: ["presente", "preteritoIndefinido"]
+};
+
+const defaultTenses =
+    defaultTensesByLanguage[currentLanguage] ||
+    tenses.slice(0, 2).map(t => t.id);
+
 function createFilter() {
 
     tenseSelection.innerHTML = "";
@@ -110,7 +121,8 @@ function createFilter() {
         const checkbox = document.createElement("input");
 
         checkbox.type = "checkbox";
-        checkbox.checked = true;
+        checkbox.checked =
+            defaultTenses.includes(tense.id);
         checkbox.value = tense.id;
         checkbox.dataset.index = index;
 
@@ -148,6 +160,18 @@ tenseSelection.addEventListener("change", () => {
 
 });
 
+const tenseDoneBtn = document.getElementById("tenseDoneBtn");
+
+if (tenseDoneBtn) {
+
+    tenseDoneBtn.addEventListener("click", () => {
+
+        tenseDropdownMenu.classList.remove("open");
+
+    });
+
+}
+
 document.addEventListener("click", event => {
 
     if (!event.target.closest(".tenseDropdown")) {
@@ -157,6 +181,21 @@ document.addEventListener("click", event => {
     }
 
 });
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        tenseDropdownMenu.classList.remove("open");
+
+        const vm = document.getElementById("verbDropdownMenu");
+
+        if (vm) vm.classList.remove("open");
+
+    }
+
+});
+
 
 
 /* ===========================================================
@@ -190,9 +229,7 @@ const importantTenses = {
         "pp",
         "spa",
         "pap",
-        "prp",
-        "gtf",
-        "wf"
+        "prp"
     ],
 
     de: [
@@ -261,11 +298,38 @@ function shuffle(array) {
    CREATE RANDOM COLUMNS
 =========================================================== */
 
+let lastVerbOrder = "";
+
+function shuffleDifferently(list) {
+
+    if (list.length < 2) {
+        return [...list];
+    }
+
+    let result = shuffle(list);
+
+    let attempts = 0;
+
+    while (
+        result.map(v => v.infinitive).join("|") === lastVerbOrder &&
+        attempts < 20
+    ) {
+        result = shuffle(list);
+        attempts++;
+    }
+
+    lastVerbOrder =
+        result.map(v => v.infinitive).join("|");
+
+    return result;
+
+}
+
 function getAvailableVerbs() {
 
     if (verbSelectionSelect.value === "random") {
 
-        return shuffle(verbPool);
+        return shuffleDifferently(verbPool);
 
     }
 
@@ -273,8 +337,10 @@ function getAvailableVerbs() {
         [...verbSelection.querySelectorAll("input:checked")]
             .map(cb => cb.value);
 
-    return verbPool.filter(verb =>
-        selected.includes(verb.infinitive)
+    return shuffleDifferently(
+        verbPool.filter(verb =>
+            selected.includes(verb.infinitive)
+        )
     );
 
 }
@@ -471,7 +537,45 @@ verbSelectionSelect.addEventListener("change", () => {
             ? "block"
             : "none";
 
+    if (verbSelectionSelect.value !== "choose") {
+
+        verbDropdownMenu.classList.remove("open");
+
+    }
+
 });
+
+
+/* Segmented buttons statt Dropdown */
+
+const verbSelectionSegmented =
+    document.getElementById("verbSelectionSegmented");
+
+if (verbSelectionSegmented) {
+
+    verbSelectionSegmented.addEventListener("click", event => {
+
+        const btn = event.target.closest(".segmentBtn");
+
+        if (!btn) return;
+
+        verbSelectionSegmented
+            .querySelectorAll(".segmentBtn")
+            .forEach(b => b.classList.toggle("active", b === btn));
+
+        verbSelectionSelect.value = btn.dataset.value;
+
+        verbSelectionSelect.dispatchEvent(new Event("change"));
+
+        if (btn.dataset.value === "choose") {
+
+            verbDropdownMenu.classList.add("open");
+
+        }
+
+    });
+
+}
 
 
 verbDropdownBtn.addEventListener("click", () => {
@@ -479,6 +583,32 @@ verbDropdownBtn.addEventListener("click", () => {
     verbDropdownMenu.classList.toggle("open");
 
 });
+
+
+const verbDoneBtn = document.getElementById("verbDoneBtn");
+
+if (verbDoneBtn) {
+
+    verbDoneBtn.addEventListener("click", () => {
+
+        verbDropdownMenu.classList.remove("open");
+
+    });
+
+}
+
+
+document.addEventListener("click", event => {
+
+    if (!event.target.closest(".verbChooser") &&
+        !event.target.closest("#verbSelectionSegmented")) {
+
+        verbDropdownMenu.classList.remove("open");
+
+    }
+
+});
+
 
 
 verbSelection.addEventListener("change", () => {
@@ -541,6 +671,9 @@ updateVerbDropdownLabel();
 
 startBtn.addEventListener("click", () => {
 
+    marksVisible = false;
+    checkBtn.textContent = "\u2714 Check Answers";
+
     selectedTenses = [];
 
     tenseSelection
@@ -575,6 +708,8 @@ startBtn.addEventListener("click", () => {
 
 const exerciseType =
     exerciseTypeSelect.value;
+
+currentExerciseType = exerciseType;
 
 const verbCount =
     Number(verbCountSelect.value);
@@ -619,6 +754,38 @@ if (!selectedColumns) {
    CREATE TABLE
 =========================================================== */
 
+let currentExerciseType = "complete";
+
+function columnDivider(index) {
+
+    if (index === 0) {
+        return "";
+    }
+
+    const column = selectedColumns[index];
+
+    if (currentExerciseType === "complete") {
+
+        if (column.pronounIndex === 0) {
+            return "verbStart";
+        }
+
+        if (column.pronounIndex === 3) {
+            return "pluralStart";
+        }
+
+        return "";
+
+    }
+
+    if (selectedColumns[index - 1].verb !== column.verb) {
+        return "verbStart";
+    }
+
+    return index === 3 ? "pluralStart" : "";
+
+}
+
 function createTable() {
 
     headerRow.innerHTML = "";
@@ -628,65 +795,59 @@ function createTable() {
     /* HEADER */
 
     const first = document.createElement("th");
-
     first.textContent = "Tense";
-
     headerRow.appendChild(first);
 
-selectedColumns.forEach((col,index)=>{
+    selectedColumns.forEach((col, index) => {
 
-    const th=document.createElement("th");
+        const th = document.createElement("th");
+        th.textContent = col.pronoun;
 
-let title = col.pronoun;
+        const divider = columnDivider(index);
+        if (divider) th.classList.add(divider);
 
+        headerRow.appendChild(th);
 
-th.textContent = title;
+    });
 
+    const signalHead = document.createElement("th");
+    signalHead.textContent = "Signal word(s)";
+    signalHead.className = "signalCell";
+    headerRow.appendChild(signalHead);
 
-    if(index===3){
-        th.classList.add("pluralStart");
-    }
-
-    headerRow.appendChild(th);
-
-});
-
-
-    const signal = document.createElement("th");
-
-    signal.textContent = "Signal word(s)";
-
-    headerRow.appendChild(signal);
-
+    const usageHead = document.createElement("th");
+    usageHead.textContent = "Usage";
+    usageHead.className = "usageCell";
+    headerRow.appendChild(usageHead);
 
     /* INFINITIVE */
 
     const intro = document.createElement("tr");
 
     const title = document.createElement("td");
-
     title.innerHTML = "<strong>Infinitive</strong>";
-
     intro.appendChild(title);
 
-selectedColumns.forEach((column, col) => {
+    selectedColumns.forEach((column, col) => {
 
-    const td = document.createElement("td");
+        const td = document.createElement("td");
 
-    if(col===3){
-        td.classList.add("pluralStart");
-    }
+        const divider = columnDivider(col);
+        if (divider) td.classList.add(divider);
 
-    td.textContent = column.verb.infinitive;
+        td.textContent = column.verb.infinitive;
 
-    intro.appendChild(td);
+        intro.appendChild(td);
 
-});
+    });
 
+    const introSignal = document.createElement("td");
+    introSignal.className = "signalCell";
+    intro.appendChild(introSignal);
 
-    intro.appendChild(
-        document.createElement("td")
-    );
+    const introUsage = document.createElement("td");
+    introUsage.className = "usageCell";
+    intro.appendChild(introUsage);
 
     tableBody.appendChild(intro);
 
@@ -697,107 +858,155 @@ selectedColumns.forEach((column, col) => {
 
         const tr = document.createElement("tr");
 
-        const tenseCell =
-            document.createElement("td");
-
-        tenseCell.innerHTML =
-            `<strong>${tense.name}</strong>
-             <br>
-             <small>${tense.rule}</small>`;
-
+        const tenseCell = document.createElement("td");
+        tenseCell.innerHTML = `<strong>${tense.name}</strong>`;
         tr.appendChild(tenseCell);
 
         cells[row] = [];
 
+        /* CONJUGATION */
+
         selectedColumns.forEach((column, col) => {
 
-           const td =
-    document.createElement("td");
+            const td = document.createElement("td");
 
-if(col===3){
-    td.classList.add("pluralStart");
-}
+            const divider = columnDivider(col);
+            if (divider) td.classList.add(divider);
 
-const input =
-    document.createElement("input");
+            const input = document.createElement("input");
 
-input.type = "text";
-input.dataset.row = row;
-input.dataset.col = col;
+            input.type = "text";
+            input.dataset.row = row;
+            input.dataset.col = col + 2;
 
-const mode =
-    document.createElement("div");
+            const wrap = document.createElement("div");
+            wrap.className = "cellInline";
 
-const type = column.exam
-    ? ["statement","negative","question"][
-        Math.floor(Math.random()*3)
-      ]
-    : column.sentenceType;
+            const mode = document.createElement("span");
 
-input.dataset.sentenceType = type;
+            const type = column.exam
+                ? ["statement", "negative", "question"][
+                      Math.floor(Math.random() * 3)
+                  ]
+                : column.sentenceType;
 
-if(type==="statement"){
-    mode.textContent="(+)";
-    mode.className="sentenceMode sentencePlus";
-}
+            input.dataset.sentenceType = type;
 
-if(type==="negative"){
-    mode.textContent="(-)";
-    mode.className="sentenceMode sentenceMinus";
-}
+            if (type === "statement") {
+                mode.textContent = "(+)";
+                mode.className = "sentenceMode sentencePlus";
+            }
 
-if(type==="question"){
-    mode.textContent="(?)";
-    mode.className="sentenceMode sentenceQuestion";
-}
+            if (type === "negative") {
+                mode.textContent = "(-)";
+                mode.className = "sentenceMode sentenceMinus";
+            }
 
-td.appendChild(mode);
-td.appendChild(input);
-tr.appendChild(td);
+            if (type === "question") {
+                mode.textContent = "(?)";
+                mode.className = "sentenceMode sentenceQuestion";
+            }
 
-cells[row][col] = input;
+            wrap.appendChild(mode);
+            wrap.appendChild(input);
+            td.appendChild(wrap);
+            tr.appendChild(td);
+
+            cells[row][col + 2] = input;
 
         });
 
-/* SIGNAL */
+        /* SIGNAL */
 
-const td = document.createElement("td");
+        const signalTd = document.createElement("td");
+        signalTd.className = "signalCell";
+        const signalInput = document.createElement("input");
 
-const input = document.createElement("input");
+        signalInput.type = "text";
+        signalInput.setAttribute("list", "signalList");
+        signalInput.dataset.row = row;
+        signalInput.dataset.col = 0;
 
-input.type = "text";
-input.setAttribute("list", "signalList");
+        attachListPicker(signalInput);
+        signalTd.appendChild(signalInput);
+        tr.appendChild(signalTd);
+        cells[row][0] = signalInput;
 
-input.dataset.row = row;
-input.dataset.col = selectedColumns.length;
+        /* USAGE */
 
-td.appendChild(input);
-tr.appendChild(td);
+        const usageTd = document.createElement("td");
+        usageTd.className = "usageCell";
+        const usageInput = document.createElement("input");
 
-cells[row].push(input);
+        usageInput.type = "text";
+        usageInput.setAttribute("list", "usageList");
+        usageInput.dataset.row = row;
+        usageInput.dataset.col = 1;
 
-tableBody.appendChild(tr);
-
-        input.setAttribute("list", "signalList");
-
-        input.dataset.row = row;
-        input.dataset.col =
-            selectedColumns.length;
-
-        td.appendChild(input);
-        tr.appendChild(td);
-
-        cells[row].push(input);
+        attachListPicker(usageInput);
+        usageTd.appendChild(usageInput);
+        tr.appendChild(usageTd);
+        cells[row][1] = usageInput;
 
         tableBody.appendChild(tr);
+
 
     });
 
     createSignalList();
+    createUsageList();
 answersVisible = false;
 solutionBtn.textContent = "💡 Show Answers";
 
 }
+
+function attachListPicker(input){
+
+    const open = () => {
+        if (input.value) {
+            input.dataset.savedValue = input.value;
+            input.value = "";
+        }
+        try { input.showPicker && input.showPicker(); } catch (e) {}
+    };
+
+    const restore = () => {
+        if (!input.value && input.dataset.savedValue) {
+            input.value = input.dataset.savedValue;
+        }
+        delete input.dataset.savedValue;
+    };
+
+    input.addEventListener("focus", open);
+    input.addEventListener("click", open);
+    input.addEventListener("input", () => { delete input.dataset.savedValue; });
+    input.addEventListener("blur", restore);
+
+}
+
+
+
+function createUsageList() {
+
+    let list = document.getElementById("usageList");
+
+    if (list) list.remove();
+
+    list = document.createElement("datalist");
+    list.id = "usageList";
+
+    tenses.forEach(tense => {
+
+        const option = document.createElement("option");
+        option.value = tense.rule;
+        list.appendChild(option);
+
+    });
+
+    document.body.appendChild(list);
+
+}
+
 
 
 /* ===========================================================
@@ -841,6 +1050,44 @@ function normalize(str) {
         .trim()
         .replace(/\s+/g, " ")
         .toLowerCase();
+
+}
+
+
+const contractions = [
+    ["do not", "don't"],
+    ["does not", "doesn't"],
+    ["did not", "didn't"],
+    ["is not", "isn't"],
+    ["are not", "aren't"],
+    ["was not", "wasn't"],
+    ["were not", "weren't"],
+    ["has not", "hasn't"],
+    ["have not", "haven't"],
+    ["had not", "hadn't"],
+    ["will not", "won't"],
+    ["cannot", "can't"],
+    ["can not", "can't"]
+];
+
+/* Vergleichsform: Apostroph-Kurzformen werden
+   immer zur Langform expandiert, damit
+   "don't" und "do not" beide gelten. */
+
+function canonical(text) {
+
+    let result = normalize(text)
+        .replace(/[\u2018\u2019\u02bc]/g, "'");
+
+    contractions.forEach(([long, short]) => {
+
+        result = result.split(short).join(long);
+
+    });
+
+    return result
+        .replace(/\s+/g, " ")
+        .trim();
 
 }
 
@@ -1160,14 +1407,14 @@ solutionBtn.textContent = "💡 Show Answers";
 
     const total =
         selectedTenses.length *
-        (selectedColumns.length + 1);
+        (selectedColumns.length + 2);
 
     selectedTenses.forEach((tense, row) => {
 
         selectedColumns.forEach((column, col) => {
 
             const input =
-                cells[row][col];
+                cells[row][col + 2];
 
             input.classList.remove(
                 "correct",
@@ -1184,32 +1431,17 @@ const solution = buildAnswer(
        const user = normalize(input.value);
 
 const alternatives = [
-    normalize(solution)
+    canonical(solution)
 ];
 
 // Bei Fragen auch Version ohne abschließendes ? erlauben
 if (solution.trim().endsWith("?")) {
     alternatives.push(
-        normalize(solution.replace(/\?\s*$/, ""))
+        canonical(solution.replace(/\?\s*$/, ""))
     );
 }
 
-alternatives.push(
-    normalize(solution
-        .replace("do not","don't")
-        .replace("does not","doesn't")
-        .replace("did not","didn't")
-        .replace("is not","isn't")
-        .replace("are not","aren't")
-        .replace("was not","wasn't")
-        .replace("were not","weren't")
-        .replace("has not","hasn't")
-        .replace("have not","haven't")
-        .replace("had not","hadn't")
-        .replace("will not","won't"))
-);
-
-if(alternatives.includes(user)){
+if(alternatives.includes(canonical(user))){
 
                 input.classList.add("correct");
 
@@ -1219,8 +1451,6 @@ if(alternatives.includes(user)){
 
                 input.classList.add("wrong");
 
-                showSolution(input, solution);
-
             }
 
         });
@@ -1228,8 +1458,7 @@ if(alternatives.includes(user)){
 
         /* SIGNAL WORD */
 
-        const signalInput =
-            cells[row][selectedColumns.length];
+        const signalInput = cells[row][0];
 
         signalInput.classList.remove(
             "correct",
@@ -1254,10 +1483,32 @@ if(alternatives.includes(user)){
 
             signalInput.classList.add("wrong");
 
-            showSolution(
-                signalInput,
-                tense.signals.join(" / ")
-            );
+        }
+
+
+        /* USAGE */
+
+        const usageInput = cells[row][1];
+
+        usageInput.classList.remove("correct", "wrong");
+
+        const usageUser = normalize(usageInput.value);
+
+        const usageValid =
+            usageUser.length > 0 &&
+            tense.rule
+                .split(/[•\/,]/)
+                .some(part => normalize(part) === usageUser);
+
+        if (usageValid) {
+
+            usageInput.classList.add("correct");
+
+            correct++;
+
+        } else {
+
+            usageInput.classList.add("wrong");
 
         }
 
@@ -1271,10 +1522,39 @@ if(correct===total && total>0){
 
 }
 
-checkBtn.addEventListener(
-    "click",
-    checkAnswers
-);
+function clearMarks() {
+
+    document
+        .querySelectorAll("#tenseTable input")
+        .forEach(input =>
+            input.classList.remove("correct", "wrong")
+        );
+
+    updateStatistics(0, 0);
+
+}
+
+checkBtn.addEventListener("click", () => {
+
+    if (marksVisible) {
+
+        clearMarks();
+
+        marksVisible = false;
+
+        checkBtn.textContent = "\u2714 Check Answers";
+
+        return;
+
+    }
+
+    checkAnswers();
+
+    marksVisible = true;
+
+    checkBtn.textContent = "\u2716 Hide Marks";
+
+});
 
 
 /* ===========================================================
@@ -1284,6 +1564,9 @@ checkBtn.addEventListener(
 function resetExercise() {
 
     clearSolutions();
+
+    marksVisible = false;
+    checkBtn.textContent = "\u2714 Check Answers";
 
     cells.forEach(row => {
 
@@ -1302,7 +1585,7 @@ function resetExercise() {
 
     const total =
         selectedTenses.length *
-        (selectedColumns.length + 1);
+        (selectedColumns.length + 2);
 
     updateStatistics(0, total);
 
@@ -1325,20 +1608,25 @@ function revealAnswers(){
             selectedColumns.forEach((column,col)=>{
 
 showSolution(
-    cells[row][col],
+    cells[row][col + 2],
 buildAnswer(
     column.verb.forms[tense.id][column.pronounIndex],
     column,
     tense,
-    cells[row][col].dataset.sentenceType
+    cells[row][col + 2].dataset.sentenceType
 )
 );
 
             });
 
             showSolution(
-                cells[row][selectedColumns.length],
+                cells[row][0],
                 tense.signals.join(" / ")
+            );
+
+            showSolution(
+                cells[row][1],
+                tense.rule
             );
 
         });
@@ -1527,3 +1815,149 @@ function jubelChoreo(){
 
 }
 
+
+
+/* =====================================================
+   HORIZONTALE SCROLLLEISTE OBEN (synchron mit unten)
+===================================================== */
+
+(function initTopScrollbar(){
+
+    const topScroll   = document.getElementById("topScroll");
+    const topInner    = document.getElementById("topScrollInner");
+    const wrapper     = document.getElementById("tableWrapper");
+    const table       = document.getElementById("tenseTable");
+
+    if(!topScroll || !topInner || !wrapper || !table){
+        return;
+    }
+
+    let syncing = false;
+
+    function refresh(){
+
+        const width = table.scrollWidth;
+
+        topInner.style.width = width + "px";
+
+        const needed = width > wrapper.clientWidth + 1;
+
+        topScroll.style.display = needed ? "block" : "none";
+
+    }
+
+    topScroll.addEventListener("scroll", () => {
+
+        if(syncing){ syncing = false; return; }
+
+        syncing = true;
+        wrapper.scrollLeft = topScroll.scrollLeft;
+
+    });
+
+    wrapper.addEventListener("scroll", () => {
+
+        if(syncing){ syncing = false; return; }
+
+        syncing = true;
+        topScroll.scrollLeft = wrapper.scrollLeft;
+
+    });
+
+    window.addEventListener("resize", refresh);
+
+    if(window.ResizeObserver){
+        new ResizeObserver(refresh).observe(table);
+    }
+
+    new MutationObserver(refresh).observe(table, {
+        childList : true,
+        subtree   : true
+    });
+
+    refresh();
+
+})();
+
+/* ===========================================================
+   LIVE-FEEDBACK BEIM FELDWECHSEL
+=========================================================== */
+
+function isAnswerCorrect(input) {
+
+    const row = Number(input.dataset.row);
+    const col = Number(input.dataset.col);
+
+    const tense = selectedTenses[row];
+
+    if (!tense) return null;
+
+    const value = input.value;
+
+    if (!value.trim()) return null;
+
+    if (col === 0) {
+
+        const user = normalize(value);
+
+        return tense.signals.some(signal =>
+            normalize(signal) === user
+        );
+
+    }
+
+    if (col === 1) {
+
+        const user = normalize(value);
+
+        return tense.rule
+            .split(/[•\/,]/)
+            .some(part => normalize(part) === user);
+
+    }
+
+    const column = selectedColumns[col - 2];
+
+    if (!column) return null;
+
+    const solution = buildAnswer(
+        column.verb.forms[tense.id][column.pronounIndex],
+        column,
+        tense,
+        input.dataset.sentenceType
+    );
+
+    const alternatives = [canonical(solution)];
+
+    if (solution.trim().endsWith("?")) {
+        alternatives.push(
+            canonical(solution.replace(/\?\s*$/, ""))
+        );
+    }
+
+    return alternatives.includes(canonical(normalize(value)));
+
+}
+
+document.addEventListener("focusout", event => {
+
+    const input = event.target;
+
+    if (!(input instanceof HTMLInputElement)) return;
+    if (!input.closest("#tenseTable")) return;
+
+    const result = isAnswerCorrect(input);
+
+    if (result === null) return;
+
+    input.classList.remove("flashOk", "flashBad");
+
+    void input.offsetWidth;
+
+    input.classList.add(result ? "flashOk" : "flashBad");
+
+    setTimeout(() => {
+        input.classList.remove("flashOk", "flashBad");
+    }, 900);
+
+});
