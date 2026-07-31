@@ -755,6 +755,716 @@ const verbPool = [
 },
 
 
+
+{
+    infinitive: "come",
+    type: "irregular",
+    forms: {
+        sp: [
+            "come",
+            "come",
+            "comes",
+            "come",
+            "come",
+            "come"
+        ],
+
+        pp: [
+            "am coming",
+            "are coming",
+            "is coming",
+            "are coming",
+            "are coming",
+            "are coming"
+        ],
+
+        spa: Array(6).fill("came"),
+
+        pap: [
+            "was coming",
+            "were coming",
+            "was coming",
+            "were coming",
+            "were coming",
+            "were coming"
+        ],
+
+        prp: [
+            "have come",
+            "have come",
+            "has come",
+            "have come",
+            "have come",
+            "have come"
+        ],
+
+        prpp: [
+            "have been coming",
+            "have been coming",
+            "has been coming",
+            "have been coming",
+            "have been coming",
+            "have been coming"
+        ],
+
+        plp: Array(6).fill("had come"),
+
+        plpp: Array(6).fill("had been coming"),
+
+        gtf: [
+            "am going to come",
+            "are going to come",
+            "is going to come",
+            "are going to come",
+            "are going to come",
+            "are going to come"
+        ],
+
+        wf: Array(6).fill("will come"),
+        fp: Array(6).fill("will be coming"),
+        fpe: Array(6).fill("will have come"),
+        fpp: Array(6).fill("will have been coming")
+    }
+},
+
+{
+    infinitive: "ask",
+    type: "regular",
+    forms: {
+        sp: [
+            "ask",
+            "ask",
+            "asks",
+            "ask",
+            "ask",
+            "ask"
+        ],
+
+        pp: [
+            "am asking",
+            "are asking",
+            "is asking",
+            "are asking",
+            "are asking",
+            "are asking"
+        ],
+
+        spa: Array(6).fill("asked"),
+
+        pap: [
+            "was asking",
+            "were asking",
+            "was asking",
+            "were asking",
+            "were asking",
+            "were asking"
+        ],
+
+        prp: [
+            "have asked",
+            "have asked",
+            "has asked",
+            "have asked",
+            "have asked",
+            "have asked"
+        ],
+
+        prpp: [
+            "have been asking",
+            "have been asking",
+            "has been asking",
+            "have been asking",
+            "have been asking",
+            "have been asking"
+        ],
+
+        plp: Array(6).fill("had asked"),
+
+        plpp: Array(6).fill("had been asking"),
+
+        gtf: [
+            "am going to ask",
+            "are going to ask",
+            "is going to ask",
+            "are going to ask",
+            "are going to ask",
+            "are going to ask"
+        ],
+
+        wf: Array(6).fill("will ask"),
+        fp: Array(6).fill("will be asking"),
+        fpe: Array(6).fill("will have asked"),
+        fpp: Array(6).fill("will have been asking")
+    }
+},
+
+{
+    infinitive: "answer",
+    type: "regular",
+    forms: {
+        sp: [
+            "answer",
+            "answer",
+            "answers",
+            "answer",
+            "answer",
+            "answer"
+        ],
+
+        pp: [
+            "am answering",
+            "are answering",
+            "is answering",
+            "are answering",
+            "are answering",
+            "are answering"
+        ],
+
+        spa: Array(6).fill("answered"),
+
+        pap: [
+            "was answering",
+            "were answering",
+            "was answering",
+            "were answering",
+            "were answering",
+            "were answering"
+        ],
+
+        prp: [
+            "have answered",
+            "have answered",
+            "has answered",
+            "have answered",
+            "have answered",
+            "have answered"
+        ],
+
+        prpp: [
+            "have been answering",
+            "have been answering",
+            "has been answering",
+            "have been answering",
+            "have been answering",
+            "have been answering"
+        ],
+
+        plp: Array(6).fill("had answered"),
+
+        plpp: Array(6).fill("had been answering"),
+
+        gtf: [
+            "am going to answer",
+            "are going to answer",
+            "is going to answer",
+            "are going to answer",
+            "are going to answer",
+            "are going to answer"
+        ],
+
+        wf: Array(6).fill("will answer"),
+        fp: Array(6).fill("will be answering"),
+        fpe: Array(6).fill("will have answered"),
+        fpp: Array(6).fill("will have been answering")
+    }
+},
+
+{
+    infinitive: "begin",
+    type: "irregular",
+    forms: {
+        sp: [
+            "begin",
+            "begin",
+            "begins",
+            "begin",
+            "begin",
+            "begin"
+        ],
+
+        pp: [
+            "am beginning",
+            "are beginning",
+            "is beginning",
+            "are beginning",
+            "are beginning",
+            "are beginning"
+        ],
+
+        spa: Array(6).fill("began"),
+
+        pap: [
+            "was beginning",
+            "were beginning",
+            "was beginning",
+            "were beginning",
+            "were beginning",
+            "were beginning"
+        ],
+
+        prp: [
+            "have begun",
+            "have begun",
+            "has begun",
+            "have begun",
+            "have begun",
+            "have begun"
+        ],
+
+        prpp: [
+            "have been beginning",
+            "have been beginning",
+            "has been beginning",
+            "have been beginning",
+            "have been beginning",
+            "have been beginning"
+        ],
+
+        plp: Array(6).fill("had begun"),
+
+        plpp: Array(6).fill("had been beginning"),
+
+        gtf: [
+            "am going to begin",
+            "are going to begin",
+            "is going to begin",
+            "are going to begin",
+            "are going to begin",
+            "are going to begin"
+        ],
+
+        wf: Array(6).fill("will begin"),
+        fp: Array(6).fill("will be beginning"),
+        fpe: Array(6).fill("will have begun"),
+        fpp: Array(6).fill("will have been beginning")
+    }
+},
+
+{
+    infinitive: "believe",
+    type: "regular",
+    forms: {
+        sp: [
+            "believe",
+            "believe",
+            "believes",
+            "believe",
+            "believe",
+            "believe"
+        ],
+
+        pp: [
+            "am believing",
+            "are believing",
+            "is believing",
+            "are believing",
+            "are believing",
+            "are believing"
+        ],
+
+        spa: Array(6).fill("believed"),
+
+        pap: [
+            "was believing",
+            "were believing",
+            "was believing",
+            "were believing",
+            "were believing",
+            "were believing"
+        ],
+
+        prp: [
+            "have believed",
+            "have believed",
+            "has believed",
+            "have believed",
+            "have believed",
+            "have believed"
+        ],
+
+        prpp: [
+            "have been believing",
+            "have been believing",
+            "has been believing",
+            "have been believing",
+            "have been believing",
+            "have been believing"
+        ],
+
+        plp: Array(6).fill("had believed"),
+
+        plpp: Array(6).fill("had been believing"),
+
+        gtf: [
+            "am going to believe",
+            "are going to believe",
+            "is going to believe",
+            "are going to believe",
+            "are going to believe",
+            "are going to believe"
+        ],
+
+        wf: Array(6).fill("will believe"),
+        fp: Array(6).fill("will be believing"),
+        fpe: Array(6).fill("will have believed"),
+        fpp: Array(6).fill("will have been believing")
+    }
+},
+
+{
+    infinitive: "close",
+    type: "regular",
+    forms: {
+        sp: [
+            "close",
+            "close",
+            "closes",
+            "close",
+            "close",
+            "close"
+        ],
+
+        pp: [
+            "am closing",
+            "are closing",
+            "is closing",
+            "are closing",
+            "are closing",
+            "are closing"
+        ],
+
+        spa: Array(6).fill("closed"),
+
+        pap: [
+            "was closing",
+            "were closing",
+            "was closing",
+            "were closing",
+            "were closing",
+            "were closing"
+        ],
+
+        prp: [
+            "have closed",
+            "have closed",
+            "has closed",
+            "have closed",
+            "have closed",
+            "have closed"
+        ],
+
+        prpp: [
+            "have been closing",
+            "have been closing",
+            "has been closing",
+            "have been closing",
+            "have been closing",
+            "have been closing"
+        ],
+
+        plp: Array(6).fill("had closed"),
+
+        plpp: Array(6).fill("had been closing"),
+
+        gtf: [
+            "am going to close",
+            "are going to close",
+            "is going to close",
+            "are going to close",
+            "are going to close",
+            "are going to close"
+        ],
+
+        wf: Array(6).fill("will close"),
+        fp: Array(6).fill("will be closing"),
+        fpe: Array(6).fill("will have closed"),
+        fpp: Array(6).fill("will have been closing")
+    }
+},
+
+{
+    infinitive: "cook",
+    type: "regular",
+    forms: {
+        sp: [
+            "cook",
+            "cook",
+            "cooks",
+            "cook",
+            "cook",
+            "cook"
+        ],
+
+        pp: [
+            "am cooking",
+            "are cooking",
+            "is cooking",
+            "are cooking",
+            "are cooking",
+            "are cooking"
+        ],
+
+        spa: Array(6).fill("cooked"),
+
+        pap: [
+            "was cooking",
+            "were cooking",
+            "was cooking",
+            "were cooking",
+            "were cooking",
+            "were cooking"
+        ],
+
+        prp: [
+            "have cooked",
+            "have cooked",
+            "has cooked",
+            "have cooked",
+            "have cooked",
+            "have cooked"
+        ],
+
+        prpp: [
+            "have been cooking",
+            "have been cooking",
+            "has been cooking",
+            "have been cooking",
+            "have been cooking",
+            "have been cooking"
+        ],
+
+        plp: Array(6).fill("had cooked"),
+
+        plpp: Array(6).fill("had been cooking"),
+
+        gtf: [
+            "am going to cook",
+            "are going to cook",
+            "is going to cook",
+            "are going to cook",
+            "are going to cook",
+            "are going to cook"
+        ],
+
+        wf: Array(6).fill("will cook"),
+        fp: Array(6).fill("will be cooking"),
+        fpe: Array(6).fill("will have cooked"),
+        fpp: Array(6).fill("will have been cooking")
+    }
+},
+
+{
+    infinitive: "call",
+    type: "regular",
+    forms: {
+        sp: [
+            "call",
+            "call",
+            "calls",
+            "call",
+            "call",
+            "call"
+        ],
+
+        pp: [
+            "am calling",
+            "are calling",
+            "is calling",
+            "are calling",
+            "are calling",
+            "are calling"
+        ],
+
+        spa: Array(6).fill("called"),
+
+        pap: [
+            "was calling",
+            "were calling",
+            "was calling",
+            "were calling",
+            "were calling",
+            "were calling"
+        ],
+
+        prp: [
+            "have called",
+            "have called",
+            "has called",
+            "have called",
+            "have called",
+            "have called"
+        ],
+
+        prpp: [
+            "have been calling",
+            "have been calling",
+            "has been calling",
+            "have been calling",
+            "have been calling",
+            "have been calling"
+        ],
+
+        plp: Array(6).fill("had called"),
+
+        plpp: Array(6).fill("had been calling"),
+
+        gtf: [
+            "am going to call",
+            "are going to call",
+            "is going to call",
+            "are going to call",
+            "are going to call",
+            "are going to call"
+        ],
+
+        wf: Array(6).fill("will call"),
+        fp: Array(6).fill("will be calling"),
+        fpe: Array(6).fill("will have called"),
+        fpp: Array(6).fill("will have been calling")
+    }
+},
+
+{
+    infinitive: "find",
+    type: "irregular",
+    forms: {
+        sp: [
+            "find",
+            "find",
+            "finds",
+            "find",
+            "find",
+            "find"
+        ],
+
+        pp: [
+            "am finding",
+            "are finding",
+            "is finding",
+            "are finding",
+            "are finding",
+            "are finding"
+        ],
+
+        spa: Array(6).fill("found"),
+
+        pap: [
+            "was finding",
+            "were finding",
+            "was finding",
+            "were finding",
+            "were finding",
+            "were finding"
+        ],
+
+        prp: [
+            "have found",
+            "have found",
+            "has found",
+            "have found",
+            "have found",
+            "have found"
+        ],
+
+        prpp: [
+            "have been finding",
+            "have been finding",
+            "has been finding",
+            "have been finding",
+            "have been finding",
+            "have been finding"
+        ],
+
+        plp: Array(6).fill("had found"),
+
+        plpp: Array(6).fill("had been finding"),
+
+        gtf: [
+            "am going to find",
+            "are going to find",
+            "is going to find",
+            "are going to find",
+            "are going to find",
+            "are going to find"
+        ],
+
+        wf: Array(6).fill("will find"),
+        fp: Array(6).fill("will be finding"),
+        fpe: Array(6).fill("will have found"),
+        fpp: Array(6).fill("will have been finding")
+    }
+},
+
+{
+    infinitive: "get",
+    type: "irregular",
+    forms: {
+        sp: [
+            "get",
+            "get",
+            "gets",
+            "get",
+            "get",
+            "get"
+        ],
+
+        pp: [
+            "am getting",
+            "are getting",
+            "is getting",
+            "are getting",
+            "are getting",
+            "are getting"
+        ],
+
+        spa: Array(6).fill("got"),
+
+        pap: [
+            "was getting",
+            "were getting",
+            "was getting",
+            "were getting",
+            "were getting",
+            "were getting"
+        ],
+
+        prp: [
+            "have got",
+            "have got",
+            "has got",
+            "have got",
+            "have got",
+            "have got"
+        ],
+
+        prpp: [
+            "have been getting",
+            "have been getting",
+            "has been getting",
+            "have been getting",
+            "have been getting",
+            "have been getting"
+        ],
+
+        plp: Array(6).fill("had got"),
+
+        plpp: Array(6).fill("had been getting"),
+
+        gtf: [
+            "am going to get",
+            "are going to get",
+            "is going to get",
+            "are going to get",
+            "are going to get",
+            "are going to get"
+        ],
+
+        wf: Array(6).fill("will get"),
+        fp: Array(6).fill("will be getting"),
+        fpe: Array(6).fill("will have got"),
+        fpp: Array(6).fill("will have been getting")
+    }
+},
 ];
 
 
