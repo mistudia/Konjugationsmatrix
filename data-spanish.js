@@ -369,6 +369,82 @@ const verbPool = [
             ["habré visto", "habrás visto", "habrá visto",
              "habremos visto", "habréis visto", "habrán visto"]
     }
+},
+
+{
+    infinitive: "ser",
+    type: "irregular",
+
+    forms: {
+        presente:
+            ["soy", "eres", "es", "somos", "sois", "son"],
+
+        estarGerundio:
+            ["estoy siendo", "estás siendo", "está siendo",
+             "estamos siendo", "estáis siendo", "están siendo"],
+
+        preteritoPerfecto:
+            ["he sido", "has sido", "ha sido",
+             "hemos sido", "habéis sido", "han sido"],
+
+        preteritoIndefinido:
+            ["fui", "fuiste", "fue",
+             "fuimos", "fuisteis", "fueron"],
+
+        preteritoImperfecto:
+            ["era", "eras", "era",
+             "éramos", "erais", "eran"],
+
+        pluscuamperfecto:
+            ["había sido", "habías sido", "había sido",
+             "habíamos sido", "habíais sido", "habían sido"],
+
+        futuroSimple:
+            ["seré", "serás", "será",
+             "seremos", "seréis", "serán"],
+
+        futuroPerfecto:
+            ["habré sido", "habrás sido", "habrá sido",
+             "habremos sido", "habréis sido", "habrán sido"]
+    }
+},
+
+{
+    infinitive: "estar",
+    type: "irregular",
+
+    forms: {
+        presente:
+            ["estoy", "estás", "está", "estamos", "estáis", "están"],
+
+        estarGerundio:
+            ["estoy estando", "estás estando", "está estando",
+             "estamos estando", "estáis estando", "están estando"],
+
+        preteritoPerfecto:
+            ["he estado", "has estado", "ha estado",
+             "hemos estado", "habéis estado", "han estado"],
+
+        preteritoIndefinido:
+            ["estuve", "estuviste", "estuvo",
+             "estuvimos", "estuvisteis", "estuvieron"],
+
+        preteritoImperfecto:
+            ["estaba", "estabas", "estaba",
+             "estábamos", "estabais", "estaban"],
+
+        pluscuamperfecto:
+            ["había estado", "habías estado", "había estado",
+             "habíamos estado", "habíais estado", "habían estado"],
+
+        futuroSimple:
+            ["estaré", "estarás", "estará",
+             "estaremos", "estaréis", "estarán"],
+
+        futuroPerfecto:
+            ["habré estado", "habrás estado", "habrá estado",
+             "habremos estado", "habréis estado", "habrán estado"]
+    }
 }
 
 ];

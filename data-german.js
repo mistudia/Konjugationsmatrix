@@ -605,6 +605,134 @@ const verbPool = [
 
     }
 
+},
+
+{
+    infinitive: "machen",
+    type: "regular",
+
+    forms: {
+
+        praesens: [
+            "mache",
+            "machst",
+            "macht",
+            "machen",
+            "macht",
+            "machen"
+        ],
+
+        perfekt: [
+            "habe gemacht",
+            "hast gemacht",
+            "hat gemacht",
+            "haben gemacht",
+            "habt gemacht",
+            "haben gemacht"
+        ],
+
+        praeteritum: [
+            "machte",
+            "machtest",
+            "machte",
+            "machten",
+            "machtet",
+            "machten"
+        ],
+
+        plusquamperfekt: [
+            "hatte gemacht",
+            "hattest gemacht",
+            "hatte gemacht",
+            "hatten gemacht",
+            "hattet gemacht",
+            "hatten gemacht"
+        ],
+
+        futur1: [
+            "werde machen",
+            "wirst machen",
+            "wird machen",
+            "werden machen",
+            "werdet machen",
+            "werden machen"
+        ],
+
+        futur2: [
+            "werde gemacht haben",
+            "wirst gemacht haben",
+            "wird gemacht haben",
+            "werden gemacht haben",
+            "werdet gemacht haben",
+            "werden gemacht haben"
+        ]
+
+    }
+
+},
+
+{
+    infinitive: "brauchen",
+    type: "regular",
+
+    forms: {
+
+        praesens: [
+            "brauche",
+            "brauchst",
+            "braucht",
+            "brauchen",
+            "braucht",
+            "brauchen"
+        ],
+
+        perfekt: [
+            "habe gebraucht",
+            "hast gebraucht",
+            "hat gebraucht",
+            "haben gebraucht",
+            "habt gebraucht",
+            "haben gebraucht"
+        ],
+
+        praeteritum: [
+            "brauchte",
+            "brauchtest",
+            "brauchte",
+            "brauchten",
+            "brauchtet",
+            "brauchten"
+        ],
+
+        plusquamperfekt: [
+            "hatte gebraucht",
+            "hattest gebraucht",
+            "hatte gebraucht",
+            "hatten gebraucht",
+            "hattet gebraucht",
+            "hatten gebraucht"
+        ],
+
+        futur1: [
+            "werde brauchen",
+            "wirst brauchen",
+            "wird brauchen",
+            "werden brauchen",
+            "werdet brauchen",
+            "werden brauchen"
+        ],
+
+        futur2: [
+            "werde gebraucht haben",
+            "wirst gebraucht haben",
+            "wird gebraucht haben",
+            "werden gebraucht haben",
+            "werdet gebraucht haben",
+            "werden gebraucht haben"
+        ]
+
+    }
+
 }
 
 ];

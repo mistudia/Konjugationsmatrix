@@ -63,6 +63,10 @@ let selectedTenses = [];
 let selectedColumns = [];
 let cells = [];
 
+let singleTenseMode = false;
+let singleTenseVerbs = [];
+let singleTenseTense = null;
+
 
 /* ===========================================================
    LANGUAGE
@@ -130,7 +134,8 @@ const uiStrings = {
         correctLabel: "Correct:",
         percentageLabel: "Percentage:",
         alertNoTense: "Please select at least one tense.",
-        alertNotEnoughVerbs: "Please select enough verbs for this exercise."
+        alertNotEnoughVerbs: "Please select enough verbs for this exercise.",
+        singleTenseHint: "Only one tense selected: practice up to 10 verbs side by side instead, compared by pronoun."
     },
 
     de: {
@@ -171,7 +176,8 @@ const uiStrings = {
         correctLabel: "Richtig:",
         percentageLabel: "Prozent:",
         alertNoTense: "Bitte wähle mindestens eine Zeitform aus.",
-        alertNotEnoughVerbs: "Bitte wähle genügend Verben für diese Übung aus."
+        alertNotEnoughVerbs: "Bitte wähle genügend Verben für diese Übung aus.",
+        singleTenseHint: "Nur eine Zeitform ausgewählt: stattdessen bis zu 10 Verben nebeneinander üben, verglichen nach Pronomen."
     },
 
     es: {
@@ -212,7 +218,8 @@ const uiStrings = {
         correctLabel: "Correctas:",
         percentageLabel: "Porcentaje:",
         alertNoTense: "Selecciona al menos un tiempo verbal.",
-        alertNotEnoughVerbs: "Selecciona suficientes verbos para este ejercicio."
+        alertNotEnoughVerbs: "Selecciona suficientes verbos para este ejercicio.",
+        singleTenseHint: "Solo un tiempo seleccionado: practica hasta 10 verbos en paralelo, comparados por pronombre."
     }
 
 };
@@ -307,8 +314,8 @@ languageSelect.addEventListener("change", () => {
 
 const defaultTensesByLanguage = {
     en: ["sp", "spa"],
-    de: ["praesens", "praeteritum"],
-    es: ["presente", "preteritoIndefinido"]
+    de: ["praesens"],
+    es: ["presente"]
 };
 
 const defaultTenses =
@@ -361,6 +368,7 @@ tenseDropdownBtn.addEventListener("click", () => {
 tenseSelection.addEventListener("change", () => {
 
     updateTenseDropdownLabel();
+    updateVerbCountOptions();
 
 });
 
@@ -413,6 +421,7 @@ selectAllBtn.addEventListener("click", () => {
         .forEach(cb => cb.checked = true);
 
     updateTenseDropdownLabel();
+    updateVerbCountOptions();
 
 });
 
@@ -423,6 +432,7 @@ selectNoneBtn.addEventListener("click", () => {
         .forEach(cb => cb.checked = false);
 
     updateTenseDropdownLabel();
+    updateVerbCountOptions();
 
 });
 
@@ -471,6 +481,7 @@ importantBtn.addEventListener("click", () => {
         });
 
     updateTenseDropdownLabel();
+    updateVerbCountOptions();
 
 });
 
@@ -668,10 +679,17 @@ function updateVerbCountOptions() {
 
     const type = exerciseTypeSelect.value;
 
+    const checkedTenses =
+        tenseSelection.querySelectorAll("input:checked").length;
+
+    const previousValue = verbCountSelect.value;
+
     const values =
-        type === "complete"
-            ? [1, 2, 3]
-            : [3, 6];
+        checkedTenses === 1
+            ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            : type === "complete"
+                ? [1, 2, 3]
+                : [3, 6];
 
     verbCountSelect.innerHTML = "";
 
@@ -685,6 +703,27 @@ function updateVerbCountOptions() {
         verbCountSelect.appendChild(option);
 
     });
+
+    if (values.includes(Number(previousValue))) {
+        verbCountSelect.value = previousValue;
+    }
+
+    updateSingleTenseHint(checkedTenses);
+
+}
+
+function updateSingleTenseHint(checkedTenses) {
+
+    const hintEl = document.getElementById("singleTenseHint");
+
+    if (!hintEl) return;
+
+    if (checkedTenses === 1) {
+        hintEl.textContent = ui.singleTenseHint;
+        hintEl.style.display = "block";
+    } else {
+        hintEl.style.display = "none";
+    }
 
 }
 
@@ -870,6 +909,23 @@ updateVerbDropdownLabel();
 
 
 /* ===========================================================
+   VOREINSTELLUNGEN FÜR DEUTSCH / SPANISCH
+   Nur eine Zeitform (Präsens/Presente), Aussagesätze,
+   vollständige Verbformen, 10 Verben.
+=========================================================== */
+
+if (currentLanguage === "de" || currentLanguage === "es") {
+
+    sentenceTypeSelect.value = "statement";
+
+    if ([...verbCountSelect.options].some(o => o.value === "10")) {
+        verbCountSelect.value = "10";
+    }
+
+}
+
+
+/* ===========================================================
    START EXERCISE
 =========================================================== */
 
@@ -897,6 +953,22 @@ startBtn.addEventListener("click", () => {
     if (selectedTenses.length === 0) {
 
         alert(ui.alertNoTense);
+
+        return;
+
+    }
+
+    singleTenseMode = selectedTenses.length === 1;
+
+    if (singleTenseMode) {
+
+        singleTenseTense = selectedTenses[0];
+
+        const ok = buildSingleTenseTable(singleTenseTense);
+
+        if (!ok) return;
+
+        exercise.style.display = "block";
 
         return;
 
@@ -953,6 +1025,145 @@ if (!selectedColumns) {
 
 
 /* ===========================================================
+   EINZELNE ZEITFORM: VERB × PRONOMEN
+   Wenn genau eine Zeitform gewählt ist, lohnt sich statt der
+   normalen Tabelle (1 Zeile, viele verstreute Spalten) eine
+   kompakte Vergleichstabelle: Zeilen = Verben, Spalten =
+   Pronomen. Tiempo-Spalte, Infinitiv-Zeile sowie Signalwort-/
+   Verwendungs-Spalten entfallen dabei.
+=========================================================== */
+
+function buildSingleTenseTable(tense) {
+
+    const count = Number(verbCountSelect.value);
+    const verbs = getAvailableVerbs().slice(0, count);
+
+    if (verbs.length < count) {
+
+        alert(ui.alertNotEnoughVerbs);
+
+        return false;
+
+    }
+
+    singleTenseVerbs = verbs;
+
+    headerRow.innerHTML = "";
+    tableBody.innerHTML = "";
+    cells = [];
+
+    // Die normale Tabelle nutzt width:max-content, damit sie bei
+    // vielen Verb-Spalten horizontal scrollen kann. Hier gibt es
+    // aber nur "Infinitiv" + Pronomen-Spalten, also darf/soll die
+    // Tabelle die volle Breite des Wrappers ausfüllen, statt
+    // Leerraum rechts stehen zu lassen.
+    const table = document.getElementById("tenseTable");
+    table.style.width = "100%";
+
+    const pronounWidthPercent = 78 / languageConfig.pronouns.length;
+
+    const first = document.createElement("th");
+    first.textContent = ui.infinitiveLabel;
+    first.style.width = "22%";
+    headerRow.appendChild(first);
+
+    languageConfig.pronouns.forEach(pronoun => {
+
+        const th = document.createElement("th");
+        th.textContent = pronoun;
+
+        // Die generischen :first-child/:last-child-Regeln im CSS
+        // sind für die frühere Zeitform-/Verwendungs-Spalte
+        // gedacht. In dieser Tabelle sind alle Pronomen-Spalten
+        // gleichwertig, daher hier einheitlich zurücksetzen.
+        th.style.width = pronounWidthPercent + "%";
+        th.style.minWidth = "110px";
+        th.style.background = "#4FADEA";
+
+        headerRow.appendChild(th);
+
+    });
+
+    verbs.forEach((verb, row) => {
+
+        const tr = document.createElement("tr");
+
+        const infTd = document.createElement("td");
+        infTd.innerHTML = `<strong>${verb.infinitive}</strong>`;
+        infTd.style.background = "#FFFF00";
+        tr.appendChild(infTd);
+
+        cells[row] = [];
+
+        languageConfig.pronouns.forEach((pronoun, col) => {
+
+            const td = document.createElement("td");
+            td.style.background = "white";
+
+            const input = document.createElement("input");
+
+            input.type = "text";
+            input.dataset.row = row;
+            input.dataset.col = col;
+
+            const sentenceType =
+                sentenceTypeSelect.value === "mixed"
+                    ? ["statement", "negative", "question"][
+                          Math.floor(Math.random() * 3)
+                      ]
+                    : sentenceTypeSelect.value;
+
+            input.dataset.sentenceType = sentenceType;
+
+            const wrap = document.createElement("div");
+            wrap.className = "cellInline";
+
+            const mode = document.createElement("span");
+
+            if (sentenceType === "statement") {
+                mode.textContent = "(+)";
+                mode.className = "sentenceMode sentencePlus";
+            }
+
+            if (sentenceType === "negative") {
+                mode.textContent = "(-)";
+                mode.className = "sentenceMode sentenceMinus";
+            }
+
+            if (sentenceType === "question") {
+                mode.textContent = "(?)";
+                mode.className = "sentenceMode sentenceQuestion";
+            }
+
+            wrap.appendChild(mode);
+            wrap.appendChild(input);
+            td.appendChild(wrap);
+            tr.appendChild(td);
+
+            cells[row][col] = input;
+
+        });
+
+        tableBody.appendChild(tr);
+
+    });
+
+    const caption = document.getElementById("singleTenseCaption");
+
+    if (caption) {
+        caption.textContent = tense.name;
+        caption.style.display = "block";
+    }
+
+    answersVisible = false;
+    solutionBtn.textContent = ui.showAnswers;
+
+    return true;
+
+}
+
+
+/* ===========================================================
    CREATE TABLE
 =========================================================== */
 
@@ -993,6 +1204,12 @@ function createTable() {
     headerRow.innerHTML = "";
     tableBody.innerHTML = "";
     cells = [];
+
+    const caption = document.getElementById("singleTenseCaption");
+    if (caption) caption.style.display = "none";
+
+    const table = document.getElementById("tenseTable");
+    table.style.width = "";
 
     /* HEADER */
 
@@ -1719,9 +1936,14 @@ let answersVisible = false;
 
 function checkAnswers() {
 
+    if (singleTenseMode) {
+        checkSingleTenseAnswers();
+        return;
+    }
+
     clearSolutions();
 answersVisible = false;
-solutionBtn.textContent = "💡 Show Answers";
+solutionBtn.textContent = ui.showAnswers;
 
     let correct = 0;
 
@@ -1830,6 +2052,57 @@ if(correct===total && total>0){
 
 }
 
+function checkSingleTenseAnswers() {
+
+    clearSolutions();
+    answersVisible = false;
+    solutionBtn.textContent = ui.showAnswers;
+
+    let correct = 0;
+    let total = 0;
+
+    cells.forEach((row, rowIndex) => {
+
+        row.forEach((input, colIndex) => {
+
+            input.classList.remove("correct", "wrong");
+
+            total++;
+
+            const column = {
+                pronoun: languageConfig.pronouns[colIndex],
+                pronounIndex: colIndex,
+                verb: singleTenseVerbs[rowIndex],
+                sentenceType: input.dataset.sentenceType
+            };
+
+            const alternatives = buildAlternatives(
+                column,
+                singleTenseTense,
+                input.dataset.sentenceType
+            );
+
+            const user = normalize(input.value);
+
+            if (alternatives.includes(canonical(user))) {
+                input.classList.add("correct");
+                correct++;
+            } else {
+                input.classList.add("wrong");
+            }
+
+        });
+
+    });
+
+    updateStatistics(correct, total);
+
+    if (correct === total && total > 0) {
+        jubelChoreo();
+    }
+
+}
+
 function clearMarks() {
 
     document
@@ -1891,6 +2164,14 @@ function resetExercise() {
 
     });
 
+    if (singleTenseMode) {
+
+        const total = singleTenseVerbs.length * languageConfig.pronouns.length;
+        updateStatistics(0, total);
+        return;
+
+    }
+
     const total =
         selectedTenses.length *
         (selectedColumns.length + 2);
@@ -1905,7 +2186,57 @@ function resetExercise() {
    REVEAL
 =========================================================== */
 
+function revealSingleTenseAnswers() {
+
+    if (!answersVisible) {
+
+        clearSolutions();
+
+        cells.forEach((row, rowIndex) => {
+
+            row.forEach((input, colIndex) => {
+
+                const column = {
+                    pronoun: languageConfig.pronouns[colIndex],
+                    pronounIndex: colIndex,
+                    verb: singleTenseVerbs[rowIndex],
+                    sentenceType: input.dataset.sentenceType
+                };
+
+                showSolution(
+                    input,
+                    buildAnswer(
+                        column.verb.forms[singleTenseTense.id][column.pronounIndex],
+                        column,
+                        singleTenseTense,
+                        input.dataset.sentenceType
+                    )
+                );
+
+            });
+
+        });
+
+        solutionBtn.textContent = ui.hideAnswers;
+        answersVisible = true;
+
+    } else {
+
+        clearSolutions();
+
+        solutionBtn.textContent = ui.showAnswers;
+        answersVisible = false;
+
+    }
+
+}
+
 function revealAnswers(){
+
+    if (singleTenseMode) {
+        revealSingleTenseAnswers();
+        return;
+    }
 
     if(!answersVisible){
 
@@ -2196,13 +2527,32 @@ function isAnswerCorrect(input) {
     const row = Number(input.dataset.row);
     const col = Number(input.dataset.col);
 
-    const tense = selectedTenses[row];
-
-    if (!tense) return null;
-
     const value = input.value;
 
     if (!value.trim()) return null;
+
+    if (singleTenseMode) {
+
+        const column = {
+            pronoun: languageConfig.pronouns[col],
+            pronounIndex: col,
+            verb: singleTenseVerbs[row],
+            sentenceType: input.dataset.sentenceType
+        };
+
+        const alternatives = buildAlternatives(
+            column,
+            singleTenseTense,
+            input.dataset.sentenceType
+        );
+
+        return alternatives.includes(canonical(normalize(value)));
+
+    }
+
+    const tense = selectedTenses[row];
+
+    if (!tense) return null;
 
     if (col === 0) {
 
