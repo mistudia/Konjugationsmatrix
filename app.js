@@ -135,7 +135,8 @@ const uiStrings = {
         percentageLabel: "Percentage:",
         alertNoTense: "Please select at least one tense.",
         alertNotEnoughVerbs: "Please select enough verbs for this exercise.",
-        singleTenseHint: "Only one tense selected: practice up to 10 verbs side by side instead, compared by pronoun."
+        singleTenseHint: "Only one tense selected: practice up to 10 verbs side by side instead, compared by pronoun.",
+        allVerbsLabel: "All"
     },
 
     de: {
@@ -177,7 +178,8 @@ const uiStrings = {
         percentageLabel: "Prozent:",
         alertNoTense: "Bitte wähle mindestens eine Zeitform aus.",
         alertNotEnoughVerbs: "Bitte wähle genügend Verben für diese Übung aus.",
-        singleTenseHint: "Nur eine Zeitform ausgewählt: stattdessen bis zu 10 Verben nebeneinander üben, verglichen nach Pronomen."
+        singleTenseHint: "Nur eine Zeitform ausgewählt: stattdessen bis zu 10 Verben nebeneinander üben, verglichen nach Pronomen.",
+        allVerbsLabel: "Alle"
     },
 
     es: {
@@ -219,7 +221,8 @@ const uiStrings = {
         percentageLabel: "Porcentaje:",
         alertNoTense: "Selecciona al menos un tiempo verbal.",
         alertNotEnoughVerbs: "Selecciona suficientes verbos para este ejercicio.",
-        singleTenseHint: "Solo un tiempo seleccionado: practica hasta 10 verbos en paralelo, comparados por pronombre."
+        singleTenseHint: "Solo un tiempo seleccionado: practica hasta 10 verbos en paralelo, comparados por pronombre.",
+        allVerbsLabel: "Todos"
     }
 
 };
@@ -686,7 +689,7 @@ function updateVerbCountOptions() {
 
     const values =
         checkedTenses === 1
-            ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "all"]
             : type === "complete"
                 ? [1, 2, 3]
                 : [3, 6];
@@ -698,13 +701,13 @@ function updateVerbCountOptions() {
         const option = document.createElement("option");
 
         option.value = value;
-        option.textContent = value;
+        option.textContent = value === "all" ? ui.allVerbsLabel : value;
 
         verbCountSelect.appendChild(option);
 
     });
 
-    if (values.includes(Number(previousValue))) {
+    if (values.includes(previousValue === "all" ? "all" : Number(previousValue))) {
         verbCountSelect.value = previousValue;
     }
 
@@ -1035,10 +1038,12 @@ if (!selectedColumns) {
 
 function buildSingleTenseTable(tense) {
 
-    const count = Number(verbCountSelect.value);
-    const verbs = getAvailableVerbs().slice(0, count);
+    const useAll = verbCountSelect.value === "all";
+    const availableVerbs = getAvailableVerbs();
+    const count = useAll ? availableVerbs.length : Number(verbCountSelect.value);
+    const verbs = availableVerbs.slice(0, count);
 
-    if (verbs.length < count) {
+    if (verbs.length === 0 || (!useAll && verbs.length < count)) {
 
         alert(ui.alertNotEnoughVerbs);
 
