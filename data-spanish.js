@@ -445,6 +445,129 @@ const verbPool = [
             ["habré estado", "habrás estado", "habrá estado",
              "habremos estado", "habréis estado", "habrán estado"]
     }
+},
+
+{
+    infinitive: "trabajar",
+    type: "regular",
+
+    forms: {
+        presente:
+            ["trabajo", "trabajas", "trabaja",
+             "trabajamos", "trabajáis", "trabajan"],
+
+        estarGerundio:
+            ["estoy trabajando", "estás trabajando", "está trabajando",
+             "estamos trabajando", "estáis trabajando", "están trabajando"],
+
+        preteritoPerfecto:
+            ["he trabajado", "has trabajado", "ha trabajado",
+             "hemos trabajado", "habéis trabajado", "han trabajado"],
+
+        preteritoIndefinido:
+            ["trabajé", "trabajaste", "trabajó",
+             "trabajamos", "trabajasteis", "trabajaron"],
+
+        preteritoImperfecto:
+            ["trabajaba", "trabajabas", "trabajaba",
+             "trabajábamos", "trabajabais", "trabajaban"],
+
+        pluscuamperfecto:
+            ["había trabajado", "habías trabajado", "había trabajado",
+             "habíamos trabajado", "habíais trabajado", "habían trabajado"],
+
+        futuroSimple:
+            ["trabajaré", "trabajarás", "trabajará",
+             "trabajaremos", "trabajaréis", "trabajarán"],
+
+        futuroPerfecto:
+            ["habré trabajado", "habrás trabajado", "habrá trabajado",
+             "habremos trabajado", "habréis trabajado", "habrán trabajado"]
+    }
+},
+
+{
+    infinitive: "comprender",
+    type: "regular",
+
+    forms: {
+        presente:
+            ["comprendo", "comprendes", "comprende",
+             "comprendemos", "comprendéis", "comprenden"],
+
+        estarGerundio:
+            ["estoy comprendiendo", "estás comprendiendo", "está comprendiendo",
+             "estamos comprendiendo", "estáis comprendiendo", "están comprendiendo"],
+
+        preteritoPerfecto:
+            ["he comprendido", "has comprendido", "ha comprendido",
+             "hemos comprendido", "habéis comprendido", "han comprendido"],
+
+        preteritoIndefinido:
+            ["comprendí", "comprendiste", "comprendió",
+             "comprendimos", "comprendisteis", "comprendieron"],
+
+        preteritoImperfecto:
+            ["comprendía", "comprendías", "comprendía",
+             "comprendíamos", "comprendíais", "comprendían"],
+
+        pluscuamperfecto:
+            ["había comprendido", "habías comprendido", "había comprendido",
+             "habíamos comprendido", "habíais comprendido", "habían comprendido"],
+
+        futuroSimple:
+            ["comprenderé", "comprenderás", "comprenderá",
+             "comprenderemos", "comprenderéis", "comprenderán"],
+
+        futuroPerfecto:
+            ["habré comprendido", "habrás comprendido", "habrá comprendido",
+             "habremos comprendido", "habréis comprendido", "habrán comprendido"]
+    }
+},
+
+{
+    infinitive: "llamarse",
+    type: "irregular",
+
+    forms: {
+
+        /* Reflexives Verb: das Reflexivpronomen (me/te/se/nos/os/se)
+           ist bereits Teil der gespeicherten Form, sodass die
+           bestehende Prüf-/Verneinungs-/Fragenlogik unverändert
+           funktioniert ("no me llamo", "yo me llamo" usw.). */
+
+        presente:
+            ["me llamo", "te llamas", "se llama",
+             "nos llamamos", "os llamáis", "se llaman"],
+
+        estarGerundio:
+            ["me estoy llamando", "te estás llamando", "se está llamando",
+             "nos estamos llamando", "os estáis llamando", "se están llamando"],
+
+        preteritoPerfecto:
+            ["me he llamado", "te has llamado", "se ha llamado",
+             "nos hemos llamado", "os habéis llamado", "se han llamado"],
+
+        preteritoIndefinido:
+            ["me llamé", "te llamaste", "se llamó",
+             "nos llamamos", "os llamasteis", "se llamaron"],
+
+        preteritoImperfecto:
+            ["me llamaba", "te llamabas", "se llamaba",
+             "nos llamábamos", "os llamabais", "se llamaban"],
+
+        pluscuamperfecto:
+            ["me había llamado", "te habías llamado", "se había llamado",
+             "nos habíamos llamado", "os habíais llamado", "se habían llamado"],
+
+        futuroSimple:
+            ["me llamaré", "te llamarás", "se llamará",
+             "nos llamaremos", "os llamaréis", "se llamarán"],
+
+        futuroPerfecto:
+            ["me habré llamado", "te habrás llamado", "se habrá llamado",
+             "nos habremos llamado", "os habréis llamado", "se habrán llamado"]
+    }
 }
 
 ];
