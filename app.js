@@ -589,7 +589,7 @@ verbSelectionSelect.addEventListener("change", () => {
 
     verbChooser.style.display =
         verbSelectionSelect.value === "choose"
-            ? "block"
+            ? "flex"
             : "none";
 
     if (verbSelectionSelect.value !== "choose") {

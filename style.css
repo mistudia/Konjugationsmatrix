@@ -510,6 +510,14 @@ select{
 
 .verbChooser {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.verbChooserLabel {
+    visibility: hidden;
+    font-weight: bold;
 }
 
 .verbDropdownBtn {
