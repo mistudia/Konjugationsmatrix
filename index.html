@@ -39,7 +39,7 @@
 
 <div class="languageSelection">
 
-    <label id="languageLabel" for="languageSelect">Language:</label>
+    <label for="languageSelect">Language:</label>
 
     <select id="languageSelect">
         <option value="en">🇺🇸 English</option>
@@ -57,7 +57,7 @@
 
 <section id="filter">
 
-    <h2 id="selectTensesTitle">Select tenses</h2>
+    <h2>Select tenses</h2>
 
     <div class="tenseDropdown">
 
@@ -110,7 +110,7 @@
 
  <div class="optionGroup">
 
-    <label id="exerciseTypeLabel" for="exerciseTypeSelect">
+    <label for="exerciseTypeSelect">
         Exercise type:
     </label>
 
@@ -124,7 +124,7 @@
 
 <div class="optionGroup">
 
-    <label id="sentenceTypeLabel" for="sentenceTypeSelect">
+    <label for="sentenceTypeSelect">
         Sentence type:
     </label>
 
@@ -139,7 +139,7 @@
 
 <div class="optionGroup">
 
-    <label id="numberOfVerbsLabel" for="verbCountSelect">
+    <label for="verbCountSelect">
         Number of verbs:
     </label>
 
@@ -149,7 +149,7 @@
 
     <div class="optionGroup">
 
-        <label id="verbSelectionLabel">Verb selection:</label>
+        <label>Verb selection:</label>
 
         <div class="segmented" id="verbSelectionSegmented">
 
@@ -229,7 +229,6 @@
 
 </div>
 
-<p id="singleTenseHint" style="display:none;font-size:13px;color:#5b6b83;margin:-4px 0 16px;"></p>
 
     <button id="startBtn" type="button">
         Start Exercise
@@ -242,7 +241,7 @@
 
     <section id="exercise" style="display:none;">
 
-        <h2 id="singleTenseCaption" style="display:none;"></h2>
+        <div class="answerLegend" id="answerLegend"></div>
 
         <div class="topScroll" id="topScroll">
             <div id="topScrollInner"></div>
@@ -287,11 +286,11 @@
 
         <div id="statistics">
 
-            <h2 id="resultTitle">Result</h2>
+            <h2>Result</h2>
 
             <p>
 
-                <span id="correctLabel">Correct:</span>
+                Correct:
 
                 <span id="score">
 
@@ -303,7 +302,7 @@
 
             <p>
 
-                <span id="percentageLabel">Percentage:</span>
+                Percentage:
 
                 <span id="percent">
 

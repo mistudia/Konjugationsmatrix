@@ -63,10 +63,6 @@ let selectedTenses = [];
 let selectedColumns = [];
 let cells = [];
 
-let singleTenseMode = false;
-let singleTenseVerbs = [];
-let singleTenseTense = null;
-
 
 /* ===========================================================
    LANGUAGE
@@ -89,216 +85,6 @@ const pageTitles = {
 pageTitle.textContent =
     pageTitles[currentLanguage] || pageTitles.en;
 
-
-/* ===========================================================
-   UI TRANSLATIONS (Menü, Buttons, Tabellenkopf, Meldungen)
-=========================================================== */
-
-const uiStrings = {
-
-    en: {
-        languageLabel: "Language:",
-        selectTensesTitle: "Select tenses",
-        tenseDropdownDefault: "Select tenses ▼",
-        tenseDropdownSelected: n => `${n} tenses selected ▼`,
-        selectAll: "Select All",
-        selectNone: "Select None",
-        importantTenses: "Important Tenses",
-        done: "✓ Done",
-        exerciseTypeLabel: "Exercise type:",
-        exerciseTypeMixed: "Mixed verbs",
-        exerciseTypeComplete: "Complete verb forms",
-        exerciseTypeExam: "Exam Mode",
-        sentenceTypeLabel: "Sentence type:",
-        sentenceStatements: "Statements (+)",
-        sentenceNegatives: "Negatives (–)",
-        sentenceQuestions: "Questions (?)",
-        sentenceMixed: "Mixed (+ / – / ?)",
-        numberOfVerbsLabel: "Number of verbs:",
-        verbSelectionLabel: "Verb selection:",
-        randomVerbs: "🎲 Random verbs",
-        chooseVerbs: "✎ Choose verbs",
-        chooseVerbsDropdown: "Choose verbs ▼",
-        verbsSelected: n => `${n} verbs selected ▼`,
-        searchVerbPlaceholder: "Search verb...",
-        startExercise: "Start Exercise",
-        tenseColumnHeader: "Tense",
-        infinitiveLabel: "Infinitive",
-        signalWordHeader: "Signal word(s)",
-        usageHeader: "Usage",
-        checkAnswers: "✔ Check Answers",
-        hideMarks: "✖ Hide Marks",
-        showAnswers: "💡 Show Answers",
-        hideAnswers: "🙈 Hide Answers",
-        resultTitle: "Result",
-        correctLabel: "Correct:",
-        percentageLabel: "Percentage:",
-        alertNoTense: "Please select at least one tense.",
-        alertNotEnoughVerbs: "Please select enough verbs for this exercise.",
-        singleTenseHint: "Only one tense selected: practice up to 10 verbs side by side instead, compared by pronoun.",
-        allVerbsLabel: "All"
-    },
-
-    de: {
-        languageLabel: "Sprache:",
-        selectTensesTitle: "Zeitformen auswählen",
-        tenseDropdownDefault: "Zeitformen wählen ▼",
-        tenseDropdownSelected: n => `${n} Zeitformen ausgewählt ▼`,
-        selectAll: "Alle auswählen",
-        selectNone: "Keine auswählen",
-        importantTenses: "Wichtige Zeitformen",
-        done: "✓ Fertig",
-        exerciseTypeLabel: "Übungstyp:",
-        exerciseTypeMixed: "Gemischte Verben",
-        exerciseTypeComplete: "Vollständige Verbformen",
-        exerciseTypeExam: "Prüfungsmodus",
-        sentenceTypeLabel: "Satzart:",
-        sentenceStatements: "Aussagesätze (+)",
-        sentenceNegatives: "Verneinte Sätze (–)",
-        sentenceQuestions: "Fragesätze (?)",
-        sentenceMixed: "Gemischt (+ / – / ?)",
-        numberOfVerbsLabel: "Anzahl Verben:",
-        verbSelectionLabel: "Verbenauswahl:",
-        randomVerbs: "🎲 Zufällige Verben",
-        chooseVerbs: "✎ Verben wählen",
-        chooseVerbsDropdown: "Verben wählen ▼",
-        verbsSelected: n => `${n} Verben ausgewählt ▼`,
-        searchVerbPlaceholder: "Verb suchen...",
-        startExercise: "Übung starten",
-        tenseColumnHeader: "Zeitform",
-        infinitiveLabel: "Infinitiv",
-        signalWordHeader: "Signalwort/-wörter",
-        usageHeader: "Verwendung",
-        checkAnswers: "✔ Antworten prüfen",
-        hideMarks: "✖ Markierungen ausblenden",
-        showAnswers: "💡 Lösungen anzeigen",
-        hideAnswers: "🙈 Lösungen ausblenden",
-        resultTitle: "Ergebnis",
-        correctLabel: "Richtig:",
-        percentageLabel: "Prozent:",
-        alertNoTense: "Bitte wähle mindestens eine Zeitform aus.",
-        alertNotEnoughVerbs: "Bitte wähle genügend Verben für diese Übung aus.",
-        singleTenseHint: "Nur eine Zeitform ausgewählt: stattdessen bis zu 10 Verben nebeneinander üben, verglichen nach Pronomen.",
-        allVerbsLabel: "Alle"
-    },
-
-    es: {
-        languageLabel: "Idioma:",
-        selectTensesTitle: "Selecciona los tiempos",
-        tenseDropdownDefault: "Seleccionar tiempos ▼",
-        tenseDropdownSelected: n => `${n} tiempos seleccionados ▼`,
-        selectAll: "Seleccionar todo",
-        selectNone: "Deseleccionar todo",
-        importantTenses: "Tiempos importantes",
-        done: "✓ Listo",
-        exerciseTypeLabel: "Tipo de ejercicio:",
-        exerciseTypeMixed: "Verbos mixtos",
-        exerciseTypeComplete: "Formas verbales completas",
-        exerciseTypeExam: "Modo examen",
-        sentenceTypeLabel: "Tipo de oración:",
-        sentenceStatements: "Afirmaciones (+)",
-        sentenceNegatives: "Negaciones (–)",
-        sentenceQuestions: "Preguntas (?)",
-        sentenceMixed: "Mixto (+ / – / ?)",
-        numberOfVerbsLabel: "Número de verbos:",
-        verbSelectionLabel: "Selección de verbos:",
-        randomVerbs: "🎲 Verbos aleatorios",
-        chooseVerbs: "✎ Elegir verbos",
-        chooseVerbsDropdown: "Elegir verbos ▼",
-        verbsSelected: n => `${n} verbos seleccionados ▼`,
-        searchVerbPlaceholder: "Buscar verbo...",
-        startExercise: "Empezar ejercicio",
-        tenseColumnHeader: "Tiempo",
-        infinitiveLabel: "Infinitivo",
-        signalWordHeader: "Palabra(s) señal",
-        usageHeader: "Uso",
-        checkAnswers: "✔ Comprobar respuestas",
-        hideMarks: "✖ Ocultar marcas",
-        showAnswers: "💡 Mostrar respuestas",
-        hideAnswers: "🙈 Ocultar respuestas",
-        resultTitle: "Resultado",
-        correctLabel: "Correctas:",
-        percentageLabel: "Porcentaje:",
-        alertNoTense: "Selecciona al menos un tiempo verbal.",
-        alertNotEnoughVerbs: "Selecciona suficientes verbos para este ejercicio.",
-        singleTenseHint: "Solo un tiempo seleccionado: practica hasta 10 verbos en paralelo, comparados por pronombre.",
-        allVerbsLabel: "Todos"
-    }
-
-};
-
-const ui = uiStrings[currentLanguage] || uiStrings.en;
-
-function applyUITranslations() {
-
-    const setText = (id, text) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-    };
-
-    setText("languageLabel", ui.languageLabel);
-    setText("selectTensesTitle", ui.selectTensesTitle);
-    setText("selectAllBtn", ui.selectAll);
-    setText("selectNoneBtn", ui.selectNone);
-    setText("importantBtn", ui.importantTenses);
-    setText("tenseDoneBtn", ui.done);
-
-    setText("exerciseTypeLabel", ui.exerciseTypeLabel);
-    setText("sentenceTypeLabel", ui.sentenceTypeLabel);
-    setText("numberOfVerbsLabel", ui.numberOfVerbsLabel);
-    setText("verbSelectionLabel", ui.verbSelectionLabel);
-
-    const exerciseTypeOptions = {
-        mixed: ui.exerciseTypeMixed,
-        complete: ui.exerciseTypeComplete,
-        exam: ui.exerciseTypeExam
-    };
-
-    Object.entries(exerciseTypeOptions).forEach(([value, text]) => {
-        const option = exerciseTypeSelect.querySelector(`option[value="${value}"]`);
-        if (option) option.textContent = text;
-    });
-
-    const sentenceTypeOptions = {
-        statement: ui.sentenceStatements,
-        negative: ui.sentenceNegatives,
-        question: ui.sentenceQuestions,
-        mixed: ui.sentenceMixed
-    };
-
-    Object.entries(sentenceTypeOptions).forEach(([value, text]) => {
-        const option = sentenceTypeSelect.querySelector(`option[value="${value}"]`);
-        if (option) option.textContent = text;
-    });
-
-    const randomBtn =
-        document.querySelector('#verbSelectionSegmented .segmentBtn[data-value="random"]');
-    if (randomBtn) randomBtn.textContent = ui.randomVerbs;
-
-    const chooseBtn =
-        document.querySelector('#verbSelectionSegmented .segmentBtn[data-value="choose"]');
-    if (chooseBtn) chooseBtn.textContent = ui.chooseVerbs;
-
-    if (verbSearch) verbSearch.placeholder = ui.searchVerbPlaceholder;
-
-    setText("selectAllVerbsBtn", ui.selectAll);
-    setText("selectNoneVerbsBtn", ui.selectNone);
-    setText("verbDoneBtn", ui.done);
-
-    setText("startBtn", ui.startExercise);
-
-    setText("resultTitle", ui.resultTitle);
-    setText("correctLabel", ui.correctLabel);
-    setText("percentageLabel", ui.percentageLabel);
-
-    checkBtn.textContent = ui.checkAnswers;
-    solutionBtn.textContent = ui.showAnswers;
-
-}
-
-applyUITranslations();
-
-
 languageSelect.addEventListener("change", () => {
 
     const params =
@@ -312,13 +98,64 @@ languageSelect.addEventListener("change", () => {
 
 
 /* ===========================================================
+   ANSWER LEGEND
+=========================================================== */
+
+const answerLegendTexts = {
+
+    en:
+        `<strong>Tip:</strong> Capitalization doesn't matter. ` +
+        `What to type:` +
+        `<ul class="legendList">` +
+        `<li><span class="sentenceMode sentencePlus">(+)</span> ` +
+        `just the conjugated verb, e.g. <code>takes</code> – ` +
+        `no subject needed.</li>` +
+        `<li><span class="sentenceMode sentenceMinus">(-)</span> ` +
+        `just the negative verb form, e.g. ` +
+        `<code>doesn't take</code> – no subject either.</li>` +
+        `<li><span class="sentenceMode sentenceQuestion">(?)` +
+        `</span> the full question including the subject, e.g. ` +
+        `<code>does he/she/it take?</code> – word order changes ` +
+        `here.</li>` +
+        `</ul>` +
+        `Several correct spellings are accepted automatically, ` +
+        `e.g. <code>do not</code> = <code>don't</code>, ` +
+        `<code>does not</code> = <code>doesn't</code>, ` +
+        `<code>is not</code> = <code>isn't</code>, ` +
+        `<code>will not</code> = <code>won't</code>.<br>` +
+        `For the 3rd person singular you can simply write <code>he` +
+        `</code> instead of <code>he/she/it</code>. Questions ` +
+        `are also accepted without the final <code>?</code>.`,
+
+    de:
+        `<strong>Tipp:</strong> Groß- und Kleinschreibung ` +
+        `spielt keine Rolle. Fragen werden auch ohne ` +
+        `abschließendes <code>?</code> akzeptiert.`,
+
+    es:
+        `<strong>Consejo:</strong> No importa si usas ` +
+        `mayúsculas o minúsculas. Las preguntas también se ` +
+        `aceptan sin el signo de interrogación final ` +
+        `<code>?</code>.`
+
+};
+
+const answerLegend = document.getElementById("answerLegend");
+
+if (answerLegend) {
+    answerLegend.innerHTML =
+        answerLegendTexts[currentLanguage] || answerLegendTexts.en;
+}
+
+
+/* ===========================================================
    TENSE FILTER
 =========================================================== */
 
 const defaultTensesByLanguage = {
     en: ["sp", "spa"],
-    de: ["praesens"],
-    es: ["presente"]
+    de: ["praesens", "praeteritum"],
+    es: ["presente", "preteritoIndefinido"]
 };
 
 const defaultTenses =
@@ -355,7 +192,7 @@ function updateTenseDropdownLabel() {
         tenseSelection.querySelectorAll("input:checked").length;
 
     tenseDropdownBtn.textContent =
-        ui.tenseDropdownSelected(checked);
+        `${checked} tenses selected ▼`;
 
 }
 
@@ -371,7 +208,6 @@ tenseDropdownBtn.addEventListener("click", () => {
 tenseSelection.addEventListener("change", () => {
 
     updateTenseDropdownLabel();
-    updateVerbCountOptions();
 
 });
 
@@ -424,7 +260,6 @@ selectAllBtn.addEventListener("click", () => {
         .forEach(cb => cb.checked = true);
 
     updateTenseDropdownLabel();
-    updateVerbCountOptions();
 
 });
 
@@ -435,7 +270,6 @@ selectNoneBtn.addEventListener("click", () => {
         .forEach(cb => cb.checked = false);
 
     updateTenseDropdownLabel();
-    updateVerbCountOptions();
 
 });
 
@@ -484,7 +318,6 @@ importantBtn.addEventListener("click", () => {
         });
 
     updateTenseDropdownLabel();
-    updateVerbCountOptions();
 
 });
 
@@ -682,17 +515,10 @@ function updateVerbCountOptions() {
 
     const type = exerciseTypeSelect.value;
 
-    const checkedTenses =
-        tenseSelection.querySelectorAll("input:checked").length;
-
-    const previousValue = verbCountSelect.value;
-
     const values =
-        checkedTenses === 1
-            ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "all"]
-            : type === "complete"
-                ? [1, 2, 3]
-                : [3, 6];
+        type === "complete"
+            ? [1, 2, 3]
+            : [3, 6];
 
     verbCountSelect.innerHTML = "";
 
@@ -701,32 +527,11 @@ function updateVerbCountOptions() {
         const option = document.createElement("option");
 
         option.value = value;
-        option.textContent = value === "all" ? ui.allVerbsLabel : value;
+        option.textContent = value;
 
         verbCountSelect.appendChild(option);
 
     });
-
-    if (values.includes(previousValue === "all" ? "all" : Number(previousValue))) {
-        verbCountSelect.value = previousValue;
-    }
-
-    updateSingleTenseHint(checkedTenses);
-
-}
-
-function updateSingleTenseHint(checkedTenses) {
-
-    const hintEl = document.getElementById("singleTenseHint");
-
-    if (!hintEl) return;
-
-    if (checkedTenses === 1) {
-        hintEl.textContent = ui.singleTenseHint;
-        hintEl.style.display = "block";
-    } else {
-        hintEl.style.display = "none";
-    }
 
 }
 
@@ -735,7 +540,11 @@ function createVerbSelection() {
 
     verbSelection.innerHTML = "";
 
-    verbPool.forEach(verb => {
+    const alphabeticalVerbs = [...verbPool].sort(
+        (a, b) => a.infinitive.localeCompare(b.infinitive)
+    );
+
+    alphabeticalVerbs.forEach(verb => {
 
         const label = document.createElement("label");
 
@@ -763,8 +572,8 @@ function updateVerbDropdownLabel() {
 
     verbDropdownBtn.textContent =
         count === 0
-            ? ui.chooseVerbsDropdown
-            : ui.verbsSelected(count);
+            ? "Choose verbs ▼"
+            : `${count} verbs selected ▼`;
 
 }
 
@@ -912,30 +721,13 @@ updateVerbDropdownLabel();
 
 
 /* ===========================================================
-   VOREINSTELLUNGEN FÜR DEUTSCH / SPANISCH
-   Nur eine Zeitform (Präsens/Presente), Aussagesätze,
-   vollständige Verbformen, 10 Verben.
-=========================================================== */
-
-if (currentLanguage === "de" || currentLanguage === "es") {
-
-    sentenceTypeSelect.value = "statement";
-
-    if ([...verbCountSelect.options].some(o => o.value === "10")) {
-        verbCountSelect.value = "10";
-    }
-
-}
-
-
-/* ===========================================================
    START EXERCISE
 =========================================================== */
 
 startBtn.addEventListener("click", () => {
 
     marksVisible = false;
-    checkBtn.textContent = ui.checkAnswers;
+    checkBtn.textContent = "\u2714 Check Answers";
 
     selectedTenses = [];
 
@@ -955,23 +747,7 @@ startBtn.addEventListener("click", () => {
 
     if (selectedTenses.length === 0) {
 
-        alert(ui.alertNoTense);
-
-        return;
-
-    }
-
-    singleTenseMode = selectedTenses.length === 1;
-
-    if (singleTenseMode) {
-
-        singleTenseTense = selectedTenses[0];
-
-        const ok = buildSingleTenseTable(singleTenseTense);
-
-        if (!ok) return;
-
-        exercise.style.display = "block";
+        alert("Please select at least one tense.");
 
         return;
 
@@ -1014,7 +790,9 @@ if(exerciseType==="complete"){
 
 if (!selectedColumns) {
 
-    alert(ui.alertNotEnoughVerbs);
+    alert(
+        "Please select enough verbs for this exercise."
+    );
 
     return;
 
@@ -1025,147 +803,6 @@ if (!selectedColumns) {
     exercise.style.display = "block";
 
 });
-
-
-/* ===========================================================
-   EINZELNE ZEITFORM: VERB × PRONOMEN
-   Wenn genau eine Zeitform gewählt ist, lohnt sich statt der
-   normalen Tabelle (1 Zeile, viele verstreute Spalten) eine
-   kompakte Vergleichstabelle: Zeilen = Verben, Spalten =
-   Pronomen. Tiempo-Spalte, Infinitiv-Zeile sowie Signalwort-/
-   Verwendungs-Spalten entfallen dabei.
-=========================================================== */
-
-function buildSingleTenseTable(tense) {
-
-    const useAll = verbCountSelect.value === "all";
-    const availableVerbs = getAvailableVerbs();
-    const count = useAll ? availableVerbs.length : Number(verbCountSelect.value);
-    const verbs = availableVerbs.slice(0, count);
-
-    if (verbs.length === 0 || (!useAll && verbs.length < count)) {
-
-        alert(ui.alertNotEnoughVerbs);
-
-        return false;
-
-    }
-
-    singleTenseVerbs = verbs;
-
-    headerRow.innerHTML = "";
-    tableBody.innerHTML = "";
-    cells = [];
-
-    // Die normale Tabelle nutzt width:max-content, damit sie bei
-    // vielen Verb-Spalten horizontal scrollen kann. Hier gibt es
-    // aber nur "Infinitiv" + Pronomen-Spalten, also darf/soll die
-    // Tabelle die volle Breite des Wrappers ausfüllen, statt
-    // Leerraum rechts stehen zu lassen.
-    const table = document.getElementById("tenseTable");
-    table.style.width = "100%";
-
-    const pronounWidthPercent = 78 / languageConfig.pronouns.length;
-
-    const first = document.createElement("th");
-    first.textContent = ui.infinitiveLabel;
-    first.style.width = "22%";
-    headerRow.appendChild(first);
-
-    languageConfig.pronouns.forEach(pronoun => {
-
-        const th = document.createElement("th");
-        th.textContent = pronoun;
-
-        // Die generischen :first-child/:last-child-Regeln im CSS
-        // sind für die frühere Zeitform-/Verwendungs-Spalte
-        // gedacht. In dieser Tabelle sind alle Pronomen-Spalten
-        // gleichwertig, daher hier einheitlich zurücksetzen.
-        th.style.width = pronounWidthPercent + "%";
-        th.style.minWidth = "110px";
-        th.style.background = "#4FADEA";
-
-        headerRow.appendChild(th);
-
-    });
-
-    verbs.forEach((verb, row) => {
-
-        const tr = document.createElement("tr");
-
-        const infTd = document.createElement("td");
-        infTd.innerHTML = `<strong>${verb.infinitive}</strong>`;
-        infTd.style.background = "#FFFF00";
-        tr.appendChild(infTd);
-
-        cells[row] = [];
-
-        languageConfig.pronouns.forEach((pronoun, col) => {
-
-            const td = document.createElement("td");
-            td.style.background = "white";
-
-            const input = document.createElement("input");
-
-            input.type = "text";
-            input.dataset.row = row;
-            input.dataset.col = col;
-
-            const sentenceType =
-                sentenceTypeSelect.value === "mixed"
-                    ? ["statement", "negative", "question"][
-                          Math.floor(Math.random() * 3)
-                      ]
-                    : sentenceTypeSelect.value;
-
-            input.dataset.sentenceType = sentenceType;
-
-            const wrap = document.createElement("div");
-            wrap.className = "cellInline";
-
-            const mode = document.createElement("span");
-
-            if (sentenceType === "statement") {
-                mode.textContent = "(+)";
-                mode.className = "sentenceMode sentencePlus";
-            }
-
-            if (sentenceType === "negative") {
-                mode.textContent = "(-)";
-                mode.className = "sentenceMode sentenceMinus";
-            }
-
-            if (sentenceType === "question") {
-                mode.textContent = "(?)";
-                mode.className = "sentenceMode sentenceQuestion";
-            }
-
-            wrap.appendChild(mode);
-            wrap.appendChild(input);
-            td.appendChild(wrap);
-            tr.appendChild(td);
-
-            cells[row][col] = input;
-
-        });
-
-        tableBody.appendChild(tr);
-
-    });
-
-    const caption = document.getElementById("singleTenseCaption");
-
-    if (caption) {
-        caption.textContent = tense.name;
-        caption.style.display = "block";
-    }
-
-    answersVisible = false;
-    solutionBtn.textContent = ui.showAnswers;
-
-    return true;
-
-}
 
 
 /* ===========================================================
@@ -1210,16 +847,10 @@ function createTable() {
     tableBody.innerHTML = "";
     cells = [];
 
-    const caption = document.getElementById("singleTenseCaption");
-    if (caption) caption.style.display = "none";
-
-    const table = document.getElementById("tenseTable");
-    table.style.width = "";
-
     /* HEADER */
 
     const first = document.createElement("th");
-    first.textContent = ui.tenseColumnHeader;
+    first.textContent = "Tense";
     headerRow.appendChild(first);
 
     selectedColumns.forEach((col, index) => {
@@ -1235,12 +866,12 @@ function createTable() {
     });
 
     const signalHead = document.createElement("th");
-    signalHead.textContent = ui.signalWordHeader;
+    signalHead.textContent = "Signal word(s)";
     signalHead.className = "signalCell";
     headerRow.appendChild(signalHead);
 
     const usageHead = document.createElement("th");
-    usageHead.textContent = ui.usageHeader;
+    usageHead.textContent = "Usage";
     usageHead.className = "usageCell";
     headerRow.appendChild(usageHead);
 
@@ -1249,7 +880,7 @@ function createTable() {
     const intro = document.createElement("tr");
 
     const title = document.createElement("td");
-    title.innerHTML = `<strong>${ui.infinitiveLabel}</strong>`;
+    title.innerHTML = "<strong>Infinitive</strong>";
     intro.appendChild(title);
 
     selectedColumns.forEach((column, col) => {
@@ -1306,8 +937,6 @@ function createTable() {
             const wrap = document.createElement("div");
             wrap.className = "cellInline";
 
-            const mode = document.createElement("span");
-
             const type = column.exam
                 ? ["statement", "negative", "question"][
                       Math.floor(Math.random() * 3)
@@ -1316,23 +945,29 @@ function createTable() {
 
             input.dataset.sentenceType = type;
 
-            if (type === "statement") {
-                mode.textContent = "(+)";
-                mode.className = "sentenceMode sentencePlus";
-            }
+            const modeInfo = {
+                statement : ["(+)", "sentencePlus"],
+                negative  : ["(-)", "sentenceMinus"],
+                question  : ["(?)", "sentenceQuestion"]
+            }[type];
 
-            if (type === "negative") {
-                mode.textContent = "(-)";
-                mode.className = "sentenceMode sentenceMinus";
-            }
+            const makeModeBadge = () => {
 
-            if (type === "question") {
-                mode.textContent = "(?)";
-                mode.className = "sentenceMode sentenceQuestion";
-            }
+                const badge = document.createElement("span");
 
-            wrap.appendChild(mode);
+                if (modeInfo) {
+                    badge.textContent = modeInfo[0];
+                    badge.className =
+                        "sentenceMode " + modeInfo[1];
+                }
+
+                return badge;
+
+            };
+
+            wrap.appendChild(makeModeBadge());
             wrap.appendChild(input);
+            wrap.appendChild(makeModeBadge());
             td.appendChild(wrap);
             tr.appendChild(td);
 
@@ -1380,7 +1015,7 @@ function createTable() {
     createSignalList();
     createUsageList();
 answersVisible = false;
-solutionBtn.textContent = ui.showAnswers;
+solutionBtn.textContent = "💡 Show Answers";
 
 }
 
@@ -1501,7 +1136,7 @@ const contractions = [
 function canonical(text) {
 
     let result = normalize(text)
-        .replace(/[‘’ʼ]/g, "'");
+        .replace(/[\u2018\u2019\u02bc]/g, "'");
 
     contractions.forEach(([long, short]) => {
 
@@ -1516,93 +1151,13 @@ function canonical(text) {
 }
 
 
-/* ===========================================================
-   DEUTSCH: Verneinung / Frage
-   Die gespeicherte "solution" ist nur die Verbphrase
-   (z. B. "gehe", "bin gegangen", "werde gehen").
-   "nicht" steht direkt vor dem nicht-finiten Teil
-   (Partizip/Infinitiv); bei einteiligen Formen ans Ende.
-   Bei Fragen wird das Verb vorangestellt, danach das
-   Pronomen ("gehe ich?", "bin ich gegangen?").
-=========================================================== */
-
-function buildGermanAnswer(solution, column, sentenceType) {
-
-    const pronoun = column.pronoun;
-    const parts = solution.split(" ");
-
-    if (sentenceType === "negative") {
-
-        if (parts.length === 1) {
-            return solution + " nicht";
-        }
-
-        const finite = parts[0];
-        const rest = parts.slice(1).join(" ");
-
-        return finite + " nicht " + rest;
-
-    }
-
-    if (sentenceType === "question") {
-
-        const finite = parts[0];
-        const rest = parts.slice(1).join(" ");
-
-        return finite + " " + pronoun +
-            (rest ? " " + rest : "") + "?";
-
-    }
-
-    return solution;
-
-}
-
-
-/* ===========================================================
-   SPANISCH: Verneinung / Frage
-   "no" kommt direkt vor die (immer finite) Verbphrase.
-   Bei Fragen wird das Pronomen angehängt und mit "?"
-   abgeschlossen (führendes "¿" wird beim Prüfen nicht
-   verlangt).
-=========================================================== */
-
-function buildSpanishAnswer(solution, column, sentenceType) {
-
-    const pronoun = column.pronoun;
-
-    if (sentenceType === "negative") {
-        return "no " + solution;
-    }
-
-    if (sentenceType === "question") {
-        return solution + " " + pronoun + "?";
-    }
-
-    return solution;
-
-}
-
-
 function buildAnswer(solution,column,tense,sentenceType){
 
+    if(currentLanguage !== "en"){
+        return solution;
+    }
+
 sentenceType ??= column.sentenceType;
-
-if (sentenceType === "statement") {
-    return solution;
-}
-
-if (currentLanguage === "de") {
-    return buildGermanAnswer(solution, column, sentenceType);
-}
-
-if (currentLanguage === "es") {
-    return buildSpanishAnswer(solution, column, sentenceType);
-}
-
-if(currentLanguage !== "en"){
-    return solution;
-}
 
 
 if (currentLanguage === "en" &&
@@ -1861,44 +1416,6 @@ return solution;
 }
 
 
-/* ===========================================================
-   AKZEPTIERTE ANTWORT-VARIANTEN
-   Neben der reinen Verbform wird bei Aussagesätzen und
-   verneinten Sätzen auch die Version mit vorangestelltem
-   Pronomen akzeptiert (z. B. "du hörst nicht" zusätzlich
-   zu "hörst nicht"). Bei Fragen bleibt zusätzlich die
-   Version ohne abschließendes "?" gültig.
-=========================================================== */
-
-function buildAlternatives(column, tense, sentenceType) {
-
-    const solution = buildAnswer(
-        column.verb.forms[tense.id][column.pronounIndex],
-        column,
-        tense,
-        sentenceType
-    );
-
-    const alternatives = [canonical(solution)];
-
-    if (solution.trim().endsWith("?")) {
-
-        alternatives.push(
-            canonical(solution.replace(/\?\s*$/, ""))
-        );
-
-    } else {
-
-        alternatives.push(
-            canonical(column.pronoun + " " + solution)
-        );
-
-    }
-
-    return alternatives;
-
-}
-
 
 function clearSolutions() {
 
@@ -1917,7 +1434,14 @@ function showSolution(input, text) {
 
     div.textContent = "✔ " + text;
 
-    input.parentElement.appendChild(div);
+    const parent = input.parentElement;
+
+    const container =
+        parent.classList.contains("cellInline")
+            ? parent.parentElement
+            : parent;
+
+    container.appendChild(div);
 
 }
 
@@ -1939,16 +1463,43 @@ let answersVisible = false;
    CHECK ANSWERS
 =========================================================== */
 
-function checkAnswers() {
+/* Erzeugt alle akzeptierten Schreibweisen einer Lösung:
+   - mit und ohne abschließendes "?"
+   - bei "he/she/it" zusätzlich mit "he" statt "he/she/it" */
+function buildAlternatives(solution) {
 
-    if (singleTenseMode) {
-        checkSingleTenseAnswers();
-        return;
+    const variants = new Set();
+
+    const addWithOptionalMark = text => {
+
+        variants.add(canonical(text));
+
+        if (text.trim().endsWith("?")) {
+            variants.add(
+                canonical(text.replace(/\?\s*$/, ""))
+            );
+        }
+
+    };
+
+    addWithOptionalMark(solution);
+
+    if (solution.includes("he/she/it")) {
+        addWithOptionalMark(
+            solution.replace(/he\/she\/it/g, "he")
+        );
     }
+
+    return [...variants];
+
+}
+
+
+function checkAnswers() {
 
     clearSolutions();
 answersVisible = false;
-solutionBtn.textContent = ui.showAnswers;
+solutionBtn.textContent = "💡 Show Answers";
 
     let correct = 0;
 
@@ -1968,13 +1519,16 @@ solutionBtn.textContent = ui.showAnswers;
                 "wrong"
             );
 
-       const user = normalize(input.value);
-
-const alternatives = buildAlternatives(
+const solution = buildAnswer(
+    column.verb.forms[tense.id][column.pronounIndex],
     column,
     tense,
     input.dataset.sentenceType
 );
+
+       const user = normalize(input.value);
+
+const alternatives = buildAlternatives(solution);
 
 if(alternatives.includes(canonical(user))){
 
@@ -2057,57 +1611,6 @@ if(correct===total && total>0){
 
 }
 
-function checkSingleTenseAnswers() {
-
-    clearSolutions();
-    answersVisible = false;
-    solutionBtn.textContent = ui.showAnswers;
-
-    let correct = 0;
-    let total = 0;
-
-    cells.forEach((row, rowIndex) => {
-
-        row.forEach((input, colIndex) => {
-
-            input.classList.remove("correct", "wrong");
-
-            total++;
-
-            const column = {
-                pronoun: languageConfig.pronouns[colIndex],
-                pronounIndex: colIndex,
-                verb: singleTenseVerbs[rowIndex],
-                sentenceType: input.dataset.sentenceType
-            };
-
-            const alternatives = buildAlternatives(
-                column,
-                singleTenseTense,
-                input.dataset.sentenceType
-            );
-
-            const user = normalize(input.value);
-
-            if (alternatives.includes(canonical(user))) {
-                input.classList.add("correct");
-                correct++;
-            } else {
-                input.classList.add("wrong");
-            }
-
-        });
-
-    });
-
-    updateStatistics(correct, total);
-
-    if (correct === total && total > 0) {
-        jubelChoreo();
-    }
-
-}
-
 function clearMarks() {
 
     document
@@ -2128,7 +1631,7 @@ checkBtn.addEventListener("click", () => {
 
         marksVisible = false;
 
-        checkBtn.textContent = ui.checkAnswers;
+        checkBtn.textContent = "\u2714 Check Answers";
 
         return;
 
@@ -2138,7 +1641,7 @@ checkBtn.addEventListener("click", () => {
 
     marksVisible = true;
 
-    checkBtn.textContent = ui.hideMarks;
+    checkBtn.textContent = "\u2716 Hide Marks";
 
 });
 
@@ -2152,7 +1655,7 @@ function resetExercise() {
     clearSolutions();
 
     marksVisible = false;
-    checkBtn.textContent = ui.checkAnswers;
+    checkBtn.textContent = "\u2714 Check Answers";
 
     cells.forEach(row => {
 
@@ -2169,14 +1672,6 @@ function resetExercise() {
 
     });
 
-    if (singleTenseMode) {
-
-        const total = singleTenseVerbs.length * languageConfig.pronouns.length;
-        updateStatistics(0, total);
-        return;
-
-    }
-
     const total =
         selectedTenses.length *
         (selectedColumns.length + 2);
@@ -2191,57 +1686,7 @@ function resetExercise() {
    REVEAL
 =========================================================== */
 
-function revealSingleTenseAnswers() {
-
-    if (!answersVisible) {
-
-        clearSolutions();
-
-        cells.forEach((row, rowIndex) => {
-
-            row.forEach((input, colIndex) => {
-
-                const column = {
-                    pronoun: languageConfig.pronouns[colIndex],
-                    pronounIndex: colIndex,
-                    verb: singleTenseVerbs[rowIndex],
-                    sentenceType: input.dataset.sentenceType
-                };
-
-                showSolution(
-                    input,
-                    buildAnswer(
-                        column.verb.forms[singleTenseTense.id][column.pronounIndex],
-                        column,
-                        singleTenseTense,
-                        input.dataset.sentenceType
-                    )
-                );
-
-            });
-
-        });
-
-        solutionBtn.textContent = ui.hideAnswers;
-        answersVisible = true;
-
-    } else {
-
-        clearSolutions();
-
-        solutionBtn.textContent = ui.showAnswers;
-        answersVisible = false;
-
-    }
-
-}
-
 function revealAnswers(){
-
-    if (singleTenseMode) {
-        revealSingleTenseAnswers();
-        return;
-    }
 
     if(!answersVisible){
 
@@ -2275,14 +1720,14 @@ buildAnswer(
 
         });
 
-        solutionBtn.textContent = ui.hideAnswers;
+        solutionBtn.textContent = "🙈 Hide Answers";
         answersVisible = true;
 
     }else{
 
         clearSolutions();
 
-        solutionBtn.textContent = ui.showAnswers;
+        solutionBtn.textContent = "💡 Show Answers";
         answersVisible = false;
 
     }
@@ -2532,32 +1977,13 @@ function isAnswerCorrect(input) {
     const row = Number(input.dataset.row);
     const col = Number(input.dataset.col);
 
-    const value = input.value;
-
-    if (!value.trim()) return null;
-
-    if (singleTenseMode) {
-
-        const column = {
-            pronoun: languageConfig.pronouns[col],
-            pronounIndex: col,
-            verb: singleTenseVerbs[row],
-            sentenceType: input.dataset.sentenceType
-        };
-
-        const alternatives = buildAlternatives(
-            column,
-            singleTenseTense,
-            input.dataset.sentenceType
-        );
-
-        return alternatives.includes(canonical(normalize(value)));
-
-    }
-
     const tense = selectedTenses[row];
 
     if (!tense) return null;
+
+    const value = input.value;
+
+    if (!value.trim()) return null;
 
     if (col === 0) {
 
@@ -2583,11 +2009,14 @@ function isAnswerCorrect(input) {
 
     if (!column) return null;
 
-    const alternatives = buildAlternatives(
+    const solution = buildAnswer(
+        column.verb.forms[tense.id][column.pronounIndex],
         column,
         tense,
         input.dataset.sentenceType
     );
+
+    const alternatives = buildAlternatives(solution);
 
     return alternatives.includes(canonical(normalize(value)));
 

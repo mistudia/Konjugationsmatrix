@@ -165,7 +165,7 @@ button:hover{
 
     border-collapse:collapse;
 
-    table-layout:fixed;
+    table-layout:auto;
 
     width:max-content;
 
@@ -669,16 +669,30 @@ border-left:4px solid #4A4A4A !important;
 
 
 
+.sentenceMode{
+    display:inline-block;
+    padding:2px 7px;
+    border-radius:999px;
+    font-weight:800;
+    border:1.5px solid transparent;
+}
+
 .sentencePlus{
     color:#2e7d32;
+    background:#e5f5e6;
+    border-color:#a8dcac;
 }
 
 .sentenceMinus{
     color:#c62828;
+    background:#fbe6e6;
+    border-color:#f0aeae;
 }
 
 .sentenceQuestion{
     color:#1565c0;
+    background:#e4eefb;
+    border-color:#a9c9ee;
 }
 
 
@@ -1030,7 +1044,6 @@ button:active{
     border:1px solid var(--line);
     border-radius:16px;
     box-shadow:var(--shadow-md);
-    scrollbar-width:thin;
 }
 
 #tenseTable thead th{
@@ -1061,37 +1074,48 @@ button:active{
     overflow-y:hidden;
     margin-bottom:6px;
     border-radius:10px;
-    scrollbar-width:thin;
 }
 
 .topScroll::-webkit-scrollbar,
 .tableWrapper::-webkit-scrollbar{
-    height:12px;
-    width:12px;
+    height:14px;
+    width:14px;
 }
 
 .topScroll::-webkit-scrollbar-thumb,
 .tableWrapper::-webkit-scrollbar-thumb{
-    background:#b9c7da;
+    background:#7c93ad;
     border-radius:999px;
-    border:3px solid transparent;
+    border:2px solid transparent;
     background-clip:content-box;
 }
 
 .topScroll::-webkit-scrollbar-thumb:hover,
 .tableWrapper::-webkit-scrollbar-thumb:hover{
-    background:#8fa3bd;
+    background:#5c7292;
     background-clip:content-box;
 }
 
 .topScroll::-webkit-scrollbar-track,
 .tableWrapper::-webkit-scrollbar-track{
-    background:#eef2f7;
+    background:#c9d4e0;
     border-radius:999px;
 }
 
 #topScrollInner{
     height:1px;
+}
+
+/* Nur Browser ohne ::-webkit-scrollbar-Unterstützung (derzeit: Firefox)
+   bekommen die Standard-Eigenschaften scrollbar-width/-color.
+   Chrome/Edge/Safari steuern Breite & Farbe vollständig über
+   die ::-webkit-scrollbar-Regeln oben. */
+@supports not selector(::-webkit-scrollbar){
+    .tableWrapper,
+    .topScroll{
+        scrollbar-width:auto;
+        scrollbar-color:#7c93ad #c9d4e0;
+    }
 }
 
 /* ---------- Statistik ---------- */
@@ -1109,7 +1133,7 @@ button:active{
 
 .topScroll{
     height:14px;
-    background:#eef2f7;
+    background:#c9d4e0;
 }
 
 /* =====================================================
@@ -1259,9 +1283,7 @@ td.signalCell{
     margin:0 8px 0 4px;
 }
 
-.cellInline .solution{
-    flex:1 0 100%;
-    width:100%;
+#tenseTable td .solution{
     margin-top:4px;
     text-align:center;
 }
@@ -1321,17 +1343,17 @@ td.usageCell .solution{
     justify-content:flex-start;
 }
 
-/* Klammern immer links neben dem Feld, nie darüber */
+/* Klammern immer links UND rechts neben dem Feld, nie darüber/darunter */
 .cellInline{
     display:flex;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
     align-items:center;
     white-space:nowrap;
 }
 
 .cellInline .sentenceMode{
     flex:0 0 auto;
-    margin:0 8px 0 4px;
+    margin:0 4px;
 }
 
 .cellInline input{
@@ -1385,4 +1407,49 @@ td.usageCell .solution{
 #tenseTable th.signalCell,
 #tenseTable td.signalCell{
     border-left:4px solid #000000 !important;
+}
+
+
+/* ===== Antwort-Legende oberhalb der Tabelle ===== */
+
+.answerLegend{
+    background:#eef6ff;
+    border:1px solid #bfe0ff;
+    border-left:4px solid var(--brand);
+    border-radius:10px;
+    padding:12px 16px;
+    margin-bottom:14px;
+    font-size:14px;
+    line-height:1.5;
+    color:var(--ink);
+}
+
+.answerLegend strong{
+    color:var(--brand-dark);
+}
+
+.answerLegend code{
+    background:#ffffff;
+    border:1px solid #d7e2ee;
+    border-radius:5px;
+    padding:1px 6px;
+    font-family:inherit;
+    font-weight:700;
+    color:var(--ink);
+}
+
+.answerLegend .legendList{
+    margin:6px 0 8px 0;
+    padding-left:20px;
+}
+
+.answerLegend .legendList li{
+    margin:3px 0;
+}
+
+.answerLegend .sentenceMode{
+    font-size:13px;
+    padding:1px 6px;
+    margin-right:2px;
+    vertical-align:middle;
 }
