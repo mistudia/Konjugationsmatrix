@@ -235,7 +235,7 @@
 
 
     <button id="startBtn" type="button">
-        Start Exercise
+        Load and Start Exercise
     </button>
 
 </section>
@@ -321,6 +321,35 @@
     </section>
 
 </div>
+
+<footer class="pageFooter">
+
+    <a href="https://mistudia.com" target="_blank" rel="noopener noreferrer">
+        <img
+            src="mistudia-logo.png"
+            class="footerLogo"
+            alt="miStudia – Lernen mit Spaß!"
+        >
+    </a>
+
+    <div>
+        © <span id="footerYear"></span> miStudia |
+        <a
+            href="https://mistudia.com"
+            class="footerLink"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            mistudia.com
+        </a>
+    </div>
+
+</footer>
+
+<script>
+    document.getElementById("footerYear").textContent =
+        new Date().getFullYear();
+</script>
 
 <script>
     const params = new URLSearchParams(window.location.search);
