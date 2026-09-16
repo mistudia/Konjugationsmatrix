@@ -108,11 +108,13 @@ const answerLegendTexts = {
         `What to type:` +
         `<ul class="legendList">` +
         `<li><span class="sentenceMode sentencePlus">(+)</span> ` +
-        `just the conjugated verb, e.g. <code>takes</code> – ` +
-        `no subject needed.</li>` +
+        `just the conjugated verb, e.g. <code>takes</code> – no ` +
+        `subject needed (but <code>he takes</code> is fine ` +
+        `too).</li>` +
         `<li><span class="sentenceMode sentenceMinus">(-)</span> ` +
         `just the negative verb form, e.g. ` +
-        `<code>doesn't take</code> – no subject either.</li>` +
+        `<code>doesn't take</code> – subject optional here as ` +
+        `well.</li>` +
         `<li><span class="sentenceMode sentenceQuestion">(?)` +
         `</span> the full question including the subject, e.g. ` +
         `<code>does he/she/it take?</code> – word order changes ` +
@@ -178,7 +180,12 @@ function createFilter() {
         checkbox.dataset.index = index;
 
         label.appendChild(checkbox);
-        label.append(" " + tense.name);
+        const displayName =
+            tense.id === "gtf"
+                ? "(" + tense.name + ")"
+                : tense.name;
+
+        label.append(" " + displayName);
 
         tenseSelection.appendChild(label);
 
@@ -1465,8 +1472,10 @@ let answersVisible = false;
 
 /* Erzeugt alle akzeptierten Schreibweisen einer Lösung:
    - mit und ohne abschließendes "?"
-   - bei "he/she/it" zusätzlich mit "he" statt "he/she/it" */
-function buildAlternatives(solution) {
+   - bei "he/she/it" zusätzlich mit "he" statt "he/she/it"
+   - bei Statement (+) und Negativ (-): zusätzlich mit
+     vorangestelltem Subjektpronomen (optional, nicht Pflicht) */
+function buildAlternatives(solution, pronoun, sentenceType) {
 
     const variants = new Set();
 
@@ -1488,6 +1497,18 @@ function buildAlternatives(solution) {
         addWithOptionalMark(
             solution.replace(/he\/she\/it/g, "he")
         );
+    }
+
+    if (pronoun &&
+        (sentenceType === "statement" ||
+         sentenceType === "negative")) {
+
+        addWithOptionalMark(pronoun + " " + solution);
+
+        if (pronoun === "he/she/it") {
+            addWithOptionalMark("he " + solution);
+        }
+
     }
 
     return [...variants];
@@ -1528,7 +1549,11 @@ const solution = buildAnswer(
 
        const user = normalize(input.value);
 
-const alternatives = buildAlternatives(solution);
+const alternatives = buildAlternatives(
+    solution,
+    column.pronoun,
+    input.dataset.sentenceType
+);
 
 if(alternatives.includes(canonical(user))){
 
@@ -2016,7 +2041,11 @@ function isAnswerCorrect(input) {
         input.dataset.sentenceType
     );
 
-    const alternatives = buildAlternatives(solution);
+    const alternatives = buildAlternatives(
+        solution,
+        column.pronoun,
+        input.dataset.sentenceType
+    );
 
     return alternatives.includes(canonical(normalize(value)));
 

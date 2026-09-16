@@ -3688,16 +3688,6 @@ const tenses = [
 },
 
 {
-    id: "gtf",
-    name: "Going to Future",
-    rule: "plans • intentions",
-    signals: [
-        "tomorrow",
-        "next week"
-    ]
-},
-
-{
     id: "wf",
     name: "Will Future",
     rule: "predictions • spontaneous decisions",
@@ -3741,6 +3731,16 @@ const tenses = [
 "for two hours by then",
 "for ten years by then",
 "for a week by then"
+    ]
+},
+
+{
+    id: "gtf",
+    name: "Going to Future",
+    rule: "plans • intentions",
+    signals: [
+        "tomorrow",
+        "next week"
     ]
 }
 
