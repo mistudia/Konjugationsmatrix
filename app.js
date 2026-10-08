@@ -1089,24 +1089,85 @@ function closeChoicePopup() {
 }
 
 function positionChoicePopup() {
+
     if (!choicePopup || !choicePopupInput) return;
+
     const r = choicePopupInput.getBoundingClientRect();
     const margin = 8;
-    const spaceBelow = window.innerHeight - r.bottom - margin;
-    const spaceAbove = r.top - margin;
-    const below = spaceBelow >= 220 || spaceBelow >= spaceAbove;
-    const room = Math.max(120, below ? spaceBelow : spaceAbove);
-    choicePopup.style.maxHeight = room + "px";
-    const width = Math.max(r.width, 240);
-    choicePopup.style.minWidth = width + "px";
-    let left = Math.min(r.left, window.innerWidth - width - margin);
-    choicePopup.style.left = Math.max(margin, left) + "px";
-    if (below) {
-        choicePopup.style.top = (r.bottom + 2) + "px";
-        choicePopup.style.bottom = "auto";
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const items = [...choicePopup.querySelectorAll(".choiceItem, .choiceEmpty")];
+    const n = Math.max(items.length, 1);
+
+    /* 1) Messen: alle Einträge einzeilig in einer Spalte */
+    const st = choicePopup.style;
+    st.display = "block";
+    st.gridTemplateColumns = "";
+    st.gridTemplateRows = "";
+    st.width = "max-content";
+    st.maxHeight = "none";
+    st.left = "-9999px";
+    st.top = "0px";
+    st.bottom = "auto";
+    choicePopup.classList.remove("wrap");
+
+    const border = 4; /* 2 x 2px Rand */
+    let itemW = Math.max(...items.map(i => i.scrollWidth), 120);
+    const maxItemW = vw - 2 * margin - border;
+    let wrap = false;
+    if (itemW > maxItemW) { itemW = maxItemW; wrap = true; }
+    if (wrap) choicePopup.classList.add("wrap");
+    const itemH = Math.max(...items.map(i => i.offsetHeight), 24);
+
+    /* 2) Platz oberhalb / unterhalb / ganzer Bildschirm */
+    const spaces = [
+        { place: "below", H: vh - r.bottom - margin - 2 },
+        { place: "above", H: r.top - margin - 2 },
+        { place: "full",  H: vh - 2 * margin }
+    ];
+    const maxCols = Math.max(1, Math.floor((vw - 2 * margin - border) / itemW));
+
+    let chosen = null;
+    if (!wrap) {
+        outer:
+        for (const sp of spaces) {
+            for (let cols = 1; cols <= maxCols; cols++) {
+                const rows = Math.ceil(n / cols);
+                if (rows * itemH + border <= sp.H) {
+                    chosen = { ...sp, cols, rows };
+                    break outer;
+                }
+            }
+        }
+    }
+    if (!chosen) {
+        /* passt nirgends komplett: größten Platz nehmen, scrollen */
+        const sp = spaces.reduce((x, y) => (y.H > x.H ? y : x));
+        const cols = wrap ? 1 : maxCols;
+        chosen = { ...sp, cols, rows: Math.ceil(n / cols) };
+    }
+
+    const cols = Math.min(chosen.cols, n);
+    st.display = "grid";
+    st.gridAutoFlow = "column";
+    st.gridTemplateRows = "repeat(" + Math.ceil(n / cols) + ", auto)";
+    st.gridTemplateColumns = "repeat(" + cols + ", " + itemW + "px)";
+    st.width = (cols * itemW + border) + "px";
+    st.maxHeight = chosen.H + "px";
+
+    /* 3) Position */
+    const width = cols * itemW + border;
+    let left = Math.min(r.left, vw - width - margin);
+    st.left = Math.max(margin, left) + "px";
+    if (chosen.place === "below") {
+        st.top = (r.bottom + 2) + "px";
+        st.bottom = "auto";
+    } else if (chosen.place === "above") {
+        st.bottom = (vh - r.top + 2) + "px";
+        st.top = "auto";
     } else {
-        choicePopup.style.bottom = (window.innerHeight - r.top + 2) + "px";
-        choicePopup.style.top = "auto";
+        st.top = margin + "px";
+        st.bottom = "auto";
     }
 }
 

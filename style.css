@@ -1577,7 +1577,6 @@ td.usageCell .solution{
     overflow-y:auto;
     overflow-x:hidden;
     box-sizing:border-box;
-    max-width:min(520px, calc(100vw - 16px));
 }
 .choiceItem{
     padding:8px 12px;
@@ -1590,3 +1589,7 @@ td.usageCell .solution{
 .choiceItem:last-child{border-bottom:none;}
 .choiceItem:hover{background:#eaf3ff;color:var(--brand);}
 .choiceEmpty{padding:8px 12px;color:var(--muted);}
+
+.choiceItem{white-space:nowrap;}
+.choicePopup.wrap .choiceItem{white-space:normal;}
+.choicePopup .choiceItem{border-right:1px solid var(--line);}
