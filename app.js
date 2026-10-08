@@ -1070,15 +1070,23 @@ solutionBtn.textContent = "💡 Show Answers";
 let choicePopup = null;
 let choicePopupInput = null;
 
+function choiceScopeTenses() {
+    const sel = document.getElementById("choiceScopeSelect");
+    const onlySelected = sel && sel.value === "selected" &&
+        selectedTenses.length > 0;
+    return onlySelected ? selectedTenses : tenses;
+}
+
 function getSignalChoices() {
-    return signalWords
-        .filter(w => w && w.trim())
-        .slice()
+    const list = choiceScopeTenses() === tenses
+        ? signalWords
+        : choiceScopeTenses().flatMap(t => t.signals);
+    return [...new Set(list.filter(w => w && w.trim()))]
         .sort((x, y) => x.localeCompare(y, languageConfig.code || undefined));
 }
 
 function getUsageChoices() {
-    return [...new Set(tenses.map(t => t.rule))]
+    return [...new Set(choiceScopeTenses().map(t => t.rule))]
         .sort((x, y) => x.localeCompare(y, languageConfig.code || undefined));
 }
 
