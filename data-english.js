@@ -3607,29 +3607,32 @@ const tenses = [
 {
     id: "sp",
     name: "Simple Present",
-    rule: "routines",
+    rule: "routines • focus on repetition",
+    signalAliases: ["sometimes","usually","often"],
     signals: [
         "always",
-        "sometimes",
-        "never",
-        "every day"
+        "every day",
+        "never"
     ]
 },
 
 {
     id: "pp",
     name: "Present Progressive/Continuous",
-    rule: "action happening now",
+    rule: "action happening now • focus on the moment now and/or duration",
+    signalAliases: ["currently"],
     signals: [
         "now",
-        "at the moment"
+        "at the moment",
+        "right now"
     ]
 },
 
 {
     id: "spa",
     name: "Simple Past",
-    rule: "standard past tense",
+    rule: "standard past tense • focus on the fact that the event happened at all",
+    signalAliases: ["last year","in 2010"],
     signals: [
         "yesterday",
         "last week",
@@ -3640,107 +3643,117 @@ const tenses = [
 {
     id: "pap",
     name: "Past Progressive/Continuous",
-    rule: "action in progress in the past",
+    rule: "action in progress in the past • focus on the moment then and/or duration",
+    signalAliases: ["all day yesterday","this time last year"],
     signals: [
         "while",
-        "at that moment"
+        "at that moment",
+        "at 8 o'clock yesterday"
     ]
 },
 
 {
     id: "prp",
     name: "Present Perfect",
-    rule: "past action with present result",
+    rule: "completed past action with present result • focus on the fact that the event has an importance now",
+    signalAliases: ["so far","ever","recently"],
     signals: [
         "already",
         "just",
-        "yet",
-           ]
+        "yet"
+    ]
 },
 
 {
     id: "prpp",
     name: "Present Perfect Progressive/Continuous",
-    rule: "action continuing until now",
+    rule: "past action continuing until now • focus on duration up to now",
+    signalAliases: ["all day","how long"],
     signals: [
         "since",
-        "for"
+        "for",
+        "lately"
     ]
 },
 
 {
     id: "plp",
     name: "Past Perfect",
-    rule: "action before another past action",
+    rule: "action before another past action • focus on the fact that the earlier event happened at all",
+    signalAliases: ["until then"],
     signals: [
-        "before"
+        "before",
+        "after",
+        "by the time"
     ]
 },
 
 {
     id: "plpp",
     name: "Past Perfect Progressive/Continuous",
-    rule: "duration before a past moment",
+    rule: "action before another past action • focus on duration before that moment",
+    signalAliases: ["for ten minutes before"],
     signals: [
-"all day before",
-"for hours before"
+        "all day before",
+        "for hours before",
+        "for a long time before"
     ]
 },
 
 {
     id: "wf",
     name: "Will Future",
-    rule: "predictions • spontaneous decisions",
+    rule: "future action (predictions, spontaneous decisions) • focus on opinion or sudden decision",
+    signalAliases: ["tomorrow I think","next week probably","maybe","I'm sure","tomorrow","next week"],
     signals: [
-        "tomorrow",
-        "next week",
-
-"probably",
-"I think",
-"perhaps"
+        "probably",
+        "I think",
+        "perhaps"
     ]
 },
 
 {
     id: "fp",
     name: "Future Progressive/Continuous",
-    rule: "action in progress in the future",
+    rule: "action in progress in the future • focus on the moment then and/or duration",
     signals: [
-"at this time tomorrow",
-"tomorrow at 8",
-"tomorrow afternoon"
+        "at this time tomorrow",
+        "tomorrow at 8",
+        "tomorrow afternoon"
     ]
 },
 
 {
     id: "fpe",
     name: "Future Perfect",
-    rule: "completed before a future moment",
+    rule: "future action before another future action • focus on the result by then",
     signals: [
         "by then",
-"by Friday",
-"by tomorrow"
+        "by Friday",
+        "by tomorrow"
     ]
 },
 
 {
     id: "fpp",
     name: "Future Perfect Progressive/Continuous",
-    rule: "duration until a future moment",
+    rule: "future action before another future action • focus on duration by then",
     signals: [
-"for two hours by then",
-"for ten years by then",
-"for a week by then"
+        "for two hours by then",
+        "for ten years by then",
+        "for a week by then"
     ]
 },
 
 {
     id: "gtf",
     name: "Going to Future",
-    rule: "plans • intentions",
+    rule: "future action (plans, intentions) • focus on the plan or visible evidence",
+    signalAliases: ["tonight","next month","tomorrow","next week"],
     signals: [
-        "tomorrow",
-        "next week"
+        "tomorrow as planned",
+        "next week as planned",
+        "look at those clouds"
     ]
 }
 

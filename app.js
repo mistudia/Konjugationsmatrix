@@ -31,9 +31,6 @@ const exerciseTypeSelect =
 const sentenceTypeSelect =
     document.getElementById("sentenceTypeSelect");
 
-const verbCountSelect =
-    document.getElementById("verbCountSelect");
-
 const verbSelectionSelect =
     document.getElementById("verbSelectionSelect");
 
@@ -79,7 +76,8 @@ languageSelect.value = currentLanguage;
 const pageTitles = {
     en: "miStudia – Conjugation Matrix",
     de: "miStudia – Konjugationsmatrix",
-    es: "miStudia – Matriz de conjugación"
+    es: "miStudia – Matriz de conjugación",
+    fr: "miStudia – Matrice de conjugaison"
 };
 
 pageTitle.textContent =
@@ -127,18 +125,55 @@ const answerLegendTexts = {
         `<code>will not</code> = <code>won't</code>.<br>` +
         `For the 3rd person singular you can simply write <code>he` +
         `</code> instead of <code>he/she/it</code>. Questions ` +
-        `are also accepted without the final <code>?</code>.`,
+        `are also accepted without the final <code>?</code>.<br>` +
+        `<strong>Usage:</strong> the whole entry from the list or ` +
+        `just one part of it (e.g. <code>plans</code>) counts as correct.`,
 
     de:
         `<strong>Tipp:</strong> Groß- und Kleinschreibung ` +
         `spielt keine Rolle. Fragen werden auch ohne ` +
-        `abschließendes <code>?</code> akzeptiert.`,
+        `abschließendes <code>?</code> akzeptiert.<br>` +
+        `<strong>Usage:</strong> Der ganze Listeneintrag oder nur ` +
+        `ein Teil davon (z. B. <code>Vermutung</code>) wird als ` +
+        `richtig gewertet.`,
 
     es:
         `<strong>Consejo:</strong> No importa si usas ` +
         `mayúsculas o minúsculas. Las preguntas también se ` +
         `aceptan sin el signo de interrogación final ` +
-        `<code>?</code>.`
+        `<code>?</code>.<br>` +
+        `<strong>Usage:</strong> Vale la entrada completa de la ` +
+        `lista o solo una parte (p. ej. <code>hábitos</code>).`,
+
+    fr:
+        `<strong>Astuce :</strong> Les majuscules ne comptent pas, ` +
+        `mais les accents et les traits d'union, si. ` +
+        `Que faut-il écrire :` +
+        `<ul class="legendList">` +
+        `<li><span class="sentenceMode sentencePlus">(+)</span> ` +
+        `seulement le verbe conjugué, p. ex. <code>parle</code> ` +
+        `ou <code>ai parlé</code> – le sujet n'est pas obligatoire ` +
+        `(<code>je parle</code> est accepté aussi).</li>` +
+        `<li><span class="sentenceMode sentenceMinus">(-)</span> ` +
+        `la forme négative avec <code>ne … pas</code>, p. ex. ` +
+        `<code>ne parle pas</code> ou <code>n'ai pas parlé</code> ` +
+        `– sujet facultatif.</li>` +
+        `<li><span class="sentenceMode sentenceQuestion">(?)` +
+        `</span> la question complète avec le sujet, p. ex. ` +
+        `<code>est-ce que tu parles ?</code> ou ` +
+        `<code>parles-tu ?</code> – les deux formes sont ` +
+        `acceptées.</li>` +
+        `</ul>` +
+        `Pour <code>il</code> on accepte aussi <code>elle</code> ` +
+        `et <code>on</code>, pour <code>ils</code> aussi ` +
+        `<code>elles</code>. Avec les verbes conjugués avec ` +
+        `<code>être</code> (aller, venir…), tous les accords du ` +
+        `participe sont acceptés : <code>allé</code>, ` +
+        `<code>allée</code>, <code>allés</code>…<br>` +
+        `Le <code>?</code> final est facultatif.<br>` +
+        `<strong>Usage :</strong> l'entrée complète de la liste ou ` +
+        `seulement une partie (p. ex. <code>habitudes</code>) est ` +
+        `acceptée.`
 
 };
 
@@ -157,7 +192,8 @@ if (answerLegend) {
 const defaultTensesByLanguage = {
     en: ["sp", "spa"],
     de: ["praesens", "praeteritum"],
-    es: ["presente", "preteritoIndefinido"]
+    es: ["presente", "preteritoIndefinido"],
+    fr: ["present", "passeCompose"]
 };
 
 const defaultTenses =
@@ -306,6 +342,15 @@ const importantTenses = {
         "preteritoIndefinido",
         "preteritoImperfecto",
         "futuroSimple"
+    ],
+
+    fr: [
+        "present",
+        "passeCompose",
+        "imparfait",
+        "plusQueParfait",
+        "futurSimple",
+        "conditionnel"
     ]
 
 };
@@ -404,15 +449,36 @@ function getAvailableVerbs() {
 }
 
 
-function createMixedColumns(count) {
+/* Mixed- und Exam-Modus: immer eine Spalte pro Pronomen (6).
+   Stehen weniger Verben zur Auswahl als Spalten da sind,
+   werden die gewählten Verben der Reihe nach wiederholt. */
+
+const MIXED_COLUMN_COUNT = 6;
+
+function pickVerbsForColumns(count) {
+
+    const available = getAvailableVerbs();
+
+    if (available.length === 0) {
+        return null;
+    }
+
+    return Array.from(
+        { length: count },
+        (_, i) => available[i % available.length]
+    );
+
+}
+
+function createMixedColumns() {
 
     const pronouns =
-        languageConfig.mixedPronouns[count];
+        languageConfig.mixedPronouns[MIXED_COLUMN_COUNT];
 
     const verbs =
-        getAvailableVerbs().slice(0, count);
+        pickVerbsForColumns(MIXED_COLUMN_COUNT);
 
-    if (verbs.length < count) {
+    if (!verbs) {
 
         return null;
 
@@ -441,15 +507,15 @@ return {
 
 }
 
-function createExamColumns(count){
+function createExamColumns(){
 
     const pronouns =
-        languageConfig.mixedPronouns[count];
+        languageConfig.mixedPronouns[MIXED_COLUMN_COUNT];
 
     const verbs =
-        getAvailableVerbs().slice(0, count);
+        pickVerbsForColumns(MIXED_COLUMN_COUNT);
 
-    if(verbs.length < count){
+    if(!verbs){
         return null;
     }
 
@@ -472,12 +538,19 @@ function createExamColumns(count){
 }
 
 
-function createCompleteColumns(count) {
+/* Complete-Modus: bei "Random verbs" ein zufälliges Verb,
+   bei "Choose verbs" alle ausgewählten Verben. */
+
+function createCompleteColumns() {
+
+    const available = getAvailableVerbs();
 
     const verbs =
-        getAvailableVerbs().slice(0, count);
+        verbSelectionSelect.value === "random"
+            ? available.slice(0, 1)
+            : available;
 
-    if (verbs.length < count) {
+    if (verbs.length === 0) {
 
         return null;
 
@@ -518,31 +591,6 @@ columns.push({
    VERB OPTIONS
 =========================================================== */
 
-function updateVerbCountOptions() {
-
-    const type = exerciseTypeSelect.value;
-
-    const values =
-        type === "complete"
-            ? [1, 2, 3]
-            : [3, 6];
-
-    verbCountSelect.innerHTML = "";
-
-    values.forEach(value => {
-
-        const option = document.createElement("option");
-
-        option.value = value;
-        option.textContent = value;
-
-        verbCountSelect.appendChild(option);
-
-    });
-
-}
-
-
 function createVerbSelection() {
 
     verbSelection.innerHTML = "";
@@ -560,8 +608,18 @@ function createVerbSelection() {
         checkbox.type = "checkbox";
         checkbox.value = verb.infinitive;
 
+        const name = document.createElement("span");
+
+        name.className =
+            verb.type === "irregular"
+                ? "verbName irregularVerb"
+                : "verbName";
+
+        name.textContent = verb.infinitive;
+
         label.appendChild(checkbox);
-        label.append(" " + verb.infinitive);
+        label.append(" ");
+        label.appendChild(name);
 
         verbSelection.appendChild(label);
 
@@ -583,13 +641,6 @@ function updateVerbDropdownLabel() {
             : `${count} verbs selected ▼`;
 
 }
-
-
-exerciseTypeSelect.addEventListener("change", () => {
-
-    updateVerbCountOptions();
-
-});
 
 
 verbSelectionSelect.addEventListener("change", () => {
@@ -722,7 +773,6 @@ selectNoneVerbsBtn.addEventListener("click", () => {
 });
 
 
-updateVerbCountOptions();
 createVerbSelection();
 updateVerbDropdownLabel();
 
@@ -760,37 +810,26 @@ startBtn.addEventListener("click", () => {
 
     }
 
-    /*
-       Temporary default:
-       6 random mixed verbs.
-
-       The dropdowns for 3 / 6 / 8 and
-       Complete Verb Forms are added next.
-    */
-
 const exerciseType =
     exerciseTypeSelect.value;
 
 currentExerciseType = exerciseType;
 
-const verbCount =
-    Number(verbCountSelect.value);
-
 
 if(exerciseType==="complete"){
 
     selectedColumns =
-        createCompleteColumns(verbCount);
+        createCompleteColumns();
 
 }else if(exerciseType==="exam"){
 
     selectedColumns =
-        createExamColumns(verbCount);
+        createExamColumns();
 
 }else{
 
     selectedColumns =
-        createMixedColumns(verbCount);
+        createMixedColumns();
 
 }
 
@@ -798,7 +837,7 @@ if(exerciseType==="complete"){
 if (!selectedColumns) {
 
     alert(
-        "Please select enough verbs for this exercise."
+        "Please select at least one verb."
     );
 
     return;
@@ -989,11 +1028,10 @@ function createTable() {
         const signalInput = document.createElement("input");
 
         signalInput.type = "text";
-        signalInput.setAttribute("list", "signalList");
         signalInput.dataset.row = row;
         signalInput.dataset.col = 0;
 
-        attachListPicker(signalInput);
+        attachChoicePopup(signalInput, getSignalChoices);
         signalTd.appendChild(signalInput);
         tr.appendChild(signalTd);
         cells[row][0] = signalInput;
@@ -1005,11 +1043,10 @@ function createTable() {
         const usageInput = document.createElement("input");
 
         usageInput.type = "text";
-        usageInput.setAttribute("list", "usageList");
         usageInput.dataset.row = row;
         usageInput.dataset.col = 1;
 
-        attachListPicker(usageInput);
+        attachChoicePopup(usageInput, getUsageChoices);
         usageTd.appendChild(usageInput);
         tr.appendChild(usageTd);
         cells[row][1] = usageInput;
@@ -1019,90 +1056,154 @@ function createTable() {
 
     });
 
-    createSignalList();
-    createUsageList();
+    closeChoicePopup();
 answersVisible = false;
 solutionBtn.textContent = "💡 Show Answers";
 
 }
 
-function attachListPicker(input){
+/* ===========================================================
+   CHOICE POPUP (Signal words / Usage)
+   zeigt alle Optionen auf einmal, alphabetisch, filterbar
+=========================================================== */
 
-    const open = () => {
-        if (input.value) {
-            input.dataset.savedValue = input.value;
-            input.value = "";
-        }
-        try { input.showPicker && input.showPicker(); } catch (e) {}
-    };
+let choicePopup = null;
+let choicePopupInput = null;
 
-    const restore = () => {
-        if (!input.value && input.dataset.savedValue) {
-            input.value = input.dataset.savedValue;
-        }
-        delete input.dataset.savedValue;
-    };
-
-    input.addEventListener("focus", open);
-    input.addEventListener("click", open);
-    input.addEventListener("input", () => { delete input.dataset.savedValue; });
-    input.addEventListener("blur", restore);
-
+function getSignalChoices() {
+    return signalWords
+        .filter(w => w && w.trim())
+        .slice()
+        .sort((x, y) => x.localeCompare(y, languageConfig.code || undefined));
 }
 
+function getUsageChoices() {
+    return [...new Set(tenses.map(t => t.rule))]
+        .sort((x, y) => x.localeCompare(y, languageConfig.code || undefined));
+}
 
+function closeChoicePopup() {
+    if (choicePopup) choicePopup.remove();
+    choicePopup = null;
+    choicePopupInput = null;
+}
 
-function createUsageList() {
+function positionChoicePopup() {
+    if (!choicePopup || !choicePopupInput) return;
+    const r = choicePopupInput.getBoundingClientRect();
+    const margin = 8;
+    const spaceBelow = window.innerHeight - r.bottom - margin;
+    const spaceAbove = r.top - margin;
+    const below = spaceBelow >= 220 || spaceBelow >= spaceAbove;
+    const room = Math.max(120, below ? spaceBelow : spaceAbove);
+    choicePopup.style.maxHeight = room + "px";
+    const width = Math.max(r.width, 240);
+    choicePopup.style.minWidth = width + "px";
+    let left = Math.min(r.left, window.innerWidth - width - margin);
+    choicePopup.style.left = Math.max(margin, left) + "px";
+    if (below) {
+        choicePopup.style.top = (r.bottom + 2) + "px";
+        choicePopup.style.bottom = "auto";
+    } else {
+        choicePopup.style.bottom = (window.innerHeight - r.top + 2) + "px";
+        choicePopup.style.top = "auto";
+    }
+}
 
-    let list = document.getElementById("usageList");
+function renderChoicePopup(getChoices, filterText) {
+    const input = choicePopupInput;
+    if (!choicePopup || !input) return;
+    const f = normalize(filterText || "");
+    const all = getChoices();
+    const items = f ? all.filter(c => normalize(c).includes(f)) : all;
+    choicePopup.innerHTML = "";
+    if (!items.length) {
+        const empty = document.createElement("div");
+        empty.className = "choiceEmpty";
+        empty.textContent = "–";
+        choicePopup.appendChild(empty);
+    }
+    items.forEach(text => {
+        const item = document.createElement("div");
+        item.className = "choiceItem";
+        item.textContent = text;
+        item.addEventListener("mousedown", e => {
+            e.preventDefault();
+            input.value = text;
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+            closeChoicePopup();
+        });
+        choicePopup.appendChild(item);
+    });
+    positionChoicePopup();
+}
 
-    if (list) list.remove();
+function openChoicePopup(input, getChoices) {
+    if (choicePopupInput === input && choicePopup) return;
+    closeChoicePopup();
+    choicePopup = document.createElement("div");
+    choicePopup.className = "choicePopup";
+    choicePopupInput = input;
+    document.body.appendChild(choicePopup);
+    renderChoicePopup(getChoices, "");
+}
 
-    list = document.createElement("datalist");
-    list.id = "usageList";
+function attachChoicePopup(input, getChoices) {
 
-    tenses.forEach(tense => {
+    input.setAttribute("autocomplete", "off");
 
-        const option = document.createElement("option");
-        option.value = tense.rule;
-        list.appendChild(option);
+    input.addEventListener("focus", () => openChoicePopup(input, getChoices));
+    input.addEventListener("click", () => openChoicePopup(input, getChoices));
 
+    input.addEventListener("input", () => {
+        if (choicePopupInput !== input) openChoicePopup(input, getChoices);
+        /* nur filtern, solange der Text nicht schon exakt ein Eintrag ist */
+        const exact = getChoices().some(c => normalize(c) === normalize(input.value));
+        renderChoicePopup(getChoices, exact ? "" : input.value);
     });
 
-    document.body.appendChild(list);
+    input.addEventListener("keydown", e => {
+        if (e.key === "Escape" || e.key === "Tab") closeChoicePopup();
+    });
+
+    input.addEventListener("blur", () => {
+        if (choicePopupInput === input) closeChoicePopup();
+    });
 
 }
 
+window.addEventListener("resize", positionChoicePopup);
+window.addEventListener("scroll", positionChoicePopup, true);
 
 
 /* ===========================================================
-   SIGNAL LIST
+   MATCHING (Signal words / Usage)
 =========================================================== */
 
-function createSignalList() {
+function signalMatches(tense, value) {
+    const user = normalize(value);
+    /* Dropdown zeigt nur eindeutige Ausdrücke; Kurzformen (z. B. "siempre")
+       dürfen selbst eingetippt werden: tense.signalAliases */
+    return user.length > 0 &&
+        tense.signals.concat(tense.signalAliases || [])
+            .some(s => normalize(s) === user);
+}
 
-    let list =
-        document.getElementById("signalList");
-
-    if (list) list.remove();
-
-    list = document.createElement("datalist");
-
-    list.id = "signalList";
-
-    signalWords.forEach(word => {
-
-        const option =
-            document.createElement("option");
-
-        option.value = word;
-
-        list.appendChild(option);
-
-    });
-
-    document.body.appendChild(list);
-
+/* akzeptiert den vollständigen Listeneintrag ODER einen Teil davon */
+function usageMatches(tense, value) {
+    const user = normalize(value);
+    if (!user.length) return false;
+    if (normalize(tense.rule) === user) return true;
+    /* Teile zwischen "•"; Wörter in Klammern zählen auch einzeln,
+       z. B. "future action (predictions, spontaneous decisions)" */
+    return tense.rule
+        .split("•")
+        .some(part => {
+            if (normalize(part) === user) return true;
+            const m = part.match(/\(([^)]*)\)/);
+            return !!m && m[1].split(",")
+                .some(item => normalize(item) === user);
+        });
 }
 
 
@@ -1153,12 +1254,203 @@ function canonical(text) {
 
     return result
         .replace(/\s+/g, " ")
+        .replace(/\s+\?/g, "?")   // "parles-tu ?" = "parles-tu?"
         .trim();
 
 }
 
 
+/* ===========================================================
+   FRENCH \u2013 Verneinung & Fragen
+
+   (+)  Verb ohne Subjekt:   parle / ai parl\u00e9
+   (-)  mit ne \u2026 pas:        ne parle pas / n'ai pas parl\u00e9
+   (?)  Frage mit Subjekt:   est-ce que tu parles ? / parles-tu ?
+=========================================================== */
+
+function frStartsVowel(word) {
+    return /^[aeiouy\u00e0\u00e2\u00e4\u00e9\u00e8\u00ea\u00eb\u00ee\u00ef\u00f4\u00f6\u00f9\u00fb\u00fc\u0153h]/i.test(word);
+}
+
+/* "ai parl\u00e9" -> ["ai", "parl\u00e9"]; "parle" -> ["parle", ""] */
+function frSplit(form) {
+
+    const i = form.indexOf(" ");
+
+    return i < 0
+        ? [form, ""]
+        : [form.slice(0, i), form.slice(i + 1)];
+
+}
+
+/* je + ai -> j'ai, sonst Pronomen + Leerzeichen */
+function frSubject(pronoun, text) {
+
+    if (pronoun === "je" && frStartsVowel(text)) {
+        return "j'" + text;
+    }
+
+    return pronoun + " " + text;
+
+}
+
+function frNegate(form) {
+
+    const [finite, rest] = frSplit(form);
+
+    return (frStartsVowel(finite) ? "n'" : "ne ") +
+        finite + " pas" +
+        (rest ? " " + rest : "");
+
+}
+
+function frEstCeQue(pronoun, form) {
+
+    const que = frStartsVowel(pronoun)
+        ? "est-ce qu'"
+        : "est-ce que ";
+
+    return que + frSubject(pronoun, form) + " ?";
+
+}
+
+function frInversion(pronoun, form, verb, tense) {
+
+    const [finite, rest] = frSplit(form);
+
+    let head;
+
+    if (pronoun === "je") {
+
+        if (verb.infinitive === "pouvoir" && tense.id === "present") {
+            head = "puis-je";
+        } else {
+            head = (finite.endsWith("e")
+                ? finite.slice(0, -1) + "\u00e9"
+                : finite) + "-je";
+        }
+
+    } else if (pronoun === "il" ||
+               pronoun === "elle" ||
+               pronoun === "on") {
+
+        head = finite +
+            (/[ae]$/.test(finite) ? "-t-" : "-") +
+            pronoun;
+
+    } else {
+
+        head = finite + "-" + pronoun;
+
+    }
+
+    return head + (rest ? " " + rest : "") + " ?";
+
+}
+
+/* erlaubte Endungen des Participe pass\u00e9 bei Verben mit \u00eatre */
+const frAgreement = {
+    je:    ["", "e"],
+    tu:    ["", "e"],
+    il:    [""],
+    elle:  ["e"],
+    on:    ["", "e", "s", "es"],
+    nous:  ["s", "es"],
+    vous:  ["", "e", "s", "es"],
+    ils:   ["s"],
+    elles: ["es"]
+};
+
+/* gleiche Verbform, weitere akzeptierte Pronomen */
+const frGroups = {
+    il:  ["il", "elle", "on"],
+    ils: ["ils", "elles"]
+};
+
+function frFormVariants(column, tense, pronoun) {
+
+    const base =
+        column.verb.forms[tense.id][column.pronounIndex];
+
+    if (!tense.compound || column.verb.aux !== "etre") {
+        return [base];
+    }
+
+    const finite = frSplit(base)[0];
+
+    return frAgreement[pronoun].map(
+        suffix => finite + " " + column.verb.pp + suffix
+    );
+
+}
+
+/* alle akzeptierten Schreibweisen (kanonisiert) */
+function frAlternatives(column, tense, sentenceType) {
+
+    sentenceType ??= column.sentenceType;
+
+    const group = frGroups[column.pronoun] || [column.pronoun];
+    const raw = new Set();
+
+    group.forEach(pronoun => {
+
+        frFormVariants(column, tense, pronoun).forEach(form => {
+
+            if (sentenceType === "negative") {
+
+                const negated = frNegate(form);
+
+                raw.add(negated);
+                raw.add(frSubject(pronoun, negated));
+
+            } else if (sentenceType === "question") {
+
+                raw.add(frEstCeQue(pronoun, form));
+                raw.add(
+                    frInversion(pronoun, form, column.verb, tense)
+                );
+
+            } else {
+
+                raw.add(form);
+                raw.add(frSubject(pronoun, form));
+
+            }
+
+        });
+
+    });
+
+    const result = new Set();
+
+    raw.forEach(text => {
+
+        result.add(canonical(text));
+        result.add(canonical(text.replace(/\?\s*$/, "")));
+
+    });
+
+    return [...result];
+
+}
+
 function buildAnswer(solution,column,tense,sentenceType){
+
+    if (currentLanguage === "fr") {
+
+        sentenceType ??= column.sentenceType;
+
+        if (sentenceType === "negative") {
+            return frNegate(solution);
+        }
+
+        if (sentenceType === "question") {
+            return frEstCeQue(column.pronoun, solution);
+        }
+
+        return solution;
+
+    }
 
     if(currentLanguage !== "en"){
         return solution;
@@ -1475,7 +1767,11 @@ let answersVisible = false;
    - bei "he/she/it" zusätzlich mit "he" statt "he/she/it"
    - bei Statement (+) und Negativ (-): zusätzlich mit
      vorangestelltem Subjektpronomen (optional, nicht Pflicht) */
-function buildAlternatives(solution, pronoun, sentenceType) {
+function buildAlternatives(solution, pronoun, sentenceType, column, tense) {
+
+    if (currentLanguage === "fr" && column && tense) {
+        return frAlternatives(column, tense, sentenceType);
+    }
 
     const variants = new Set();
 
@@ -1552,7 +1848,9 @@ const solution = buildAnswer(
 const alternatives = buildAlternatives(
     solution,
     column.pronoun,
-    input.dataset.sentenceType
+    input.dataset.sentenceType,
+    column,
+    tense
 );
 
 if(alternatives.includes(canonical(user))){
@@ -1582,10 +1880,7 @@ if(alternatives.includes(canonical(user))){
         const user =
             normalize(signalInput.value);
 
-        const valid =
-            tense.signals.some(signal =>
-                normalize(signal) === user
-            );
+        const valid = signalMatches(tense, signalInput.value);
 
         if (valid) {
 
@@ -1608,11 +1903,7 @@ if(alternatives.includes(canonical(user))){
 
         const usageUser = normalize(usageInput.value);
 
-        const usageValid =
-            usageUser.length > 0 &&
-            tense.rule
-                .split(/[•\/,]/)
-                .some(part => normalize(part) === usageUser);
+        const usageValid = usageMatches(tense, usageInput.value);
 
         if (usageValid) {
 
@@ -2012,21 +2303,13 @@ function isAnswerCorrect(input) {
 
     if (col === 0) {
 
-        const user = normalize(value);
-
-        return tense.signals.some(signal =>
-            normalize(signal) === user
-        );
+        return signalMatches(tense, value);
 
     }
 
     if (col === 1) {
 
-        const user = normalize(value);
-
-        return tense.rule
-            .split(/[•\/,]/)
-            .some(part => normalize(part) === user);
+        return usageMatches(tense, value);
 
     }
 
@@ -2044,7 +2327,9 @@ function isAnswerCorrect(input) {
     const alternatives = buildAlternatives(
         solution,
         column.pronoun,
-        input.dataset.sentenceType
+        input.dataset.sentenceType,
+        column,
+        tense
     );
 
     return alternatives.includes(canonical(normalize(value)));

@@ -55,27 +55,23 @@ const signalWords = [
     "",
 
     "immer",
-    "oft",
-    "meistens",
-    "manchmal",
-    "jeden Tag",
-
-    "gestern",
-    "letzte Woche",
-    "letztes Jahr",
-    "damals",
-
-    "schon",
-    "bereits",
+    "nie",
+    "jetzt",
+    "schon einmal",
     "noch nie",
-
+    "heute bereits",
+    "gestern",
+    "damals",
+    "letztes Jahr",
     "vorher",
-    "zuvor",
-
+    "nachdem",
+    "damals bereits",
     "morgen",
     "nächste Woche",
-
-    "bis dahin"
+    "wahrscheinlich",
+    "bis dahin",
+    "bis morgen",
+    "bis Freitag"
 
 ];
 
@@ -136,15 +132,14 @@ const verbPool = [
             "waren gegangen"
         ],
 
- futur1: [
-    "werde gehen",
-    "wirst gehen",
-    "wird gehen",
-    "werden gehen",
-    "werdet gehen",
-    "werden gehen"
-],
-
+        futur1: [
+            "werde gehen",
+            "wirst gehen",
+            "wird gehen",
+            "werden gehen",
+            "werdet gehen",
+            "werden gehen"
+        ],
 
         futur2: [
             "werde gegangen sein",
@@ -605,134 +600,6 @@ const verbPool = [
 
     }
 
-},
-
-{
-    infinitive: "machen",
-    type: "regular",
-
-    forms: {
-
-        praesens: [
-            "mache",
-            "machst",
-            "macht",
-            "machen",
-            "macht",
-            "machen"
-        ],
-
-        perfekt: [
-            "habe gemacht",
-            "hast gemacht",
-            "hat gemacht",
-            "haben gemacht",
-            "habt gemacht",
-            "haben gemacht"
-        ],
-
-        praeteritum: [
-            "machte",
-            "machtest",
-            "machte",
-            "machten",
-            "machtet",
-            "machten"
-        ],
-
-        plusquamperfekt: [
-            "hatte gemacht",
-            "hattest gemacht",
-            "hatte gemacht",
-            "hatten gemacht",
-            "hattet gemacht",
-            "hatten gemacht"
-        ],
-
-        futur1: [
-            "werde machen",
-            "wirst machen",
-            "wird machen",
-            "werden machen",
-            "werdet machen",
-            "werden machen"
-        ],
-
-        futur2: [
-            "werde gemacht haben",
-            "wirst gemacht haben",
-            "wird gemacht haben",
-            "werden gemacht haben",
-            "werdet gemacht haben",
-            "werden gemacht haben"
-        ]
-
-    }
-
-},
-
-{
-    infinitive: "brauchen",
-    type: "regular",
-
-    forms: {
-
-        praesens: [
-            "brauche",
-            "brauchst",
-            "braucht",
-            "brauchen",
-            "braucht",
-            "brauchen"
-        ],
-
-        perfekt: [
-            "habe gebraucht",
-            "hast gebraucht",
-            "hat gebraucht",
-            "haben gebraucht",
-            "habt gebraucht",
-            "haben gebraucht"
-        ],
-
-        praeteritum: [
-            "brauchte",
-            "brauchtest",
-            "brauchte",
-            "brauchten",
-            "brauchtet",
-            "brauchten"
-        ],
-
-        plusquamperfekt: [
-            "hatte gebraucht",
-            "hattest gebraucht",
-            "hatte gebraucht",
-            "hatten gebraucht",
-            "hattet gebraucht",
-            "hatten gebraucht"
-        ],
-
-        futur1: [
-            "werde brauchen",
-            "wirst brauchen",
-            "wird brauchen",
-            "werden brauchen",
-            "werdet brauchen",
-            "werden brauchen"
-        ],
-
-        futur2: [
-            "werde gebraucht haben",
-            "wirst gebraucht haben",
-            "wird gebraucht haben",
-            "werden gebraucht haben",
-            "werdet gebraucht haben",
-            "werden gebraucht haben"
-        ]
-
-    }
-
 }
 
 ];
@@ -747,35 +614,35 @@ const tenses = [
 {
     id: "praesens",
     name: "Präsens",
-    rule: "Gegenwart • regelmäßige Handlungen",
+    rule: "Gegenwart • regelmäßige Handlungen • Fokus auf Gewohnheiten",
+    signalAliases: ["oft","meistens","manchmal","jeden Tag"],
     signals: [
         "immer",
-        "oft",
-        "meistens",
-        "manchmal",
-        "jeden Tag"
+        "nie",
+        "jetzt"
     ]
 },
 
 {
     id: "perfekt",
     name: "Perfekt",
-    rule: "abgeschlossene Handlung • häufig mündlich",
+    rule: "abgeschlossene Handlung • häufig mündlich • Fokus auf dem Ergebnis",
+    signalAliases: ["schon","noch nicht","bis jetzt","bereits"],
     signals: [
-        "schon",
-        "bereits",
-        "noch nie"
+        "schon einmal",
+        "noch nie",
+        "heute bereits"
     ]
 },
 
 {
     id: "praeteritum",
     name: "Präteritum",
-    rule: "Vergangenheit • häufig schriftlich",
+    rule: "Vergangenheit • häufig schriftlich • Fokus auf dem Erzählen",
+    signalAliases: ["letzte Woche"],
     signals: [
         "gestern",
         "damals",
-        "letzte Woche",
         "letztes Jahr"
     ]
 },
@@ -783,30 +650,36 @@ const tenses = [
 {
     id: "plusquamperfekt",
     name: "Plusquamperfekt",
-    rule: "Handlung vor einer anderen vergangenen Handlung",
+    rule: "Handlung vor einer anderen vergangenen Handlung • Fokus auf dem früheren Geschehen",
+    signalAliases: ["zuvor","davor","bereits"],
     signals: [
         "vorher",
-        "zuvor",
-        "bereits"
+        "nachdem",
+        "damals bereits"
     ]
 },
 
 {
     id: "futur1",
     name: "Futur I",
-    rule: "zukünftige Handlung • Vermutung",
+    rule: "zukünftige Handlung • Vermutung • Fokus auf Plan oder Annahme",
+    signalAliases: ["bald","nächstes Jahr"],
     signals: [
         "morgen",
-        "nächste Woche"
+        "nächste Woche",
+        "wahrscheinlich"
     ]
 },
 
 {
     id: "futur2",
     name: "Futur II",
-    rule: "in der Zukunft abgeschlossene Handlung",
+    rule: "in der Zukunft abgeschlossene Handlung • Fokus auf dem Ergebnis bis dahin",
+    signalAliases: ["bis zum Abend"],
     signals: [
-        "bis dahin"
+        "bis dahin",
+        "bis morgen",
+        "bis Freitag"
     ]
 }
 

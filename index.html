@@ -45,6 +45,7 @@
         <option value="en">🇺🇸 English</option>
         <option value="es">🇪🇸 Español</option>
         <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
     </select>
 
 </div>
@@ -137,16 +138,6 @@
 
 </div>
 
-<div class="optionGroup">
-
-    <label for="verbCountSelect">
-        Number of verbs:
-    </label>
-
-        <select id="verbCountSelect"></select>
-
-    </div>
-
     <div class="optionGroup">
 
         <label>Verb selection:</label>
@@ -207,6 +198,11 @@
                 type="text"
                 placeholder="Search verb..."
             >
+
+            <div class="verbLegend">
+                <span class="verbName irregularVerb">Underlined</span>
+                = irregular verb
+            </div>
 
             <div id="verbSelection"></div>
 
@@ -361,6 +357,8 @@
         dataFile = "data-german.js";
     }else if(language === "es"){
         dataFile = "data-spanish.js";
+    }else if(language === "fr"){
+        dataFile = "data-french.js";
     }else{
         dataFile = "data-english.js";
     }

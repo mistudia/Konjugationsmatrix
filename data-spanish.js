@@ -38,25 +38,34 @@ const languageConfig = {
 =========================================================== */
 
 const signalWords = [
+
     "",
-    "siempre",
-    "normalmente",
-    "a menudo",
+
+    "en mi vida cotidiana siempre",
+    "hoy en día normalmente",
     "todos los días",
     "ahora",
     "en este momento",
-    "hoy",
+    "ahora mismo",
+    "hoy ya",
+    "todavía no",
+    "alguna vez",
     "ayer",
     "anoche",
-    "la semana pasada",
     "el año pasado",
-    "ya",
-    "todavía no",
-    "nunca",
-    "alguna vez",
+    "en mi niñez siempre",
+    "de pequeño normalmente",
+    "cuando era niño",
+    "antes de eso ya",
+    "nunca antes",
+    "hasta entonces",
     "mañana",
     "la semana que viene",
-    "para entonces"
+    "el año que viene",
+    "para entonces",
+    "para mañana",
+    "para el viernes"
+
 ];
 
 
@@ -72,35 +81,36 @@ const verbPool = [
 
     forms: {
         presente:
-            ["hablo", "hablas", "habla", "hablamos", "habláis", "hablan"],
+            ["hablo", "hablas", "habla",
+            "hablamos", "habláis", "hablan"],
 
         estarGerundio:
             ["estoy hablando", "estás hablando", "está hablando",
-             "estamos hablando", "estáis hablando", "están hablando"],
+            "estamos hablando", "estáis hablando", "están hablando"],
 
         preteritoPerfecto:
             ["he hablado", "has hablado", "ha hablado",
-             "hemos hablado", "habéis hablado", "han hablado"],
+            "hemos hablado", "habéis hablado", "han hablado"],
 
         preteritoIndefinido:
             ["hablé", "hablaste", "habló",
-             "hablamos", "hablasteis", "hablaron"],
+            "hablamos", "hablasteis", "hablaron"],
 
         preteritoImperfecto:
             ["hablaba", "hablabas", "hablaba",
-             "hablábamos", "hablabais", "hablaban"],
+            "hablábamos", "hablabais", "hablaban"],
 
         pluscuamperfecto:
             ["había hablado", "habías hablado", "había hablado",
-             "habíamos hablado", "habíais hablado", "habían hablado"],
+            "habíamos hablado", "habíais hablado", "habían hablado"],
 
         futuroSimple:
             ["hablaré", "hablarás", "hablará",
-             "hablaremos", "hablaréis", "hablarán"],
+            "hablaremos", "hablaréis", "hablarán"],
 
         futuroPerfecto:
             ["habré hablado", "habrás hablado", "habrá hablado",
-             "habremos hablado", "habréis hablado", "habrán hablado"]
+            "habremos hablado", "habréis hablado", "habrán hablado"]
     }
 },
 
@@ -110,35 +120,36 @@ const verbPool = [
 
     forms: {
         presente:
-            ["como", "comes", "come", "comemos", "coméis", "comen"],
+            ["como", "comes", "come",
+            "comemos", "coméis", "comen"],
 
         estarGerundio:
             ["estoy comiendo", "estás comiendo", "está comiendo",
-             "estamos comiendo", "estáis comiendo", "están comiendo"],
+            "estamos comiendo", "estáis comiendo", "están comiendo"],
 
         preteritoPerfecto:
             ["he comido", "has comido", "ha comido",
-             "hemos comido", "habéis comido", "han comido"],
+            "hemos comido", "habéis comido", "han comido"],
 
         preteritoIndefinido:
             ["comí", "comiste", "comió",
-             "comimos", "comisteis", "comieron"],
+            "comimos", "comisteis", "comieron"],
 
         preteritoImperfecto:
             ["comía", "comías", "comía",
-             "comíamos", "comíais", "comían"],
+            "comíamos", "comíais", "comían"],
 
         pluscuamperfecto:
             ["había comido", "habías comido", "había comido",
-             "habíamos comido", "habíais comido", "habían comido"],
+            "habíamos comido", "habíais comido", "habían comido"],
 
         futuroSimple:
             ["comeré", "comerás", "comerá",
-             "comeremos", "comeréis", "comerán"],
+            "comeremos", "comeréis", "comerán"],
 
         futuroPerfecto:
             ["habré comido", "habrás comido", "habrá comido",
-             "habremos comido", "habréis comido", "habrán comido"]
+            "habremos comido", "habréis comido", "habrán comido"]
     }
 },
 
@@ -148,35 +159,36 @@ const verbPool = [
 
     forms: {
         presente:
-            ["vivo", "vives", "vive", "vivimos", "vivís", "viven"],
+            ["vivo", "vives", "vive",
+            "vivimos", "vivís", "viven"],
 
         estarGerundio:
             ["estoy viviendo", "estás viviendo", "está viviendo",
-             "estamos viviendo", "estáis viviendo", "están viviendo"],
+            "estamos viviendo", "estáis viviendo", "están viviendo"],
 
         preteritoPerfecto:
             ["he vivido", "has vivido", "ha vivido",
-             "hemos vivido", "habéis vivido", "han vivido"],
+            "hemos vivido", "habéis vivido", "han vivido"],
 
         preteritoIndefinido:
             ["viví", "viviste", "vivió",
-             "vivimos", "vivisteis", "vivieron"],
+            "vivimos", "vivisteis", "vivieron"],
 
         preteritoImperfecto:
             ["vivía", "vivías", "vivía",
-             "vivíamos", "vivíais", "vivían"],
+            "vivíamos", "vivíais", "vivían"],
 
         pluscuamperfecto:
             ["había vivido", "habías vivido", "había vivido",
-             "habíamos vivido", "habíais vivido", "habían vivido"],
+            "habíamos vivido", "habíais vivido", "habían vivido"],
 
         futuroSimple:
             ["viviré", "vivirás", "vivirá",
-             "viviremos", "viviréis", "vivirán"],
+            "viviremos", "viviréis", "vivirán"],
 
         futuroPerfecto:
             ["habré vivido", "habrás vivido", "habrá vivido",
-             "habremos vivido", "habréis vivido", "habrán vivido"]
+            "habremos vivido", "habréis vivido", "habrán vivido"]
     }
 },
 
@@ -186,35 +198,36 @@ const verbPool = [
 
     forms: {
         presente:
-            ["tengo", "tienes", "tiene", "tenemos", "tenéis", "tienen"],
+            ["tengo", "tienes", "tiene",
+            "tenemos", "tenéis", "tienen"],
 
         estarGerundio:
             ["estoy teniendo", "estás teniendo", "está teniendo",
-             "estamos teniendo", "estáis teniendo", "están teniendo"],
+            "estamos teniendo", "estáis teniendo", "están teniendo"],
 
         preteritoPerfecto:
             ["he tenido", "has tenido", "ha tenido",
-             "hemos tenido", "habéis tenido", "han tenido"],
+            "hemos tenido", "habéis tenido", "han tenido"],
 
         preteritoIndefinido:
             ["tuve", "tuviste", "tuvo",
-             "tuvimos", "tuvisteis", "tuvieron"],
+            "tuvimos", "tuvisteis", "tuvieron"],
 
         preteritoImperfecto:
             ["tenía", "tenías", "tenía",
-             "teníamos", "teníais", "tenían"],
+            "teníamos", "teníais", "tenían"],
 
         pluscuamperfecto:
             ["había tenido", "habías tenido", "había tenido",
-             "habíamos tenido", "habíais tenido", "habían tenido"],
+            "habíamos tenido", "habíais tenido", "habían tenido"],
 
         futuroSimple:
             ["tendré", "tendrás", "tendrá",
-             "tendremos", "tendréis", "tendrán"],
+            "tendremos", "tendréis", "tendrán"],
 
         futuroPerfecto:
             ["habré tenido", "habrás tenido", "habrá tenido",
-             "habremos tenido", "habréis tenido", "habrán tenido"]
+            "habremos tenido", "habréis tenido", "habrán tenido"]
     }
 },
 
@@ -224,35 +237,36 @@ const verbPool = [
 
     forms: {
         presente:
-            ["hago", "haces", "hace", "hacemos", "hacéis", "hacen"],
+            ["hago", "haces", "hace",
+            "hacemos", "hacéis", "hacen"],
 
         estarGerundio:
             ["estoy haciendo", "estás haciendo", "está haciendo",
-             "estamos haciendo", "estáis haciendo", "están haciendo"],
+            "estamos haciendo", "estáis haciendo", "están haciendo"],
 
         preteritoPerfecto:
             ["he hecho", "has hecho", "ha hecho",
-             "hemos hecho", "habéis hecho", "han hecho"],
+            "hemos hecho", "habéis hecho", "han hecho"],
 
         preteritoIndefinido:
             ["hice", "hiciste", "hizo",
-             "hicimos", "hicisteis", "hicieron"],
+            "hicimos", "hicisteis", "hicieron"],
 
         preteritoImperfecto:
             ["hacía", "hacías", "hacía",
-             "hacíamos", "hacíais", "hacían"],
+            "hacíamos", "hacíais", "hacían"],
 
         pluscuamperfecto:
             ["había hecho", "habías hecho", "había hecho",
-             "habíamos hecho", "habíais hecho", "habían hecho"],
+            "habíamos hecho", "habíais hecho", "habían hecho"],
 
         futuroSimple:
             ["haré", "harás", "hará",
-             "haremos", "haréis", "harán"],
+            "haremos", "haréis", "harán"],
 
         futuroPerfecto:
             ["habré hecho", "habrás hecho", "habrá hecho",
-             "habremos hecho", "habréis hecho", "habrán hecho"]
+            "habremos hecho", "habréis hecho", "habrán hecho"]
     }
 },
 
@@ -262,35 +276,36 @@ const verbPool = [
 
     forms: {
         presente:
-            ["voy", "vas", "va", "vamos", "vais", "van"],
+            ["voy", "vas", "va",
+            "vamos", "vais", "van"],
 
         estarGerundio:
             ["estoy yendo", "estás yendo", "está yendo",
-             "estamos yendo", "estáis yendo", "están yendo"],
+            "estamos yendo", "estáis yendo", "están yendo"],
 
         preteritoPerfecto:
             ["he ido", "has ido", "ha ido",
-             "hemos ido", "habéis ido", "han ido"],
+            "hemos ido", "habéis ido", "han ido"],
 
         preteritoIndefinido:
             ["fui", "fuiste", "fue",
-             "fuimos", "fuisteis", "fueron"],
+            "fuimos", "fuisteis", "fueron"],
 
         preteritoImperfecto:
             ["iba", "ibas", "iba",
-             "íbamos", "ibais", "iban"],
+            "íbamos", "ibais", "iban"],
 
         pluscuamperfecto:
             ["había ido", "habías ido", "había ido",
-             "habíamos ido", "habíais ido", "habían ido"],
+            "habíamos ido", "habíais ido", "habían ido"],
 
         futuroSimple:
             ["iré", "irás", "irá",
-             "iremos", "iréis", "irán"],
+            "iremos", "iréis", "irán"],
 
         futuroPerfecto:
             ["habré ido", "habrás ido", "habrá ido",
-             "habremos ido", "habréis ido", "habrán ido"]
+            "habremos ido", "habréis ido", "habrán ido"]
     }
 },
 
@@ -301,35 +316,35 @@ const verbPool = [
     forms: {
         presente:
             ["escribo", "escribes", "escribe",
-             "escribimos", "escribís", "escriben"],
+            "escribimos", "escribís", "escriben"],
 
         estarGerundio:
             ["estoy escribiendo", "estás escribiendo", "está escribiendo",
-             "estamos escribiendo", "estáis escribiendo", "están escribiendo"],
+            "estamos escribiendo", "estáis escribiendo", "están escribiendo"],
 
         preteritoPerfecto:
             ["he escrito", "has escrito", "ha escrito",
-             "hemos escrito", "habéis escrito", "han escrito"],
+            "hemos escrito", "habéis escrito", "han escrito"],
 
         preteritoIndefinido:
             ["escribí", "escribiste", "escribió",
-             "escribimos", "escribisteis", "escribieron"],
+            "escribimos", "escribisteis", "escribieron"],
 
         preteritoImperfecto:
             ["escribía", "escribías", "escribía",
-             "escribíamos", "escribíais", "escribían"],
+            "escribíamos", "escribíais", "escribían"],
 
         pluscuamperfecto:
             ["había escrito", "habías escrito", "había escrito",
-             "habíamos escrito", "habíais escrito", "habían escrito"],
+            "habíamos escrito", "habíais escrito", "habían escrito"],
 
         futuroSimple:
             ["escribiré", "escribirás", "escribirá",
-             "escribiremos", "escribiréis", "escribirán"],
+            "escribiremos", "escribiréis", "escribirán"],
 
         futuroPerfecto:
             ["habré escrito", "habrás escrito", "habrá escrito",
-             "habremos escrito", "habréis escrito", "habrán escrito"]
+            "habremos escrito", "habréis escrito", "habrán escrito"]
     }
 },
 
@@ -339,234 +354,36 @@ const verbPool = [
 
     forms: {
         presente:
-            ["veo", "ves", "ve", "vemos", "veis", "ven"],
+            ["veo", "ves", "ve",
+            "vemos", "veis", "ven"],
 
         estarGerundio:
             ["estoy viendo", "estás viendo", "está viendo",
-             "estamos viendo", "estáis viendo", "están viendo"],
+            "estamos viendo", "estáis viendo", "están viendo"],
 
         preteritoPerfecto:
             ["he visto", "has visto", "ha visto",
-             "hemos visto", "habéis visto", "han visto"],
+            "hemos visto", "habéis visto", "han visto"],
 
         preteritoIndefinido:
             ["vi", "viste", "vio",
-             "vimos", "visteis", "vieron"],
+            "vimos", "visteis", "vieron"],
 
         preteritoImperfecto:
             ["veía", "veías", "veía",
-             "veíamos", "veíais", "veían"],
+            "veíamos", "veíais", "veían"],
 
         pluscuamperfecto:
             ["había visto", "habías visto", "había visto",
-             "habíamos visto", "habíais visto", "habían visto"],
+            "habíamos visto", "habíais visto", "habían visto"],
 
         futuroSimple:
             ["veré", "verás", "verá",
-             "veremos", "veréis", "verán"],
+            "veremos", "veréis", "verán"],
 
         futuroPerfecto:
             ["habré visto", "habrás visto", "habrá visto",
-             "habremos visto", "habréis visto", "habrán visto"]
-    }
-},
-
-{
-    infinitive: "ser",
-    type: "irregular",
-
-    forms: {
-        presente:
-            ["soy", "eres", "es", "somos", "sois", "son"],
-
-        estarGerundio:
-            ["estoy siendo", "estás siendo", "está siendo",
-             "estamos siendo", "estáis siendo", "están siendo"],
-
-        preteritoPerfecto:
-            ["he sido", "has sido", "ha sido",
-             "hemos sido", "habéis sido", "han sido"],
-
-        preteritoIndefinido:
-            ["fui", "fuiste", "fue",
-             "fuimos", "fuisteis", "fueron"],
-
-        preteritoImperfecto:
-            ["era", "eras", "era",
-             "éramos", "erais", "eran"],
-
-        pluscuamperfecto:
-            ["había sido", "habías sido", "había sido",
-             "habíamos sido", "habíais sido", "habían sido"],
-
-        futuroSimple:
-            ["seré", "serás", "será",
-             "seremos", "seréis", "serán"],
-
-        futuroPerfecto:
-            ["habré sido", "habrás sido", "habrá sido",
-             "habremos sido", "habréis sido", "habrán sido"]
-    }
-},
-
-{
-    infinitive: "estar",
-    type: "irregular",
-
-    forms: {
-        presente:
-            ["estoy", "estás", "está", "estamos", "estáis", "están"],
-
-        estarGerundio:
-            ["estoy estando", "estás estando", "está estando",
-             "estamos estando", "estáis estando", "están estando"],
-
-        preteritoPerfecto:
-            ["he estado", "has estado", "ha estado",
-             "hemos estado", "habéis estado", "han estado"],
-
-        preteritoIndefinido:
-            ["estuve", "estuviste", "estuvo",
-             "estuvimos", "estuvisteis", "estuvieron"],
-
-        preteritoImperfecto:
-            ["estaba", "estabas", "estaba",
-             "estábamos", "estabais", "estaban"],
-
-        pluscuamperfecto:
-            ["había estado", "habías estado", "había estado",
-             "habíamos estado", "habíais estado", "habían estado"],
-
-        futuroSimple:
-            ["estaré", "estarás", "estará",
-             "estaremos", "estaréis", "estarán"],
-
-        futuroPerfecto:
-            ["habré estado", "habrás estado", "habrá estado",
-             "habremos estado", "habréis estado", "habrán estado"]
-    }
-},
-
-{
-    infinitive: "trabajar",
-    type: "regular",
-
-    forms: {
-        presente:
-            ["trabajo", "trabajas", "trabaja",
-             "trabajamos", "trabajáis", "trabajan"],
-
-        estarGerundio:
-            ["estoy trabajando", "estás trabajando", "está trabajando",
-             "estamos trabajando", "estáis trabajando", "están trabajando"],
-
-        preteritoPerfecto:
-            ["he trabajado", "has trabajado", "ha trabajado",
-             "hemos trabajado", "habéis trabajado", "han trabajado"],
-
-        preteritoIndefinido:
-            ["trabajé", "trabajaste", "trabajó",
-             "trabajamos", "trabajasteis", "trabajaron"],
-
-        preteritoImperfecto:
-            ["trabajaba", "trabajabas", "trabajaba",
-             "trabajábamos", "trabajabais", "trabajaban"],
-
-        pluscuamperfecto:
-            ["había trabajado", "habías trabajado", "había trabajado",
-             "habíamos trabajado", "habíais trabajado", "habían trabajado"],
-
-        futuroSimple:
-            ["trabajaré", "trabajarás", "trabajará",
-             "trabajaremos", "trabajaréis", "trabajarán"],
-
-        futuroPerfecto:
-            ["habré trabajado", "habrás trabajado", "habrá trabajado",
-             "habremos trabajado", "habréis trabajado", "habrán trabajado"]
-    }
-},
-
-{
-    infinitive: "comprender",
-    type: "regular",
-
-    forms: {
-        presente:
-            ["comprendo", "comprendes", "comprende",
-             "comprendemos", "comprendéis", "comprenden"],
-
-        estarGerundio:
-            ["estoy comprendiendo", "estás comprendiendo", "está comprendiendo",
-             "estamos comprendiendo", "estáis comprendiendo", "están comprendiendo"],
-
-        preteritoPerfecto:
-            ["he comprendido", "has comprendido", "ha comprendido",
-             "hemos comprendido", "habéis comprendido", "han comprendido"],
-
-        preteritoIndefinido:
-            ["comprendí", "comprendiste", "comprendió",
-             "comprendimos", "comprendisteis", "comprendieron"],
-
-        preteritoImperfecto:
-            ["comprendía", "comprendías", "comprendía",
-             "comprendíamos", "comprendíais", "comprendían"],
-
-        pluscuamperfecto:
-            ["había comprendido", "habías comprendido", "había comprendido",
-             "habíamos comprendido", "habíais comprendido", "habían comprendido"],
-
-        futuroSimple:
-            ["comprenderé", "comprenderás", "comprenderá",
-             "comprenderemos", "comprenderéis", "comprenderán"],
-
-        futuroPerfecto:
-            ["habré comprendido", "habrás comprendido", "habrá comprendido",
-             "habremos comprendido", "habréis comprendido", "habrán comprendido"]
-    }
-},
-
-{
-    infinitive: "llamarse",
-    type: "irregular",
-
-    forms: {
-
-        /* Reflexives Verb: das Reflexivpronomen (me/te/se/nos/os/se)
-           ist bereits Teil der gespeicherten Form, sodass die
-           bestehende Prüf-/Verneinungs-/Fragenlogik unverändert
-           funktioniert ("no me llamo", "yo me llamo" usw.). */
-
-        presente:
-            ["me llamo", "te llamas", "se llama",
-             "nos llamamos", "os llamáis", "se llaman"],
-
-        estarGerundio:
-            ["me estoy llamando", "te estás llamando", "se está llamando",
-             "nos estamos llamando", "os estáis llamando", "se están llamando"],
-
-        preteritoPerfecto:
-            ["me he llamado", "te has llamado", "se ha llamado",
-             "nos hemos llamado", "os habéis llamado", "se han llamado"],
-
-        preteritoIndefinido:
-            ["me llamé", "te llamaste", "se llamó",
-             "nos llamamos", "os llamasteis", "se llamaron"],
-
-        preteritoImperfecto:
-            ["me llamaba", "te llamabas", "se llamaba",
-             "nos llamábamos", "os llamabais", "se llamaban"],
-
-        pluscuamperfecto:
-            ["me había llamado", "te habías llamado", "se había llamado",
-             "nos habíamos llamado", "os habíais llamado", "se habían llamado"],
-
-        futuroSimple:
-            ["me llamaré", "te llamarás", "se llamará",
-             "nos llamaremos", "os llamaréis", "se llamarán"],
-
-        futuroPerfecto:
-            ["me habré llamado", "te habrás llamado", "se habrá llamado",
-             "nos habremos llamado", "os habréis llamado", "se habrán llamado"]
+            "habremos visto", "habréis visto", "habrán visto"]
     }
 }
 
@@ -582,35 +399,35 @@ const tenses = [
 {
     id:"presente",
     name:"Presente",
-    rule:"acciones actuales • hábitos",
-    signals:[
-        "siempre",
-        "normalmente",
-        "a menudo",
-        "todos los días",
-        "hoy"
+    rule:"acciones actuales • hábitos • foco en la rutina",
+    signalAliases: ["hoy en día a menudo","cada mañana","siempre","normalmente","a menudo"],
+    signals: [
+        "en mi vida cotidiana siempre",
+        "hoy en día normalmente",
+        "todos los días"
     ]
 },
 
 {
     id:"estarGerundio",
     name:"Estar + gerundio",
-    rule:"acción en progreso",
-    signals:[
+    rule:"acción en progreso • foco en el momento y/o la duración",
+    signalAliases: ["actualmente"],
+    signals: [
         "ahora",
-        "en este momento"
+        "en este momento",
+        "ahora mismo"
     ]
 },
 
 {
     id:"preteritoPerfecto",
     name:"Pretérito perfecto",
-    rule:"pasado relacionado con el presente",
-    signals:[
-        "hoy",
-        "ya",
+    rule:"pasado relacionado con el presente • foco en el resultado ahora",
+    signalAliases: ["esta semana","nunca hasta ahora","hoy","ya"],
+    signals: [
+        "hoy ya",
         "todavía no",
-        "nunca",
         "alguna vez"
     ]
 },
@@ -618,11 +435,11 @@ const tenses = [
 {
     id:"preteritoIndefinido",
     name:"Pretérito indefinido",
-    rule:"acción terminada en el pasado",
-    signals:[
+    rule:"acción terminada en el pasado • foco en el hecho de que ocurrió",
+    signalAliases: ["la semana pasada"],
+    signals: [
         "ayer",
         "anoche",
-        "la semana pasada",
         "el año pasado"
     ]
 },
@@ -630,40 +447,48 @@ const tenses = [
 {
     id:"preteritoImperfecto",
     name:"Pretérito imperfecto",
-    rule:"hábitos • descripciones en el pasado",
-    signals:[
-        "siempre",
-        "normalmente",
-        "a menudo"
+    rule:"hábitos • descripciones en el pasado • foco en la costumbre o la duración",
+    signalAliases: ["de pequeño a menudo","de joven","cada verano","siempre","normalmente","a menudo"],
+    signals: [
+        "en mi niñez siempre",
+        "de pequeño normalmente",
+        "cuando era niño"
     ]
 },
 
 {
     id:"pluscuamperfecto",
     name:"Pretérito pluscuamperfecto",
-    rule:"acción anterior a otra acción pasada",
-    signals:[
-        "ya",
-        "para entonces"
+    rule:"acción anterior a otra acción pasada • foco en lo ocurrido antes",
+    signalAliases: ["en aquel momento ya","antes","ya"],
+    signals: [
+        "antes de eso ya",
+        "nunca antes",
+        "hasta entonces"
     ]
 },
 
 {
     id:"futuroSimple",
     name:"Futuro simple",
-    rule:"acciones futuras",
-    signals:[
+    rule:"acciones futuras • foco en lo que pasará",
+    signalAliases: ["pronto","algún día"],
+    signals: [
         "mañana",
-        "la semana que viene"
+        "la semana que viene",
+        "el año que viene"
     ]
 },
 
 {
     id:"futuroPerfecto",
     name:"Futuro perfecto",
-    rule:"acción terminada antes de un momento futuro",
-    signals:[
-        "para entonces"
+    rule:"acción terminada antes de un momento futuro • foco en el resultado para entonces",
+    signalAliases: ["para finales de año"],
+    signals: [
+        "para entonces",
+        "para mañana",
+        "para el viernes"
     ]
 }
 
