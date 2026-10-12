@@ -1836,7 +1836,7 @@ let answersVisible = false;
    - bei "he/she/it" zusätzlich mit "he" statt "he/she/it"
    - bei Statement (+) und Negativ (-): zusätzlich mit
      vorangestelltem Subjektpronomen (optional, nicht Pflicht) */
-function buildAlternatives(solution, pronoun, sentenceType, column, tense) {
+function buildAlternativesCore(solution, pronoun, sentenceType, column, tense) {
 
     if (currentLanguage === "fr" && column && tense) {
         return frAlternatives(column, tense, sentenceType);
@@ -1877,6 +1877,50 @@ function buildAlternatives(solution, pronoun, sentenceType, column, tense) {
     }
 
     return [...variants];
+
+}
+
+
+
+/* zweites zulaessiges Hilfsverb: verb.altForms[tenseId] = 6 Formen,
+   verb.altAux (nur Franzoesisch: "avoir"/"etre") */
+function buildAlternatives(solution, pronoun, sentenceType, column, tense) {
+
+    const result = new Set(
+        buildAlternativesCore(solution, pronoun, sentenceType, column, tense)
+    );
+
+    const alt = column && tense && column.verb.altForms &&
+        column.verb.altForms[tense.id];
+
+    if (alt && alt[column.pronounIndex]) {
+
+        const altColumn = {
+            ...column,
+            verb: {
+                ...column.verb,
+                aux: column.verb.altAux || column.verb.aux,
+                forms: {
+                    ...column.verb.forms,
+                    [tense.id]: alt
+                }
+            }
+        };
+
+        const altSolution = buildAnswer(
+            alt[column.pronounIndex],
+            altColumn,
+            tense,
+            sentenceType
+        );
+
+        buildAlternativesCore(
+            altSolution, pronoun, sentenceType, altColumn, tense
+        ).forEach(item => result.add(item));
+
+    }
+
+    return [...result];
 
 }
 

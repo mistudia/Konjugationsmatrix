@@ -896,9 +896,844 @@ const verbPool = [
             ["boirais", "boirais", "boirait",
              "boirions", "boiriez", "boiraient"]
     }
+},
+
+{
+    infinitive: "trouver",
+    type: "regular",
+    aux: "avoir",
+    pp: "trouvé",
+
+    forms: {
+        present:
+            ["trouve", "trouves", "trouve",
+             "trouvons", "trouvez", "trouvent"],
+
+        passeCompose:
+            ["ai trouvé", "as trouvé", "a trouvé",
+             "avons trouvé", "avez trouvé", "ont trouvé"],
+
+        imparfait:
+            ["trouvais", "trouvais", "trouvait",
+             "trouvions", "trouviez", "trouvaient"],
+
+        plusQueParfait:
+            ["avais trouvé", "avais trouvé", "avait trouvé",
+             "avions trouvé", "aviez trouvé", "avaient trouvé"],
+
+        futurSimple:
+            ["trouverai", "trouveras", "trouvera",
+             "trouverons", "trouverez", "trouveront"],
+
+        conditionnel:
+            ["trouverais", "trouverais", "trouverait",
+             "trouverions", "trouveriez", "trouveraient"]
+    }
+},
+
+{
+    infinitive: "devenir",
+    type: "irregular",
+    aux: "etre",
+    pp: "devenu",
+
+    forms: {
+        present:
+            ["deviens", "deviens", "devient",
+             "devenons", "devenez", "deviennent"],
+
+        passeCompose:
+            ["suis devenu", "es devenu", "est devenu",
+             "sommes devenus", "êtes devenus", "sont devenus"],
+
+        imparfait:
+            ["devenais", "devenais", "devenait",
+             "devenions", "deveniez", "devenaient"],
+
+        plusQueParfait:
+            ["étais devenu", "étais devenu", "était devenu",
+             "étions devenus", "étiez devenus", "étaient devenus"],
+
+        futurSimple:
+            ["deviendrai", "deviendras", "deviendra",
+             "deviendrons", "deviendrez", "deviendront"],
+
+        conditionnel:
+            ["deviendrais", "deviendrais", "deviendrait",
+             "deviendrions", "deviendriez", "deviendraient"]
+    }
+},
+
+{
+    infinitive: "donner",
+    type: "regular",
+    aux: "avoir",
+    pp: "donné",
+
+    forms: {
+        present:
+            ["donne", "donnes", "donne",
+             "donnons", "donnez", "donnent"],
+
+        passeCompose:
+            ["ai donné", "as donné", "a donné",
+             "avons donné", "avez donné", "ont donné"],
+
+        imparfait:
+            ["donnais", "donnais", "donnait",
+             "donnions", "donniez", "donnaient"],
+
+        plusQueParfait:
+            ["avais donné", "avais donné", "avait donné",
+             "avions donné", "aviez donné", "avaient donné"],
+
+        futurSimple:
+            ["donnerai", "donneras", "donnera",
+             "donnerons", "donnerez", "donneront"],
+
+        conditionnel:
+            ["donnerais", "donnerais", "donnerait",
+             "donnerions", "donneriez", "donneraient"]
+    }
+},
+
+{
+    infinitive: "connaître",
+    type: "irregular",
+    aux: "avoir",
+    pp: "connu",
+
+    forms: {
+        present:
+            ["connais", "connais", "connaît",
+             "connaissons", "connaissez", "connaissent"],
+
+        passeCompose:
+            ["ai connu", "as connu", "a connu",
+             "avons connu", "avez connu", "ont connu"],
+
+        imparfait:
+            ["connaissais", "connaissais", "connaissait",
+             "connaissions", "connaissiez", "connaissaient"],
+
+        plusQueParfait:
+            ["avais connu", "avais connu", "avait connu",
+             "avions connu", "aviez connu", "avaient connu"],
+
+        futurSimple:
+            ["connaîtrai", "connaîtras", "connaîtra",
+             "connaîtrons", "connaîtrez", "connaîtront"],
+
+        conditionnel:
+            ["connaîtrais", "connaîtrais", "connaîtrait",
+             "connaîtrions", "connaîtriez", "connaîtraient"]
+    }
+},
+
+{
+    infinitive: "rester",
+    type: "regular",
+    aux: "etre",
+    pp: "resté",
+
+    forms: {
+        present:
+            ["reste", "restes", "reste",
+             "restons", "restez", "restent"],
+
+        passeCompose:
+            ["suis resté", "es resté", "est resté",
+             "sommes restés", "êtes restés", "sont restés"],
+
+        imparfait:
+            ["restais", "restais", "restait",
+             "restions", "restiez", "restaient"],
+
+        plusQueParfait:
+            ["étais resté", "étais resté", "était resté",
+             "étions restés", "étiez restés", "étaient restés"],
+
+        futurSimple:
+            ["resterai", "resteras", "restera",
+             "resterons", "resterez", "resteront"],
+
+        conditionnel:
+            ["resterais", "resterais", "resterait",
+             "resterions", "resteriez", "resteraient"]
+    }
+},
+
+{
+    infinitive: "appeler",
+    type: "irregular",
+    aux: "avoir",
+    pp: "appelé",
+
+    forms: {
+        present:
+            ["appelle", "appelles", "appelle",
+             "appelons", "appelez", "appellent"],
+
+        passeCompose:
+            ["ai appelé", "as appelé", "a appelé",
+             "avons appelé", "avez appelé", "ont appelé"],
+
+        imparfait:
+            ["appelais", "appelais", "appelait",
+             "appelions", "appeliez", "appelaient"],
+
+        plusQueParfait:
+            ["avais appelé", "avais appelé", "avait appelé",
+             "avions appelé", "aviez appelé", "avaient appelé"],
+
+        futurSimple:
+            ["appellerai", "appelleras", "appellera",
+             "appellerons", "appellerez", "appelleront"],
+
+        conditionnel:
+            ["appellerais", "appellerais", "appellerait",
+             "appellerions", "appelleriez", "appelleraient"]
+    }
+},
+
+{
+    infinitive: "jouer",
+    type: "regular",
+    aux: "avoir",
+    pp: "joué",
+
+    forms: {
+        present:
+            ["joue", "joues", "joue",
+             "jouons", "jouez", "jouent"],
+
+        passeCompose:
+            ["ai joué", "as joué", "a joué",
+             "avons joué", "avez joué", "ont joué"],
+
+        imparfait:
+            ["jouais", "jouais", "jouait",
+             "jouions", "jouiez", "jouaient"],
+
+        plusQueParfait:
+            ["avais joué", "avais joué", "avait joué",
+             "avions joué", "aviez joué", "avaient joué"],
+
+        futurSimple:
+            ["jouerai", "joueras", "jouera",
+             "jouerons", "jouerez", "joueront"],
+
+        conditionnel:
+            ["jouerais", "jouerais", "jouerait",
+             "jouerions", "joueriez", "joueraient"]
+    }
+},
+
+{
+    infinitive: "sortir",
+    type: "irregular",
+    aux: "etre",
+    pp: "sorti",
+
+    altAux: "avoir",
+    altForms: {
+        passeCompose:
+            ["ai sorti", "as sorti", "a sorti",
+             "avons sorti", "avez sorti", "ont sorti"],
+        plusQueParfait:
+            ["avais sorti", "avais sorti", "avait sorti",
+             "avions sorti", "aviez sorti", "avaient sorti"]
+    },
+
+    forms: {
+        present:
+            ["sors", "sors", "sort",
+             "sortons", "sortez", "sortent"],
+
+        passeCompose:
+            ["suis sorti", "es sorti", "est sorti",
+             "sommes sortis", "êtes sortis", "sont sortis"],
+
+        imparfait:
+            ["sortais", "sortais", "sortait",
+             "sortions", "sortiez", "sortaient"],
+
+        plusQueParfait:
+            ["étais sorti", "étais sorti", "était sorti",
+             "étions sortis", "étiez sortis", "étaient sortis"],
+
+        futurSimple:
+            ["sortirai", "sortiras", "sortira",
+             "sortirons", "sortirez", "sortiront"],
+
+        conditionnel:
+            ["sortirais", "sortirais", "sortirait",
+             "sortirions", "sortiriez", "sortiraient"]
+    }
+},
+
+{
+    infinitive: "comprendre",
+    type: "irregular",
+    aux: "avoir",
+    pp: "compris",
+
+    forms: {
+        present:
+            ["comprends", "comprends", "comprend",
+             "comprenons", "comprenez", "comprennent"],
+
+        passeCompose:
+            ["ai compris", "as compris", "a compris",
+             "avons compris", "avez compris", "ont compris"],
+
+        imparfait:
+            ["comprenais", "comprenais", "comprenait",
+             "comprenions", "compreniez", "comprenaient"],
+
+        plusQueParfait:
+            ["avais compris", "avais compris", "avait compris",
+             "avions compris", "aviez compris", "avaient compris"],
+
+        futurSimple:
+            ["comprendrai", "comprendras", "comprendra",
+             "comprendrons", "comprendrez", "comprendront"],
+
+        conditionnel:
+            ["comprendrais", "comprendrais", "comprendrait",
+             "comprendrions", "comprendriez", "comprendraient"]
+    }
+},
+
+{
+    infinitive: "commencer",
+    type: "regular",
+    aux: "avoir",
+    pp: "commencé",
+
+    forms: {
+        present:
+            ["commence", "commences", "commence",
+             "commençons", "commencez", "commencent"],
+
+        passeCompose:
+            ["ai commencé", "as commencé", "a commencé",
+             "avons commencé", "avez commencé", "ont commencé"],
+
+        imparfait:
+            ["commençais", "commençais", "commençait",
+             "commencions", "commenciez", "commençaient"],
+
+        plusQueParfait:
+            ["avais commencé", "avais commencé", "avait commencé",
+             "avions commencé", "aviez commencé", "avaient commencé"],
+
+        futurSimple:
+            ["commencerai", "commenceras", "commencera",
+             "commencerons", "commencerez", "commenceront"],
+
+        conditionnel:
+            ["commencerais", "commencerais", "commencerait",
+             "commencerions", "commenceriez", "commenceraient"]
+    }
+},
+
+{
+    infinitive: "travailler",
+    type: "regular",
+    aux: "avoir",
+    pp: "travaillé",
+
+    forms: {
+        present:
+            ["travaille", "travailles", "travaille",
+             "travaillons", "travaillez", "travaillent"],
+
+        passeCompose:
+            ["ai travaillé", "as travaillé", "a travaillé",
+             "avons travaillé", "avez travaillé", "ont travaillé"],
+
+        imparfait:
+            ["travaillais", "travaillais", "travaillait",
+             "travaillions", "travailliez", "travaillaient"],
+
+        plusQueParfait:
+            ["avais travaillé", "avais travaillé", "avait travaillé",
+             "avions travaillé", "aviez travaillé", "avaient travaillé"],
+
+        futurSimple:
+            ["travaillerai", "travailleras", "travaillera",
+             "travaillerons", "travaillerez", "travailleront"],
+
+        conditionnel:
+            ["travaillerais", "travaillerais", "travaillerait",
+             "travaillerions", "travailleriez", "travailleraient"]
+    }
+},
+
+{
+    infinitive: "demander",
+    type: "regular",
+    aux: "avoir",
+    pp: "demandé",
+
+    forms: {
+        present:
+            ["demande", "demandes", "demande",
+             "demandons", "demandez", "demandent"],
+
+        passeCompose:
+            ["ai demandé", "as demandé", "a demandé",
+             "avons demandé", "avez demandé", "ont demandé"],
+
+        imparfait:
+            ["demandais", "demandais", "demandait",
+             "demandions", "demandiez", "demandaient"],
+
+        plusQueParfait:
+            ["avais demandé", "avais demandé", "avait demandé",
+             "avions demandé", "aviez demandé", "avaient demandé"],
+
+        futurSimple:
+            ["demanderai", "demanderas", "demandera",
+             "demanderons", "demanderez", "demanderont"],
+
+        conditionnel:
+            ["demanderais", "demanderais", "demanderait",
+             "demanderions", "demanderiez", "demanderaient"]
+    }
+},
+
+{
+    infinitive: "rendre",
+    type: "regular",
+    aux: "avoir",
+    pp: "rendu",
+
+    forms: {
+        present:
+            ["rends", "rends", "rend",
+             "rendons", "rendez", "rendent"],
+
+        passeCompose:
+            ["ai rendu", "as rendu", "a rendu",
+             "avons rendu", "avez rendu", "ont rendu"],
+
+        imparfait:
+            ["rendais", "rendais", "rendait",
+             "rendions", "rendiez", "rendaient"],
+
+        plusQueParfait:
+            ["avais rendu", "avais rendu", "avait rendu",
+             "avions rendu", "aviez rendu", "avaient rendu"],
+
+        futurSimple:
+            ["rendrai", "rendras", "rendra",
+             "rendrons", "rendrez", "rendront"],
+
+        conditionnel:
+            ["rendrais", "rendrais", "rendrait",
+             "rendrions", "rendriez", "rendraient"]
+    }
+},
+
+{
+    infinitive: "porter",
+    type: "regular",
+    aux: "avoir",
+    pp: "porté",
+
+    forms: {
+        present:
+            ["porte", "portes", "porte",
+             "portons", "portez", "portent"],
+
+        passeCompose:
+            ["ai porté", "as porté", "a porté",
+             "avons porté", "avez porté", "ont porté"],
+
+        imparfait:
+            ["portais", "portais", "portait",
+             "portions", "portiez", "portaient"],
+
+        plusQueParfait:
+            ["avais porté", "avais porté", "avait porté",
+             "avions porté", "aviez porté", "avaient porté"],
+
+        futurSimple:
+            ["porterai", "porteras", "portera",
+             "porterons", "porterez", "porteront"],
+
+        conditionnel:
+            ["porterais", "porterais", "porterait",
+             "porterions", "porteriez", "porteraient"]
+    }
+},
+
+{
+    infinitive: "tenir",
+    type: "irregular",
+    aux: "avoir",
+    pp: "tenu",
+
+    forms: {
+        present:
+            ["tiens", "tiens", "tient",
+             "tenons", "tenez", "tiennent"],
+
+        passeCompose:
+            ["ai tenu", "as tenu", "a tenu",
+             "avons tenu", "avez tenu", "ont tenu"],
+
+        imparfait:
+            ["tenais", "tenais", "tenait",
+             "tenions", "teniez", "tenaient"],
+
+        plusQueParfait:
+            ["avais tenu", "avais tenu", "avait tenu",
+             "avions tenu", "aviez tenu", "avaient tenu"],
+
+        futurSimple:
+            ["tiendrai", "tiendras", "tiendra",
+             "tiendrons", "tiendrez", "tiendront"],
+
+        conditionnel:
+            ["tiendrais", "tiendrais", "tiendrait",
+             "tiendrions", "tiendriez", "tiendraient"]
+    }
+},
+
+{
+    infinitive: "suivre",
+    type: "irregular",
+    aux: "avoir",
+    pp: "suivi",
+
+    forms: {
+        present:
+            ["suis", "suis", "suit",
+             "suivons", "suivez", "suivent"],
+
+        passeCompose:
+            ["ai suivi", "as suivi", "a suivi",
+             "avons suivi", "avez suivi", "ont suivi"],
+
+        imparfait:
+            ["suivais", "suivais", "suivait",
+             "suivions", "suiviez", "suivaient"],
+
+        plusQueParfait:
+            ["avais suivi", "avais suivi", "avait suivi",
+             "avions suivi", "aviez suivi", "avaient suivi"],
+
+        futurSimple:
+            ["suivrai", "suivras", "suivra",
+             "suivrons", "suivrez", "suivront"],
+
+        conditionnel:
+            ["suivrais", "suivrais", "suivrait",
+             "suivrions", "suivriez", "suivraient"]
+    }
+},
+
+{
+    infinitive: "recevoir",
+    type: "irregular",
+    aux: "avoir",
+    pp: "reçu",
+
+    forms: {
+        present:
+            ["reçois", "reçois", "reçoit",
+             "recevons", "recevez", "reçoivent"],
+
+        passeCompose:
+            ["ai reçu", "as reçu", "a reçu",
+             "avons reçu", "avez reçu", "ont reçu"],
+
+        imparfait:
+            ["recevais", "recevais", "recevait",
+             "recevions", "receviez", "recevaient"],
+
+        plusQueParfait:
+            ["avais reçu", "avais reçu", "avait reçu",
+             "avions reçu", "aviez reçu", "avaient reçu"],
+
+        futurSimple:
+            ["recevrai", "recevras", "recevra",
+             "recevrons", "recevrez", "recevront"],
+
+        conditionnel:
+            ["recevrais", "recevrais", "recevrait",
+             "recevrions", "recevriez", "recevraient"]
+    }
+},
+
+{
+    infinitive: "penser",
+    type: "regular",
+    aux: "avoir",
+    pp: "pensé",
+
+    forms: {
+        present:
+            ["pense", "penses", "pense",
+             "pensons", "pensez", "pensent"],
+
+        passeCompose:
+            ["ai pensé", "as pensé", "a pensé",
+             "avons pensé", "avez pensé", "ont pensé"],
+
+        imparfait:
+            ["pensais", "pensais", "pensait",
+             "pensions", "pensiez", "pensaient"],
+
+        plusQueParfait:
+            ["avais pensé", "avais pensé", "avait pensé",
+             "avions pensé", "aviez pensé", "avaient pensé"],
+
+        futurSimple:
+            ["penserai", "penseras", "pensera",
+             "penserons", "penserez", "penseront"],
+
+        conditionnel:
+            ["penserais", "penserais", "penserait",
+             "penserions", "penseriez", "penseraient"]
+    }
+},
+
+{
+    infinitive: "naître",
+    type: "irregular",
+    aux: "etre",
+    pp: "né",
+
+    forms: {
+        present:
+            ["nais", "nais", "naît",
+             "naissons", "naissez", "naissent"],
+
+        passeCompose:
+            ["suis né", "es né", "est né",
+             "sommes nés", "êtes nés", "sont nés"],
+
+        imparfait:
+            ["naissais", "naissais", "naissait",
+             "naissions", "naissiez", "naissaient"],
+
+        plusQueParfait:
+            ["étais né", "étais né", "était né",
+             "étions nés", "étiez nés", "étaient nés"],
+
+        futurSimple:
+            ["naîtrai", "naîtras", "naîtra",
+             "naîtrons", "naîtrez", "naîtront"],
+
+        conditionnel:
+            ["naîtrais", "naîtrais", "naîtrait",
+             "naîtrions", "naîtriez", "naîtraient"]
+    }
+},
+
+{
+    infinitive: "mourir",
+    type: "irregular",
+    aux: "etre",
+    pp: "mort",
+
+    forms: {
+        present:
+            ["meurs", "meurs", "meurt",
+             "mourons", "mourez", "meurent"],
+
+        passeCompose:
+            ["suis mort", "es mort", "est mort",
+             "sommes morts", "êtes morts", "sont morts"],
+
+        imparfait:
+            ["mourais", "mourais", "mourait",
+             "mourions", "mouriez", "mouraient"],
+
+        plusQueParfait:
+            ["étais mort", "étais mort", "était mort",
+             "étions morts", "étiez morts", "étaient morts"],
+
+        futurSimple:
+            ["mourrai", "mourras", "mourra",
+             "mourrons", "mourrez", "mourront"],
+
+        conditionnel:
+            ["mourrais", "mourrais", "mourrait",
+             "mourrions", "mourriez", "mourraient"]
+    }
+},
+
+{
+    infinitive: "croire",
+    type: "irregular",
+    aux: "avoir",
+    pp: "cru",
+
+    forms: {
+        present:
+            ["crois", "crois", "croit",
+             "croyons", "croyez", "croient"],
+
+        passeCompose:
+            ["ai cru", "as cru", "a cru",
+             "avons cru", "avez cru", "ont cru"],
+
+        imparfait:
+            ["croyais", "croyais", "croyait",
+             "croyions", "croyiez", "croyaient"],
+
+        plusQueParfait:
+            ["avais cru", "avais cru", "avait cru",
+             "avions cru", "aviez cru", "avaient cru"],
+
+        futurSimple:
+            ["croirai", "croiras", "croira",
+             "croirons", "croirez", "croiront"],
+
+        conditionnel:
+            ["croirais", "croirais", "croirait",
+             "croirions", "croiriez", "croiraient"]
+    }
+},
+
+{
+    infinitive: "attendre",
+    type: "regular",
+    aux: "avoir",
+    pp: "attendu",
+
+    forms: {
+        present:
+            ["attends", "attends", "attend",
+             "attendons", "attendez", "attendent"],
+
+        passeCompose:
+            ["ai attendu", "as attendu", "a attendu",
+             "avons attendu", "avez attendu", "ont attendu"],
+
+        imparfait:
+            ["attendais", "attendais", "attendait",
+             "attendions", "attendiez", "attendaient"],
+
+        plusQueParfait:
+            ["avais attendu", "avais attendu", "avait attendu",
+             "avions attendu", "aviez attendu", "avaient attendu"],
+
+        futurSimple:
+            ["attendrai", "attendras", "attendra",
+             "attendrons", "attendrez", "attendront"],
+
+        conditionnel:
+            ["attendrais", "attendrais", "attendrait",
+             "attendrions", "attendriez", "attendraient"]
+    }
+},
+
+{
+    infinitive: "ouvrir",
+    type: "irregular",
+    aux: "avoir",
+    pp: "ouvert",
+
+    forms: {
+        present:
+            ["ouvre", "ouvres", "ouvre",
+             "ouvrons", "ouvrez", "ouvrent"],
+
+        passeCompose:
+            ["ai ouvert", "as ouvert", "a ouvert",
+             "avons ouvert", "avez ouvert", "ont ouvert"],
+
+        imparfait:
+            ["ouvrais", "ouvrais", "ouvrait",
+             "ouvrions", "ouvriez", "ouvraient"],
+
+        plusQueParfait:
+            ["avais ouvert", "avais ouvert", "avait ouvert",
+             "avions ouvert", "aviez ouvert", "avaient ouvert"],
+
+        futurSimple:
+            ["ouvrirai", "ouvriras", "ouvrira",
+             "ouvrirons", "ouvrirez", "ouvriront"],
+
+        conditionnel:
+            ["ouvrirais", "ouvrirais", "ouvrirait",
+             "ouvririons", "ouvririez", "ouvriraient"]
+    }
+},
+
+{
+    infinitive: "regarder",
+    type: "regular",
+    aux: "avoir",
+    pp: "regardé",
+
+    forms: {
+        present:
+            ["regarde", "regardes", "regarde",
+             "regardons", "regardez", "regardent"],
+
+        passeCompose:
+            ["ai regardé", "as regardé", "a regardé",
+             "avons regardé", "avez regardé", "ont regardé"],
+
+        imparfait:
+            ["regardais", "regardais", "regardait",
+             "regardions", "regardiez", "regardaient"],
+
+        plusQueParfait:
+            ["avais regardé", "avais regardé", "avait regardé",
+             "avions regardé", "aviez regardé", "avaient regardé"],
+
+        futurSimple:
+            ["regarderai", "regarderas", "regardera",
+             "regarderons", "regarderez", "regarderont"],
+
+        conditionnel:
+            ["regarderais", "regarderais", "regarderait",
+             "regarderions", "regarderiez", "regarderaient"]
+    }
+},
+
+{
+    infinitive: "entendre",
+    type: "regular",
+    aux: "avoir",
+    pp: "entendu",
+
+    forms: {
+        present:
+            ["entends", "entends", "entend",
+             "entendons", "entendez", "entendent"],
+
+        passeCompose:
+            ["ai entendu", "as entendu", "a entendu",
+             "avons entendu", "avez entendu", "ont entendu"],
+
+        imparfait:
+            ["entendais", "entendais", "entendait",
+             "entendions", "entendiez", "entendaient"],
+
+        plusQueParfait:
+            ["avais entendu", "avais entendu", "avait entendu",
+             "avions entendu", "aviez entendu", "avaient entendu"],
+
+        futurSimple:
+            ["entendrai", "entendras", "entendra",
+             "entendrons", "entendrez", "entendront"],
+
+        conditionnel:
+            ["entendrais", "entendrais", "entendrait",
+             "entendrions", "entendriez", "entendraient"]
+    }
 }
 
-];
+]
 
 
 /* ===========================================================
