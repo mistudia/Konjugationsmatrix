@@ -1680,7 +1680,7 @@ case "wf":
 case "gtf":
 
     const going =
-        solution.substring(9);    // "going to "
+        solution.replace(/^\S+\s+going to\s+/, "");   // nur das Verb
 
     const beForm =
         solution.split(" ")[0];
