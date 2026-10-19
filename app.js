@@ -328,8 +328,8 @@ const importantTenses = {
 
     de: [
         "praesens",
-        "perfekt",
         "praeteritum",
+        "perfekt",
         "plusquamperfekt",
         "futur1",
         "futur2"

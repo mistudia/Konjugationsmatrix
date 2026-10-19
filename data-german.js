@@ -3393,18 +3393,6 @@ const tenses = [
 },
 
 {
-    id: "perfekt",
-    name: "Perfekt",
-    rule: "abgeschlossene Handlung • häufig mündlich • Fokus auf dem Ergebnis",
-    signalAliases: ["schon","noch nicht","bis jetzt","bereits"],
-    signals: [
-        "schon einmal",
-        "noch nie",
-        "heute bereits"
-    ]
-},
-
-{
     id: "praeteritum",
     name: "Präteritum",
     rule: "Vergangenheit • häufig schriftlich • Fokus auf dem Erzählen",
@@ -3413,6 +3401,18 @@ const tenses = [
         "gestern",
         "damals",
         "letztes Jahr"
+    ]
+},
+
+{
+    id: "perfekt",
+    name: "Perfekt",
+    rule: "abgeschlossene Handlung • häufig mündlich • Fokus auf dem Ergebnis",
+    signalAliases: ["schon","noch nicht","bis jetzt","bereits"],
+    signals: [
+        "schon einmal",
+        "noch nie",
+        "heute bereits"
     ]
 },
 
