@@ -1118,6 +1118,10 @@ const verbPool = [
     infinitive: "lassen",
     type: "irregular",
 
+    altForms: {
+        praeteritum: ["ließ", "ließt", "ließ", "ließen", "ließt", "ließen"]
+    },
+
     forms: {
 
         praesens: [
@@ -1491,6 +1495,10 @@ const verbPool = [
 {
     infinitive: "heißen",
     type: "irregular",
+
+    altForms: {
+        praeteritum: ["hieß", "hießt", "hieß", "hießen", "hießt", "hießen"]
+    },
 
     forms: {
 
@@ -2863,6 +2871,10 @@ const verbPool = [
     infinitive: "lesen",
     type: "irregular",
 
+    altForms: {
+        praeteritum: ["las", "last", "las", "lasen", "last", "lasen"]
+    },
+
     forms: {
 
         praesens: [
@@ -2990,6 +3002,10 @@ const verbPool = [
 {
     infinitive: "essen",
     type: "irregular",
+
+    altForms: {
+        praeteritum: ["aß", "aßt", "aß", "aßen", "aßt", "aßen"]
+    },
 
     forms: {
 

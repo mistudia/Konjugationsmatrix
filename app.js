@@ -12,6 +12,8 @@ const importantBtn = document.getElementById("importantBtn");
 const exercise = document.getElementById("exercise");
 const headerRow = document.getElementById("headerRow");
 const tableBody = document.getElementById("tableBody");
+const tenseTableEl = document.getElementById("tenseTable");
+let verticalMode = false;
 
 const languageSelect = document.getElementById("languageSelect");
 const tenseDropdownBtn = document.getElementById("tenseDropdownBtn");
@@ -887,11 +889,247 @@ function columnDivider(index) {
 
 }
 
+
+/* Eingabefeld fuer eine Konjugationsform inkl. (+)/(-)/(?)-Markern */
+function buildConjCell(column, row, col) {
+
+    const input = document.createElement("input");
+
+    input.type = "text";
+    input.dataset.row = row;
+    input.dataset.col = col + 2;
+
+    const wrap = document.createElement("div");
+    wrap.className = "cellInline";
+
+    const type = column.exam
+        ? ["statement", "negative", "question"][
+              Math.floor(Math.random() * 3)
+          ]
+        : column.sentenceType;
+
+    input.dataset.sentenceType = type;
+
+    const modeInfo = {
+        statement : ["(+)", "sentencePlus"],
+        negative  : ["(-)", "sentenceMinus"],
+        question  : ["(?)", "sentenceQuestion"]
+    }[type];
+
+    const makeModeBadge = () => {
+
+        const badge = document.createElement("span");
+
+        if (modeInfo) {
+            badge.textContent = modeInfo[0];
+            badge.className = "sentenceMode " + modeInfo[1];
+        }
+
+        return badge;
+
+    };
+
+    wrap.appendChild(makeModeBadge());
+    wrap.appendChild(input);
+    wrap.appendChild(makeModeBadge());
+
+    return { wrap, input };
+
+}
+
+/* Signalwort-/Usage-Eingabefeld */
+function buildChoiceInput(row, colIndex, getter) {
+
+    const input = document.createElement("input");
+
+    input.type = "text";
+    input.dataset.row = row;
+    input.dataset.col = colIndex;
+
+    attachChoicePopup(input, getter);
+
+    return input;
+
+}
+
+/* Nur eine Zeitform gewaehlt: Formen untereinander,
+   links die Subjekte als Vorgabe */
+function createVerticalTable() {
+
+    const tense = selectedTenses[0];
+
+    verticalMode = true;
+    tenseTableEl.classList.add("vertical");
+
+    const th = (text, cls) => {
+        const el = document.createElement("th");
+        el.textContent = text;
+        if (cls) el.className = cls;
+        return el;
+    };
+
+    cells[0] = [];
+
+    /* Complete-Modus: Verben nebeneinander, Subjekte links */
+    if (currentExerciseType === "complete") {
+
+        const groups = [];
+
+        selectedColumns.forEach((column, col) => {
+
+            let group = groups[groups.length - 1];
+
+            if (!group || group.verb !== column.verb) {
+                group = { verb: column.verb, items: [] };
+                groups.push(group);
+            }
+
+            group.items.push({ column, col });
+
+        });
+
+        const rowCount = Math.max(...groups.map(g => g.items.length));
+
+        headerRow.appendChild(th(tense.name));
+        groups.forEach(g => headerRow.appendChild(th(g.verb.infinitive, "vVerbHead")));
+
+        for (let r = 0; r < rowCount; r++) {
+
+            const tr = document.createElement("tr");
+
+            const subject = document.createElement("td");
+            subject.className = "vSubject";
+            subject.textContent = groups[0].items[r]
+                ? groups[0].items[r].column.pronoun : "";
+            tr.appendChild(subject);
+
+            groups.forEach((g, gi) => {
+
+                const td = document.createElement("td");
+                td.className = "vInput" + (gi > 0 ? " verbStart" : "");
+
+                const item = g.items[r];
+
+                if (item) {
+
+                    const { wrap, input } =
+                        buildConjCell(item.column, 0, item.col);
+
+                    td.appendChild(wrap);
+                    cells[0][item.col + 2] = input;
+
+                }
+
+                tr.appendChild(td);
+
+            });
+
+            tableBody.appendChild(tr);
+
+        }
+
+        appendVerticalExtras(groups.length + 1);
+
+        return;
+
+    }
+
+    headerRow.appendChild(th("Subject"));
+    headerRow.appendChild(th("Infinitive"));
+    headerRow.appendChild(th(tense.name));
+
+    selectedColumns.forEach((column, col) => {
+
+        const tr = document.createElement("tr");
+
+        const divider = columnDivider(col);
+        if (divider) tr.classList.add(divider);
+
+        const subject = document.createElement("td");
+        subject.className = "vSubject";
+        subject.textContent = column.pronoun;
+        tr.appendChild(subject);
+
+        const inf = document.createElement("td");
+        inf.className = "vInfinitive";
+        inf.textContent = column.verb.infinitive;
+        tr.appendChild(inf);
+
+        const td = document.createElement("td");
+        td.className = "vInput";
+
+        const { wrap, input } = buildConjCell(column, 0, col);
+
+        td.appendChild(wrap);
+        tr.appendChild(td);
+
+        cells[0][col + 2] = input;
+
+        tableBody.appendChild(tr);
+
+    });
+
+    appendVerticalExtras(3);
+
+}
+
+/* Signalwort- und Usage-Zeile unter der senkrechten Tabelle */
+function appendVerticalExtras(totalCols) {
+
+    const labelSpan =
+        currentExerciseType === "complete" ? 1 : 2;
+
+    [
+        ["Signal word(s)", 0, getSignalChoices, "vSignal"],
+        ["Usage",          1, getUsageChoices,  "vUsage"]
+    ].forEach(([label, colIndex, getter, cls]) => {
+
+        const tr = document.createElement("tr");
+        tr.className = "vExtra";
+
+        const labelTd = document.createElement("td");
+        labelTd.className = "vSubject";
+        labelTd.colSpan = labelSpan;
+        labelTd.textContent = label;
+        tr.appendChild(labelTd);
+
+        const td = document.createElement("td");
+        td.className = cls;
+        td.colSpan = totalCols - labelSpan;
+
+        const input = buildChoiceInput(0, colIndex, getter);
+
+        td.appendChild(input);
+        tr.appendChild(td);
+
+        cells[0][colIndex] = input;
+
+        tableBody.appendChild(tr);
+
+    });
+
+}
+
 function createTable() {
 
     headerRow.innerHTML = "";
     tableBody.innerHTML = "";
     cells = [];
+
+    verticalMode = false;
+    tenseTableEl.classList.remove("vertical");
+
+    if (selectedTenses.length === 1) {
+
+        createVerticalTable();
+
+        closeChoicePopup();
+        answersVisible = false;
+        solutionBtn.textContent = "💡 Show Answers";
+
+        return;
+
+    }
 
     /* HEADER */
 
@@ -2187,6 +2425,28 @@ document.addEventListener("keydown", event => {
 
     const row = Number(input.dataset.row);
     const col = Number(input.dataset.col);
+
+    if (verticalMode) {
+
+        const order = [...cells[0].slice(2), cells[0][0], cells[0][1]];
+        const at = order.indexOf(input);
+        const down = event.key === "ArrowDown" ||
+            (event.key === "Enter" && !event.shiftKey);
+        const up = event.key === "ArrowUp" ||
+            (event.key === "Enter" && event.shiftKey);
+
+        if (at >= 0 && (down || up)) {
+
+            event.preventDefault();
+
+            const target = order[at + (down ? 1 : -1)];
+            if (target) target.focus();
+
+        }
+
+        return;
+
+    }
 
     if (event.key === "ArrowDown") {
 

@@ -1593,3 +1593,144 @@ td.usageCell .solution{
 .choiceItem{white-space:nowrap;}
 .choicePopup.wrap .choiceItem{white-space:normal;}
 .choicePopup .choiceItem{border-right:1px solid var(--line);}
+
+
+/* ===========================================================
+   SENKRECHTE ANSICHT (nur eine Zeitform gewaehlt)
+   links Subjekt als Vorgabe, rechts die Eingabefelder
+=========================================================== */
+
+#tenseTable.vertical{
+    width:max-content;
+    min-width:min(100%, 560px);
+    border-collapse:collapse;
+}
+
+#tenseTable.vertical thead th,
+#tenseTable.vertical thead th:first-child,
+#tenseTable.vertical thead th:last-child{
+    position:sticky;
+    top:0;
+    left:auto;
+    text-align:center;
+    padding:10px 14px;
+    border:1px solid #999;
+    background:#FFFF00;
+    font-weight:700;
+}
+
+#tenseTable.vertical thead th:last-child{
+    background:#3AA0E5;
+    color:#fff;
+    min-width:300px;
+}
+
+#tenseTable.vertical tbody td,
+#tenseTable.vertical tbody tr:first-child td{
+    position:static;
+    border:1px solid #ccc;
+    padding:6px 10px;
+    background:#fff;
+    text-align:center;
+    vertical-align:middle;
+}
+
+#tenseTable.vertical tbody td.vSubject{
+    background:#FFF2CC;
+    font-weight:700;
+    text-align:left;
+    min-width:110px;
+    position:sticky;
+    left:0;
+    z-index:2;
+}
+
+#tenseTable.vertical tbody td.vInfinitive{
+    background:#FFF2CC;
+    color:#444;
+    font-weight:400;
+}
+
+#tenseTable.vertical tbody tr.verbStart td{
+    border-top:3px solid #555;
+}
+
+#tenseTable.vertical tbody tr:nth-child(1).verbStart td{
+    border-top:1px solid #ccc;
+}
+
+#tenseTable.vertical tbody tr.vExtra td{
+    background:#fff;
+}
+
+#tenseTable.vertical tbody tr.vExtra td.vSubject{
+    background:#FFF2CC;
+}
+
+#tenseTable.vertical tbody tr.vExtra:first-of-type td,
+#tenseTable.vertical tbody tr.vExtra + tr.vExtra td{
+    border-top:1px solid #ccc;
+}
+
+#tenseTable.vertical td.vInput .cellInline{
+    justify-content:center;
+}
+
+#tenseTable.vertical td.vInput input,
+#tenseTable.vertical td.vSignal input,
+#tenseTable.vertical td.vUsage input{
+    width:100%;
+    min-width:200px;
+    height:38px;
+    box-sizing:border-box;
+    padding:6px 10px;
+    font-size:15px;
+}
+
+#tenseTable.vertical td.vInput input{
+    width:220px;
+}
+
+#tenseTable.vertical td .solution{
+    text-align:center;
+    margin-top:4px;
+}
+
+/* Spalten der horizontalen Ansicht-Sonderregeln neutralisieren */
+#tenseTable.vertical td:last-child input{
+    width:auto;
+}
+#tenseTable.vertical td.vInput:last-child input{
+    width:220px;
+}
+#tenseTable.vertical td.vSignal:last-child input,
+#tenseTable.vertical td.vUsage:last-child input{
+    width:100%;
+}
+
+/* Farben der senkrechten Ansicht (hoehere Spezifitaet) */
+#tenseTable.vertical tbody tr td.vSubject,
+#tenseTable.vertical tbody tr:not(:first-child) td.vSubject,
+#tenseTable.vertical tbody tr:first-child td.vSubject{
+    background:#FFF2CC;
+}
+#tenseTable.vertical tbody tr td.vInfinitive,
+#tenseTable.vertical tbody tr:first-child td.vInfinitive{
+    background:#FFF2CC;
+}
+#tenseTable.vertical{
+    min-width:100%;
+}
+#tenseTable.vertical tbody tr td.vSubject,
+#tenseTable.vertical tbody tr:first-child td.vSubject{
+    text-align:left;
+}
+
+#tenseTable.vertical tbody td.vInput.verbStart{
+    border-left:3px solid #555;
+}
+#tenseTable.vertical thead th.vVerbHead{
+    background:#FFF2CC;
+    color:#16233a;
+    min-width:240px;
+}
