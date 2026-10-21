@@ -1734,3 +1734,39 @@ td.usageCell .solution{
     color:#16233a;
     min-width:240px;
 }
+
+/* Feldgroessen wie in der normalen Matrix */
+#tenseTable.vertical{
+    width:max-content;
+    min-width:0;
+}
+#tenseTable.vertical thead th:last-child,
+#tenseTable.vertical thead th.vVerbHead{
+    min-width:0;
+}
+#tenseTable.vertical td.vInput input,
+#tenseTable.vertical td.vInput:last-child input{
+    width:120px;
+    min-width:0;
+}
+#tenseTable.vertical td.vSignal input,
+#tenseTable.vertical td.vSignal:last-child input{
+    width:150px;
+    min-width:0;
+}
+#tenseTable.vertical td.vUsage input,
+#tenseTable.vertical td.vUsage:last-child input{
+    width:207px;
+    min-width:0;
+}
+#tenseTable.vertical tbody td.vSubject{
+    min-width:0;
+}
+#tenseTable.vertical tbody td.vSignal,
+#tenseTable.vertical tbody td.vUsage{
+    text-align:left;
+}
+#tenseTable.vertical td.vSignal .solution,
+#tenseTable.vertical td.vUsage .solution{
+    text-align:left;
+}
