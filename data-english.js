@@ -17,6 +17,27 @@ const languageConfig = {
         "they"
     ],
 
+    /* Anzeige in der Tabelle (intern bleibt pronouns) */
+    pronounLabels: [
+        "I",
+        "you (singular)",
+        "he/she/it",
+        "we",
+        "you (plural)",
+        "they"
+    ],
+
+    /* zusaetzlich akzeptierte vorangestellte Pronomen pro Position */
+    pronounAccepted: [
+        ["I"],
+        ["you"],
+        ["he", "she", "it", "he/she/it"],
+        ["we"],
+        ["you"],
+        ["they"]
+    ],
+
+
  mixedPronouns: {
 
     3: [

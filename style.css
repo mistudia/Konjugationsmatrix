@@ -1770,3 +1770,28 @@ td.usageCell .solution{
 #tenseTable.vertical td.vUsage .solution{
     text-align:left;
 }
+
+/* Loesungen bei "Show Answers" etwas groesser */
+.solution,
+#tenseTable td .solution,
+td.signalCell .solution,
+td.usageCell .solution,
+#tenseTable.vertical td .solution{
+    font-size:14px;
+}
+
+/* Signalwort-/Usage-Loesungen wieder in der urspruenglichen Groesse */
+td.signalCell .solution,
+td.usageCell .solution,
+#tenseTable.vertical td.vSignal .solution,
+#tenseTable.vertical td.vUsage .solution{
+    font-size:11px;
+}
+
+/* wirklich: Signalwort-/Usage-Loesungen klein (hoehere Spezifitaet) */
+#tenseTable td.signalCell .solution,
+#tenseTable td.usageCell .solution,
+#tenseTable.vertical td.vSignal .solution,
+#tenseTable.vertical td.vUsage .solution{
+    font-size:11px;
+}

@@ -26,6 +26,16 @@ const languageConfig = {
         "ils"
     ],
 
+    pronounLabels: [
+        "je",
+        "tu",
+        "il/elle/on",
+        "nous",
+        "vous",
+        "ils/elles"
+    ],
+
+
     mixedPronouns: {
 
         3: ["je", "tu", "il"],

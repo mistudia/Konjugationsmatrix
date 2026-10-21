@@ -16,6 +16,25 @@ const languageConfig = {
         "ellos"
     ],
 
+    pronounLabels: [
+        "yo",
+        "tú",
+        "él/ella/usted",
+        "nosotros/nosotras",
+        "vosotros/vosotras",
+        "ellos/ellas/ustedes"
+    ],
+
+    pronounAccepted: [
+        ["yo"],
+        ["tú", "tu"],
+        ["él", "el", "ella", "usted", "él/ella/usted"],
+        ["nosotros", "nosotras"],
+        ["vosotros", "vosotras"],
+        ["ellos", "ellas", "ustedes"]
+    ],
+
+
     mixedPronouns: {
         3: ["yo", "tú", "él"],
         6: ["yo", "tú", "él", "nosotros", "vosotros", "ellos"],

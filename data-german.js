@@ -17,6 +17,25 @@ const languageConfig = {
         "sie"
     ],
 
+    pronounLabels: [
+        "ich",
+        "du",
+        "er/sie/es",
+        "wir",
+        "ihr",
+        "sie (plural)"
+    ],
+
+    pronounAccepted: [
+        ["ich"],
+        ["du"],
+        ["er", "sie", "es", "er/sie/es"],
+        ["wir"],
+        ["ihr"],
+        ["sie"]
+    ],
+
+
     mixedPronouns: {
 
         3: ["ich", "du", "er"],

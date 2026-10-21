@@ -130,10 +130,10 @@
     </label>
 
     <select id="sentenceTypeSelect">
-        <option value="statement">Statements (+)</option>
+        <option value="statement" selected>Statements (+)</option>
         <option value="negative">Negatives (–)</option>
         <option value="question">Questions (?)</option>
-        <option value="mixed" selected>Mixed (+ / – / ?)</option>
+        <option value="mixed">Mixed (+ / – / ?)</option>
     </select>
 
 </div>
@@ -224,6 +224,39 @@
             </div>
 
         </div>
+
+    </div>
+
+    <div class="optionGroup randomOnly" data-needs="complete">
+
+        <label for="verbCountSelect">
+            Number of verbs:
+        </label>
+
+        <select id="verbCountSelect">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+        </select>
+
+    </div>
+
+    <div class="optionGroup randomOnly">
+
+        <label for="verbTypeSelect">
+            Verb type:
+        </label>
+
+        <select id="verbTypeSelect">
+            <option value="all" selected>Regular &amp; irregular</option>
+            <option value="regular">Regular only</option>
+            <option value="irregular">Irregular only</option>
+        </select>
 
     </div>
 

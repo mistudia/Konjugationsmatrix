@@ -30,6 +30,31 @@ const pageTitle = document.getElementById("pageTitle");
 const exerciseTypeSelect =
     document.getElementById("exerciseTypeSelect");
 
+const verbCountSelect =
+    document.getElementById("verbCountSelect");
+const verbTypeSelect =
+    document.getElementById("verbTypeSelect");
+const randomGroups =
+    [...document.querySelectorAll(".randomOnly")];
+
+/* Anzahl/Art der Zufallsverben nur bei "Random verbs" (Anzahl nur im
+   Complete-Modus) */
+function updateRandomOptions() {
+
+    const random = verbSelectionSelect.value === "random";
+    const complete = exerciseTypeSelect.value === "complete";
+
+    randomGroups.forEach(group => {
+
+        const countOnly = group.dataset.needs === "complete";
+
+        group.style.display =
+            random && (!countOnly || complete) ? "" : "none";
+
+    });
+
+}
+
 const sentenceTypeSelect =
     document.getElementById("sentenceTypeSelect");
 
@@ -430,11 +455,23 @@ function shuffleDifferently(list) {
 
 }
 
+function getRandomPool() {
+
+    const type = verbTypeSelect ? verbTypeSelect.value : "all";
+
+    const pool = type === "all"
+        ? verbPool
+        : verbPool.filter(verb => verb.type === type);
+
+    return pool.length ? pool : verbPool;
+
+}
+
 function getAvailableVerbs() {
 
     if (verbSelectionSelect.value === "random") {
 
-        return shuffleDifferently(verbPool);
+        return shuffleDifferently(getRandomPool());
 
     }
 
@@ -549,7 +586,7 @@ function createCompleteColumns() {
 
     const verbs =
         verbSelectionSelect.value === "random"
-            ? available.slice(0, 1)
+            ? available.slice(0, Number(verbCountSelect.value) || 1)
             : available;
 
     if (verbs.length === 0) {
@@ -651,6 +688,8 @@ verbSelectionSelect.addEventListener("change", () => {
         verbSelectionSelect.value === "choose"
             ? "flex"
             : "none";
+
+    updateRandomOptions();
 
     if (verbSelectionSelect.value !== "choose") {
 
@@ -777,6 +816,8 @@ selectNoneVerbsBtn.addEventListener("click", () => {
 
 createVerbSelection();
 updateVerbDropdownLabel();
+exerciseTypeSelect.addEventListener("change", updateRandomOptions);
+updateRandomOptions();
 
 
 /* ===========================================================
@@ -858,6 +899,14 @@ if (!selectedColumns) {
 =========================================================== */
 
 let currentExerciseType = "complete";
+
+function pronounLabel(column) {
+
+    const labels = languageConfig.pronounLabels;
+
+    return (labels && labels[column.pronounIndex]) || column.pronoun;
+
+}
 
 function columnDivider(index) {
 
@@ -1000,7 +1049,7 @@ function createVerticalTable() {
             const subject = document.createElement("td");
             subject.className = "vSubject";
             subject.textContent = groups[0].items[r]
-                ? groups[0].items[r].column.pronoun : "";
+                ? pronounLabel(groups[0].items[r].column) : "";
             tr.appendChild(subject);
 
             groups.forEach((g, gi) => {
@@ -1047,7 +1096,7 @@ function createVerticalTable() {
 
         const subject = document.createElement("td");
         subject.className = "vSubject";
-        subject.textContent = column.pronoun;
+        subject.textContent = pronounLabel(column);
         tr.appendChild(subject);
 
         const inf = document.createElement("td");
@@ -1140,7 +1189,7 @@ function createTable() {
     selectedColumns.forEach((col, index) => {
 
         const th = document.createElement("th");
-        th.textContent = col.pronoun;
+        th.textContent = pronounLabel(col);
 
         const divider = columnDivider(index);
         if (divider) th.classList.add(divider);
@@ -2110,6 +2159,15 @@ function buildAlternativesCore(solution, pronoun, sentenceType, column, tense) {
 
         if (pronoun === "he/she/it") {
             addWithOptionalMark("he " + solution);
+        }
+
+        const accepted = column && languageConfig.pronounAccepted &&
+            languageConfig.pronounAccepted[column.pronounIndex];
+
+        if (accepted) {
+            accepted.forEach(p =>
+                addWithOptionalMark(p + " " + solution)
+            );
         }
 
     }
