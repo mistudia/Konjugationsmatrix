@@ -1754,6 +1754,7 @@ const tenses = [
 
 {
     id: "present",
+    examples: ["{S:Elle} {P:travaille} {G:tous les jours}.", "{S:Nous} {P:mangeons} {G:en ce moment}."],
     name: "Présent",
     rule: "actions actuelles • habitudes • accent sur le moment présent",
     signalAliases: ["aujourd'hui souvent","aujourd'hui d'habitude","maintenant","toujours","souvent","d'habitude"],
@@ -1766,6 +1767,7 @@ const tenses = [
 
 {
     id: "passeCompose",
+    examples: ["{G:Hier} {S:elle} {P:a mangé} une pomme.", "{G:Hier soir} {S:nous} {P:sommes sortis}."],
     name: "Passé composé",
     compound: true,
     rule: "action terminée dans le passé • accent sur le résultat",
@@ -1779,6 +1781,7 @@ const tenses = [
 
 {
     id: "imparfait",
+    examples: ["{G:Autrefois} {S:il} {P:habitait} à Paris.", "{G:Chaque été} {S:nous} {P:allions} à la mer."],
     name: "Imparfait",
     rule: "habitudes • descriptions dans le passé • accent sur la durée",
     signalAliases: ["dans mon enfance souvent","dans mon enfance d'habitude","à l'époque","toujours","souvent","d'habitude"],
@@ -1791,6 +1794,7 @@ const tenses = [
 
 {
     id: "plusQueParfait",
+    examples: ["{G:Ce jour-là}, {S:elle} {P:avait fini} son travail.", "{S:Nous} {P:étions} {G:déjà la veille} {P:arrivés}."],
     name: "Plus-que-parfait",
     compound: true,
     rule: "action antérieure à une autre action passée • accent sur l'événement antérieur",
@@ -1804,6 +1808,7 @@ const tenses = [
 
 {
     id: "futurSimple",
+    examples: ["{G:Demain} {S:je} {P:partirai}.", "{G:La semaine prochaine} {S:ils} {P:viendront}."],
     name: "Futur simple",
     rule: "actions futures • accent sur ce qui va arriver",
     signalAliases: ["l'année prochaine"],
@@ -1816,6 +1821,7 @@ const tenses = [
 
 {
     id: "conditionnel",
+    examples: ["{G:Si j'étais toi}, {S:je} {P:resterais} ici.", "{G:À ta place}, {S:j'}{P:accepterais}."],
     name: "Conditionnel présent",
     rule: "souhaits • politesse • hypothèses • accent sur le souhait ou l'irréel",
     signalAliases: ["je voudrais"],

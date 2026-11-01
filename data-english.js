@@ -3633,6 +3633,7 @@ const tenses = [
 
 {
     id: "sp",
+    examples: ["{S:She} {G:always} {P:drinks} tea in the morning.", "{S:They} {G:never} {P:eat} meat."],
     name: "Simple Present",
     rule: "routines • focus on repetition",
     signalAliases: ["sometimes","usually","often"],
@@ -3645,6 +3646,7 @@ const tenses = [
 
 {
     id: "pp",
+    examples: ["{S:He} {P:is playing} football {G:right now}.", "{S:We} {P:are studying} {G:at the moment}."],
     name: "Present Progressive/Continuous",
     rule: "action happening now • focus on the moment now and/or duration",
     signalAliases: ["currently"],
@@ -3657,6 +3659,7 @@ const tenses = [
 
 {
     id: "spa",
+    examples: ["{S:I} {P:met} her {G:yesterday}.", "{S:They} {P:visited} us {G:last week}."],
     name: "Simple Past",
     rule: "standard past tense • focus on the fact that the event happened at all",
     signalAliases: ["last year","in 2010"],
@@ -3669,6 +3672,7 @@ const tenses = [
 
 {
     id: "pap",
+    examples: ["{S:I} {P:was cooking} {G:at 8 o'clock yesterday}.", "{S:We} {P:were watching} TV {G:at that moment}."],
     name: "Past Progressive/Continuous",
     rule: "action in progress in the past • focus on the moment then and/or duration",
     signalAliases: ["all day yesterday","this time last year"],
@@ -3681,6 +3685,7 @@ const tenses = [
 
 {
     id: "prp",
+    examples: ["{S:She} {P:has} {G:just} {P:left}.", "{S:I} {P:have} {G:already} {P:seen} this film."],
     name: "Present Perfect",
     rule: "completed past action with present result • focus on the fact that the event has an importance now",
     signalAliases: ["so far","ever","recently"],
@@ -3693,6 +3698,7 @@ const tenses = [
 
 {
     id: "prpp",
+    examples: ["{S:I} {P:have been waiting} {G:since} noon.", "{S:He} {P:has been working} {G:for} hours."],
     name: "Present Perfect Progressive/Continuous",
     rule: "past action continuing until now • focus on duration up to now",
     signalAliases: ["all day","how long"],
@@ -3705,6 +3711,7 @@ const tenses = [
 
 {
     id: "plp",
+    examples: ["{S:We} {P:had finished} dinner {G:by the time} they arrived.", "{S:She} {P:had left} {G:before} I arrived."],
     name: "Past Perfect",
     rule: "action before another past action • focus on the fact that the earlier event happened at all",
     signalAliases: ["until then"],
@@ -3717,6 +3724,7 @@ const tenses = [
 
 {
     id: "plpp",
+    examples: ["{S:He} {P:had been running} {G:for hours before} he stopped.", "{S:I} {P:had been sleeping} {G:all day before} you called."],
     name: "Past Perfect Progressive/Continuous",
     rule: "action before another past action • focus on duration before that moment",
     signalAliases: ["for ten minutes before"],
@@ -3729,6 +3737,7 @@ const tenses = [
 
 {
     id: "wf",
+    examples: ["{G:Probably} {S:it} {P:will rain} tomorrow.", "{G:I think} {S:she} {P:will win}."],
     name: "Will Future",
     rule: "future action (predictions, spontaneous decisions) • focus on opinion or sudden decision",
     signalAliases: ["tomorrow I think","next week probably","maybe","I'm sure","tomorrow","next week"],
@@ -3741,6 +3750,7 @@ const tenses = [
 
 {
     id: "fp",
+    examples: ["{S:I} {P:will be sleeping} {G:at this time tomorrow}.", "{S:They} {P:will be travelling} {G:tomorrow afternoon}."],
     name: "Future Progressive/Continuous",
     rule: "action in progress in the future • focus on the moment then and/or duration",
     signals: [
@@ -3752,6 +3762,7 @@ const tenses = [
 
 {
     id: "fpe",
+    examples: ["{S:She} {P:will have finished} the report {G:by Friday}.", "{S:We} {P:will have arrived} {G:by then}."],
     name: "Future Perfect",
     rule: "future action before another future action • focus on the result by then",
     signals: [
@@ -3763,6 +3774,7 @@ const tenses = [
 
 {
     id: "fpp",
+    examples: ["{S:I} {P:will have been working} here {G:for ten years by then}.", "{S:He} {P:will have been studying} {G:for two hours by then}."],
     name: "Future Perfect Progressive/Continuous",
     rule: "future action before another future action • focus on duration by then",
     signals: [
@@ -3774,6 +3786,7 @@ const tenses = [
 
 {
     id: "gtf",
+    examples: ["{G:Look at those clouds}! {S:It} {P:is going to rain}.", "{S:We} {P:are going to move} {G:next week as planned}."],
     name: "Going to Future",
     rule: "future action (plans, intentions) • focus on the plan or visible evidence",
     signalAliases: ["tonight","next month","tomorrow","next week"],

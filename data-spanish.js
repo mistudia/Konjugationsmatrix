@@ -2055,6 +2055,7 @@ const tenses = [
 
 {
     id:"presente",
+    examples: ["{S:Ella} {G:todos los días} {P:corre} por el parque.", "{G:Hoy en día normalmente} {S:ellos} {P:comen} en casa."],
     name:"Presente",
     rule:"acciones actuales • hábitos • foco en la rutina",
     signalAliases: ["hoy en día a menudo","cada mañana","siempre","normalmente","a menudo"],
@@ -2067,6 +2068,7 @@ const tenses = [
 
 {
     id:"estarGerundio",
+    examples: ["{S:Ella} {P:está hablando} {G:ahora mismo}.", "{S:Nosotros} {P:estamos estudiando} {G:en este momento}."],
     name:"Estar + gerundio",
     rule:"acción en progreso • foco en el momento y/o la duración",
     signalAliases: ["actualmente"],
@@ -2079,6 +2081,7 @@ const tenses = [
 
 {
     id:"preteritoPerfecto",
+    examples: ["{G:Hoy ya} {S:yo} {P:he comido}.", "{S:Ella} {G:todavía no} {P:ha llegado}."],
     name:"Pretérito perfecto",
     rule:"pasado relacionado con el presente • foco en el resultado ahora",
     signalAliases: ["esta semana","nunca hasta ahora","hoy","ya"],
@@ -2091,6 +2094,7 @@ const tenses = [
 
 {
     id:"preteritoIndefinido",
+    examples: ["{G:Ayer} {S:ella} {P:compró} pan.", "{G:Anoche} {S:nosotros} {P:vimos} una película."],
     name:"Pretérito indefinido",
     rule:"acción terminada en el pasado • foco en el hecho de que ocurrió",
     signalAliases: ["la semana pasada"],
@@ -2103,6 +2107,7 @@ const tenses = [
 
 {
     id:"preteritoImperfecto",
+    examples: ["{G:Cuando era niño}, {S:yo} {P:jugaba} en la calle.", "{G:De pequeño normalmente} {S:él} {P:dormía} la siesta."],
     name:"Pretérito imperfecto",
     rule:"hábitos • descripciones en el pasado • foco en la costumbre o la duración",
     signalAliases: ["de pequeño a menudo","de joven","cada verano","siempre","normalmente","a menudo"],
@@ -2115,6 +2120,7 @@ const tenses = [
 
 {
     id:"pluscuamperfecto",
+    examples: ["{G:Antes de eso ya} {S:yo} {P:había salido}.", "{G:Hasta entonces} {S:ella} nunca {P:había viajado}."],
     name:"Pretérito pluscuamperfecto",
     rule:"acción anterior a otra acción pasada • foco en lo ocurrido antes",
     signalAliases: ["en aquel momento ya","antes","ya"],
@@ -2127,6 +2133,7 @@ const tenses = [
 
 {
     id:"futuroSimple",
+    examples: ["{G:Mañana} {S:yo} {P:viajaré} a Madrid.", "{G:La semana que viene} {S:ellos} {P:llegarán}."],
     name:"Futuro simple",
     rule:"acciones futuras • foco en lo que pasará",
     signalAliases: ["pronto","algún día"],
@@ -2139,6 +2146,7 @@ const tenses = [
 
 {
     id:"futuroPerfecto",
+    examples: ["{G:Para entonces} {S:ella} {P:habrá terminado}.", "{G:Para el viernes} {S:nosotros} {P:habremos acabado}."],
     name:"Futuro perfecto",
     rule:"acción terminada antes de un momento futuro • foco en el resultado para entonces",
     signalAliases: ["para finales de año"],

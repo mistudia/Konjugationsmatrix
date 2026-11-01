@@ -3417,6 +3417,7 @@ const tenses = [
 
 {
     id: "praesens",
+    examples: ["{S:Er} {P:geht} {G:immer} zu Fuß.", "{S:Sie} {P:trinkt} {G:nie} Kaffee."],
     name: "Präsens",
     rule: "Gegenwart • regelmäßige Handlungen • Fokus auf Gewohnheiten",
     signalAliases: ["oft","meistens","manchmal","jeden Tag"],
@@ -3429,6 +3430,7 @@ const tenses = [
 
 {
     id: "praeteritum",
+    examples: ["{G:Gestern} {P:regnete} {S:es} den ganzen Tag.", "{G:Damals} {P:wohnten} {S:wir} in Berlin."],
     name: "Präteritum",
     rule: "Vergangenheit • häufig schriftlich • Fokus auf dem Erzählen",
     signalAliases: ["letzte Woche"],
@@ -3441,6 +3443,7 @@ const tenses = [
 
 {
     id: "perfekt",
+    examples: ["{S:Ich} {P:habe} {G:noch nie} Sushi {P:gegessen}.", "{S:Sie} {P:hat} {G:heute bereits} {P:angerufen}."],
     name: "Perfekt",
     rule: "abgeschlossene Handlung • häufig mündlich • Fokus auf dem Ergebnis",
     signalAliases: ["schon","noch nicht","bis jetzt","bereits"],
@@ -3453,6 +3456,7 @@ const tenses = [
 
 {
     id: "plusquamperfekt",
+    examples: ["{G:Nachdem} {S:er} {P:gegessen hatte}, ging er schlafen.", "{S:Sie} {P:hatte} {G:vorher} nie {P:gelogen}."],
     name: "Plusquamperfekt",
     rule: "Handlung vor einer anderen vergangenen Handlung • Fokus auf dem früheren Geschehen",
     signalAliases: ["zuvor","davor","bereits"],
@@ -3465,6 +3469,7 @@ const tenses = [
 
 {
     id: "futur1",
+    examples: ["{G:Morgen} {P:werde} {S:ich} früh {P:aufstehen}.", "{S:Es} {P:wird} {G:wahrscheinlich} {P:regnen}."],
     name: "Futur I",
     rule: "zukünftige Handlung • Vermutung • Fokus auf Plan oder Annahme",
     signalAliases: ["bald","nächstes Jahr"],
@@ -3477,6 +3482,7 @@ const tenses = [
 
 {
     id: "futur2",
+    examples: ["{S:Ich} {P:werde} {G:bis morgen} alles {P:gelernt haben}.", "{S:Sie} {P:wird} {G:bis Freitag} {P:angekommen sein}."],
     name: "Futur II",
     rule: "in der Zukunft abgeschlossene Handlung • Fokus auf dem Ergebnis bis dahin",
     signalAliases: ["bis zum Abend"],

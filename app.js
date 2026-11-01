@@ -42,7 +42,8 @@ const randomGroups =
 function updateRandomOptions() {
 
     const random = verbSelectionSelect.value === "random";
-    const complete = exerciseTypeSelect.value === "complete";
+    const complete = exerciseTypeSelect.value === "complete" ||
+        exerciseTypeSelect.value === "drag";
 
     randomGroups.forEach(group => {
 
@@ -859,7 +860,7 @@ const exerciseType =
 currentExerciseType = exerciseType;
 
 
-if(exerciseType==="complete"){
+if(exerciseType==="complete" || exerciseType==="drag"){
 
     selectedColumns =
         createCompleteColumns();
@@ -888,6 +889,7 @@ if (!selectedColumns) {
 }
 
     createTable();
+    setupDragMode();
 
     exercise.style.display = "block";
 
@@ -899,6 +901,19 @@ if (!selectedColumns) {
 =========================================================== */
 
 let currentExerciseType = "complete";
+
+function completeLike() {
+    return currentExerciseType === "complete" ||
+        currentExerciseType === "drag";
+}
+
+function isDragMode() {
+    return currentExerciseType === "drag";
+}
+
+function extraTotal() {
+    return isDragMode() ? selectedTenses.length : 0;
+}
 
 function pronounLabel(column) {
 
@@ -916,7 +931,7 @@ function columnDivider(index) {
 
     const column = selectedColumns[index];
 
-    if (currentExerciseType === "complete") {
+    if (completeLike()) {
 
         if (column.pronounIndex === 0) {
             return "verbStart";
@@ -1020,7 +1035,7 @@ function createVerticalTable() {
     cells[0] = [];
 
     /* Complete-Modus: Verben nebeneinander, Subjekte links */
-    if (currentExerciseType === "complete") {
+    if (completeLike()) {
 
         const groups = [];
 
@@ -1126,7 +1141,7 @@ function createVerticalTable() {
 function appendVerticalExtras(totalCols) {
 
     const labelSpan =
-        currentExerciseType === "complete" ? 1 : 2;
+        completeLike() ? 1 : 2;
 
     [
         ["Signal word(s)", 0, getSignalChoices, "vSignal"],
@@ -2231,7 +2246,7 @@ solutionBtn.textContent = "💡 Show Answers";
 
     const total =
         selectedTenses.length *
-        (selectedColumns.length + 2);
+        (selectedColumns.length + 2) + extraTotal();
 
     selectedTenses.forEach((tense, row) => {
 
@@ -2328,6 +2343,10 @@ if(alternatives.includes(canonical(user))){
 
     });
 
+    if (isDragMode()) {
+        correct += checkSentenceSlots();
+    }
+
     updateStatistics(correct, total);
 
 if(correct===total && total>0){
@@ -2343,6 +2362,10 @@ function clearMarks() {
         .forEach(input =>
             input.classList.remove("correct", "wrong")
         );
+
+    document
+        .querySelectorAll(".sentenceDrop")
+        .forEach(el => el.classList.remove("correct", "wrong"));
 
     updateStatistics(0, 0);
 
@@ -2382,6 +2405,10 @@ function resetExercise() {
     marksVisible = false;
     checkBtn.textContent = "\u2714 Check Answers";
 
+    if (isDragMode()) {
+        dragReset();
+    }
+
     cells.forEach(row => {
 
         row.forEach(input => {
@@ -2399,7 +2426,7 @@ function resetExercise() {
 
     const total =
         selectedTenses.length *
-        (selectedColumns.length + 2);
+        (selectedColumns.length + 2) + extraTotal();
 
     updateStatistics(0, total);
 
@@ -2444,6 +2471,10 @@ buildAnswer(
             );
 
         });
+
+        if (isDragMode()) {
+            showSentenceSolutions();
+        }
 
         solutionBtn.textContent = "🙈 Hide Answers";
         answersVisible = true;
@@ -2789,3 +2820,587 @@ document.addEventListener("focusout", event => {
     }, 900);
 
 });
+
+
+/* ===========================================================
+   DRAG & DROP MODE
+   - Konjugationsformen als Karten in die Tabelle ziehen
+   - Beispielsatz (Subjekt / Praedikat / Signalwort markiert)
+     der passenden Zeitform zuordnen
+   Maus und Touch (Pointer Events); alternativ antippen:
+   erst Karte, dann Feld.
+=========================================================== */
+
+const dragBank = document.getElementById("dragBank");
+
+const dragTexts = {
+    en: {
+        conj: "Conjugations",
+        sent: "Example sentences",
+        hint: "Drag the cards into the table – or tap a card, then tap a field.",
+        slot: "drop an example sentence here",
+        row:  "Example sentence",
+        legend: "subject · predicate · signal word"
+    },
+    de: {
+        conj: "Konjugationen",
+        sent: "Beispielsätze",
+        hint: "Karten in die Tabelle ziehen – oder erst die Karte, dann das Feld antippen.",
+        slot: "Beispielsatz hierher ziehen",
+        row:  "Beispielsatz",
+        legend: "Subjekt · Prädikat · Signalwort"
+    },
+    es: {
+        conj: "Conjugaciones",
+        sent: "Frases de ejemplo",
+        hint: "Arrastra las tarjetas a la tabla – o toca una tarjeta y luego un campo.",
+        slot: "suelta aquí una frase de ejemplo",
+        row:  "Frase de ejemplo",
+        legend: "sujeto · predicado · palabra señal"
+    },
+    fr: {
+        conj: "Conjugaisons",
+        sent: "Phrases d'exemple",
+        hint: "Faites glisser les cartes dans le tableau – ou touchez une carte, puis un champ.",
+        slot: "déposez une phrase d'exemple ici",
+        row:  "Phrase d'exemple",
+        legend: "sujet · prédicat · mot-signal"
+    }
+};
+
+function dragT() {
+    return dragTexts[currentLanguage] || dragTexts.en;
+}
+
+let dragCards = [];
+let dragSlots = [];
+let dragSelected = null;
+
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
+/* "{S:She} {G:always} {P:drinks} tea." -> farbig markiertes HTML */
+function renderExample(text) {
+    return escapeHtml(text).replace(
+        /\{([SPG]):([^}]*)\}/g,
+        (m, kind, word) =>
+            `<span class="ex${kind}">${word}</span>`
+    );
+}
+
+function plainExample(text) {
+    return text.replace(/\{[SPG]:([^}]*)\}/g, "$1");
+}
+
+function makeDragCard(kind, text, tenseId) {
+
+    const el = document.createElement("div");
+
+    el.className = "dragCard " + kind;
+
+    if (kind === "sentence") {
+        el.innerHTML = renderExample(text);
+    } else {
+        el.textContent = text;
+    }
+
+    const card = { kind, text, tenseId, el, holder: null };
+
+    el._card = card;
+    dragCards.push(card);
+
+    return card;
+
+}
+
+function setupDragMode() {
+
+    dragBank.innerHTML = "";
+    dragCards = [];
+    dragSlots = [];
+    dragSelected = null;
+
+    if (!isDragMode()) {
+        dragBank.style.display = "none";
+        return;
+    }
+
+    const T = dragT();
+    const conjCards = [];
+    const sentenceCards = [];
+
+    /* Konjugationsfelder -> Ablagefelder */
+
+    selectedTenses.forEach((tense, row) => {
+
+        selectedColumns.forEach((column, col) => {
+
+            const input = cells[row][col + 2];
+
+            input.readOnly = true;
+            input.setAttribute("inputmode", "none");
+            input.classList.add("dropTarget");
+            input._card = null;
+
+            const text = buildAnswer(
+                column.verb.forms[tense.id][column.pronounIndex],
+                column,
+                tense,
+                input.dataset.sentenceType
+            );
+
+            conjCards.push(makeDragCard("conj", text));
+
+        });
+
+    });
+
+    /* Satz-Ablagefelder */
+
+    const makeSlot = row => {
+
+        const el = document.createElement("div");
+
+        el.className = "sentenceDrop";
+        el.innerHTML = `<span class="dropHint">${T.slot}</span>`;
+
+        const slot = { row, el, card: null };
+
+        el._slot = slot;
+        dragSlots.push(slot);
+
+        return el;
+
+    };
+
+    if (verticalMode) {
+
+        const tr = document.createElement("tr");
+        tr.className = "vExtra";
+
+        const labelTd = document.createElement("td");
+        labelTd.className = "vSubject";
+        labelTd.textContent = T.row;
+        tr.appendChild(labelTd);
+
+        const td = document.createElement("td");
+        td.className = "vSentence";
+        td.colSpan = Math.max(
+            1,
+            tableBody.querySelector("tr").children.length - 1
+        );
+        td.appendChild(makeSlot(0));
+        tr.appendChild(td);
+
+        tableBody.insertBefore(tr, tableBody.querySelector("tr.vExtra"));
+
+    } else {
+
+        selectedTenses.forEach((tense, row) => {
+
+            const tenseCell =
+                tableBody.children[row + 1].firstElementChild;
+
+            tenseCell.appendChild(makeSlot(row));
+
+        });
+
+    }
+
+    /* Satzkarten: je gewaehlter Zeitform ein Satz + bis zu 2 Ablenker */
+
+    const pick = list => list[Math.floor(Math.random() * list.length)];
+    const withExamples = list =>
+        list.filter(t => t.examples && t.examples.length);
+
+    withExamples(selectedTenses).forEach(tense => {
+        sentenceCards.push(
+            makeDragCard("sentence", pick(tense.examples), tense.id)
+        );
+    });
+
+    shuffle(
+        withExamples(tenses.filter(t => !selectedTenses.includes(t)))
+    ).slice(0, 2).forEach(tense => {
+        sentenceCards.push(
+            makeDragCard("sentence", pick(tense.examples), tense.id)
+        );
+    });
+
+    /* Bank aufbauen */
+
+    const hint = document.createElement("div");
+    hint.className = "dragHint";
+    hint.textContent = T.hint;
+    dragBank.appendChild(hint);
+
+    const addList = (title, cards, extra) => {
+
+        const head = document.createElement("div");
+        head.className = "dragBankTitle";
+        head.textContent = title;
+
+        if (extra) {
+            const small = document.createElement("span");
+            small.className = "dragLegend";
+            small.innerHTML =
+                '<span class="exS">S</span> ' +
+                '<span class="exP">P</span> ' +
+                '<span class="exG">G</span> = ' + extra;
+            head.appendChild(small);
+        }
+
+        const list = document.createElement("div");
+        list.className = "dragBankList";
+
+        shuffle(cards).forEach(card => list.appendChild(card.el));
+
+        dragBank.appendChild(head);
+        dragBank.appendChild(list);
+
+    };
+
+    addList(T.conj, conjCards);
+    addList(T.sent, sentenceCards, T.legend);
+
+    dragBank.style.display = "block";
+
+}
+
+/* ---------- Platzieren ---------- */
+
+function unplaceCard(card) {
+
+    const holder = card.holder;
+
+    if (!holder) return;
+
+    if (holder instanceof HTMLInputElement) {
+        holder.value = "";
+        holder._card = null;
+        holder.classList.remove("filled", "correct", "wrong");
+    } else {
+        const slot = holder._slot;
+        slot.card = null;
+        holder.innerHTML =
+            `<span class="dropHint">${dragT().slot}</span>`;
+        holder.classList.remove("filled", "correct", "wrong");
+    }
+
+    card.holder = null;
+    card.el.classList.remove("used");
+
+}
+
+function placeCard(card, target) {
+
+    const isInput = target instanceof HTMLInputElement;
+
+    if ((card.kind === "conj") !== isInput) return false;
+
+    if (card.holder === target) return true;
+
+    const previous = isInput ? target._card : target._slot.card;
+
+    if (previous) unplaceCard(previous);
+
+    unplaceCard(card);
+
+    if (isInput) {
+        target.value = card.text;
+        target._card = card;
+    } else {
+        target.innerHTML = renderExample(card.text);
+        target._slot.card = card;
+    }
+
+    target.classList.add("filled");
+    target.classList.remove("correct", "wrong");
+
+    card.holder = target;
+    card.el.classList.add("used");
+
+    return true;
+
+}
+
+function cardOfTarget(el) {
+
+    if (el instanceof HTMLInputElement) return el._card || null;
+
+    return el._slot ? el._slot.card : null;
+
+}
+
+function dropTargetAt(x, y) {
+
+    const hit = document.elementFromPoint(x, y);
+
+    return hit ? hit.closest(".dropTarget, .sentenceDrop") : null;
+
+}
+
+function clearDragSelection() {
+
+    if (dragSelected) dragSelected.el.classList.remove("selected");
+
+    dragSelected = null;
+
+}
+
+/* ---------- Zeigerereignisse (Maus + Touch) ---------- */
+
+let dragSession = null;
+
+document.addEventListener("pointerdown", event => {
+
+    if (!isDragMode() || event.button > 0) return;
+
+    const source = event.target.closest(
+        ".dragCard, .dropTarget, .sentenceDrop"
+    );
+
+    if (!source) return;
+
+    const card = source.classList.contains("dragCard")
+        ? source._card
+        : cardOfTarget(source);
+
+    dragSession = {
+        card,
+        source,
+        startX: event.clientX,
+        startY: event.clientY,
+        moved: false,
+        ghost: null,
+        hover: null
+    };
+
+});
+
+document.addEventListener("pointermove", event => {
+
+    const s = dragSession;
+
+    if (!s || !s.card) return;
+
+    if (!s.moved) {
+
+        if (Math.hypot(event.clientX - s.startX,
+                       event.clientY - s.startY) < 6) return;
+
+        s.moved = true;
+
+        s.ghost = s.card.el.cloneNode(true);
+        s.ghost.classList.add("dragGhost");
+        s.ghost.classList.remove("used", "selected");
+        document.body.appendChild(s.ghost);
+
+        s.card.el.classList.add("dragging");
+
+        clearDragSelection();
+
+    }
+
+    event.preventDefault();
+
+    s.ghost.style.left = event.clientX + "px";
+    s.ghost.style.top  = event.clientY + "px";
+
+    s.lastX = event.clientX;
+    s.lastY = event.clientY;
+
+    startDragAutoScroll(s);
+
+    const target = dropTargetAt(event.clientX, event.clientY);
+
+    if (s.hover && s.hover !== target) {
+        s.hover.classList.remove("hover");
+    }
+
+    s.hover = target;
+
+    if (target) target.classList.add("hover");
+
+}, { passive: false });
+
+/* Seite automatisch scrollen, wenn die Karte an den oberen/unteren
+   Rand gezogen wird (Felder hinter der Karten-Leiste erreichbar) */
+function startDragAutoScroll(session) {
+
+    if (session.scrolling) return;
+
+    session.scrolling = true;
+
+    const step = () => {
+
+        if (dragSession !== session) return;
+
+        let dy = 0;
+
+        /* oben am Rand: nach oben; ganz unten am Rand (hinter der
+           Karten-Leiste): nach unten */
+        if (session.lastY < 50) {
+            dy = -Math.ceil((50 - session.lastY) / 3) - 2;
+        } else if (session.lastY > window.innerHeight - 36 &&
+                   Math.hypot(session.lastX - session.startX,
+                              session.lastY - session.startY) > 60) {
+            dy = 12;
+        }
+
+        if (dy) {
+
+            window.scrollBy(0, dy);
+
+            const target = dropTargetAt(session.lastX, session.lastY);
+
+            if (session.hover && session.hover !== target) {
+                session.hover.classList.remove("hover");
+            }
+
+            session.hover = target;
+
+            if (target) target.classList.add("hover");
+
+        }
+
+        requestAnimationFrame(step);
+
+    };
+
+    requestAnimationFrame(step);
+
+}
+
+function endDrag(event, cancelled) {
+
+    const s = dragSession;
+
+    dragSession = null;
+
+    if (!s) return;
+
+    if (s.hover) s.hover.classList.remove("hover");
+
+    if (s.ghost) s.ghost.remove();
+
+    if (s.card) s.card.el.classList.remove("dragging");
+
+    if (s.moved) {
+
+        const target = cancelled
+            ? null
+            : dropTargetAt(event.clientX, event.clientY);
+
+        if (target && s.card) {
+            if (!placeCard(s.card, target) && s.card.holder) {
+                /* falscher Feldtyp: Karte bleibt wo sie war */
+            }
+        } else if (s.card && !cancelled) {
+            /* ins Leere gezogen: zurueck in die Bank */
+            unplaceCard(s.card);
+        }
+
+        return;
+
+    }
+
+    /* Antippen / Klick */
+
+    const clickedTarget =
+        s.source.closest(".dropTarget, .sentenceDrop");
+
+    if (clickedTarget) {
+
+        if (dragSelected) {
+
+            if (placeCard(dragSelected, clickedTarget)) {
+                clearDragSelection();
+            }
+
+        } else if (s.card) {
+
+            unplaceCard(s.card);
+
+        }
+
+        return;
+
+    }
+
+    if (s.card && !s.card.holder) {
+
+        const same = dragSelected === s.card;
+
+        clearDragSelection();
+
+        if (!same) {
+            dragSelected = s.card;
+            s.card.el.classList.add("selected");
+        }
+
+    }
+
+}
+
+document.addEventListener("pointerup", event => endDrag(event, false));
+document.addEventListener("pointercancel", event => endDrag(event, true));
+
+/* ---------- Pruefen / Loesungen / Zuruecksetzen ---------- */
+
+function checkSentenceSlots() {
+
+    let correct = 0;
+
+    dragSlots.forEach(slot => {
+
+        slot.el.classList.remove("correct", "wrong");
+
+        const ok = !!slot.card &&
+            slot.card.tenseId === selectedTenses[slot.row].id;
+
+        slot.el.classList.add(ok ? "correct" : "wrong");
+
+        if (ok) correct++;
+
+    });
+
+    return correct;
+
+}
+
+function showSentenceSolutions() {
+
+    dragSlots.forEach(slot => {
+
+        const tense = selectedTenses[slot.row];
+
+        if (!tense.examples || !tense.examples.length) return;
+
+        const solution = document.createElement("div");
+
+        solution.className = "solution";
+        solution.textContent =
+            "✔ " + tense.examples.map(plainExample).join("  /  ");
+
+        slot.el.parentElement.appendChild(solution);
+
+    });
+
+}
+
+function dragReset() {
+
+    clearDragSelection();
+
+    dragCards.forEach(card => unplaceCard(card));
+
+    dragSlots.forEach(slot =>
+        slot.el.classList.remove("correct", "wrong")
+    );
+
+}
